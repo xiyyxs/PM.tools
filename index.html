@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="icon" type="image/x-icon" href="logo.png">
+<title>PM.tools | Tools Market</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&display=swap');
+
+:root { --accent: #a855f7; --bg: #030005; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { overflow-x: hidden; scroll-behavior: smooth; }
+body { background-color: var(--bg); color: #fff; font-family: 'Unbounded', sans-serif; overflow-x: hidden; min-height: 100vh; -webkit-overflow-scrolling: touch; }
+canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.6; pointer-events: none; }
+
+.glass { background: rgba(168,85,247,0.05); backdrop-filter: blur(12px); border: 1px solid rgba(168,85,247,0.2); border-radius: 20px; }
+.glow-btn { background: var(--accent); box-shadow: 0 0 20px rgba(168,85,247,0.4); transition: all 0.3s ease; }
+.glow-btn:hover { box-shadow: 0 0 40px rgba(168,85,247,0.7); transform: translateY(-2px); }
+.glow-btn:active { transform: translateY(0); }
+
+.tool-card { transition: transform 0.35s cubic-bezier(0.175,0.885,0.32,1.275), border-color 0.35s ease, box-shadow 0.35s ease; }
+.tool-card:hover { transform: translateY(-6px) scale(1.02); border-color: var(--accent); box-shadow: 0 8px 40px rgba(168,85,247,0.25), 0 0 0 1px rgba(168,85,247,0.15); }
+.tool-card .tool-card-img img { transition: transform 0.5s ease, opacity 0.4s ease; }
+.tool-card:hover .tool-card-img img { transform: scale(1.08); opacity: 0.8; }
+.tool-card .tool-card-title { transition: color 0.3s ease; }
+.tool-card:hover .tool-card-title { color: var(--accent); }
+.tool-card-btn { transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.25s, color 0.3s; }
+.tool-card-btn:hover { background: rgba(168,85,247,0.25) !important; border-color: var(--accent) !important; box-shadow: 0 0 20px rgba(168,85,247,0.3); transform: translateY(-2px); color: #fff; }
+.tool-card-btn:active { transform: translateY(0); }
+
+input, textarea, select { background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(168,85,247,0.2) !important; outline: none !important; color: #fff; font-family: 'Unbounded', sans-serif; transition: border-color 0.3s; }
+input:focus, textarea:focus, select:focus { border-color: var(--accent) !important; }
+textarea { resize: none !important; }
+*::-webkit-scrollbar { width: 4px; }
+*::-webkit-scrollbar-track { background: rgba(168,85,247,0.05); border-radius: 10px; }
+*::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; backdrop-filter: blur(10px); overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 16px; display: flex; align-items: flex-start; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
+.modal-overlay.is-open { opacity: 1; pointer-events: auto; }
+.modal-overlay .modal-content { transform: translateY(30px) scale(0.96); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); }
+.modal-overlay.is-open .modal-content { transform: translateY(0) scale(1); }
+.modal-content { width: 100%; max-width: 640px; margin: auto; position: relative; }
+
+.gradient-text { background: linear-gradient(45deg,#fff,#a855f7); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.logo-container img { width: 100%; height: 100%; object-fit: contain; }
+.custom-scroll-area { overflow-y: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
+
+#mobile-menu { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
+#mobile-menu.active { transform: translateX(0); }
+
+.abstract-dots { display: grid; grid-template-columns: repeat(2,1fr); gap: 4px; }
+.dot { width: 5px; height: 5px; background: white; border-radius: 50%; }
+
+.nav-bar { padding: 12px 16px; }
+.nav-logo-icon {
+  width: 52px;
+  height: 52px;
+}
+.logo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.nav-logo-text { font-size: 1.25rem; }
+.page-main { padding: 80px 16px 60px 16px; max-width: 100%; }
+.hero-title { font-size: 1.75rem; line-height: 1.15; margin-bottom: 12px; }
+.hero-subtitle { font-size: 0.85rem; max-width: 90%; margin: 0 auto; }
+.hero-block { margin-bottom: 32px; text-align: center; }
+.tools-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.tool-card-inner { padding: 14px; }
+.tool-card-img { height: 160px; border-radius: 16px; margin-bottom: 12px; }
+.tool-card-title { font-size: 0.95rem; margin-bottom: 6px; }
+.tool-card-desc { font-size: 0.75rem; height: auto; min-height: 36px; margin-bottom: 12px; }
+.tool-card-btn { padding: 10px; font-size: 0.65rem; border-radius: 14px; }
+.profile-grid { display: flex; flex-direction: column; gap: 16px; }
+.profile-sidebar { padding: 20px; position: relative; top: auto; }
+.profile-avatar { width: 72px; height: 72px; border-radius: 20px; font-size: 2rem; }
+.profile-name { font-size: 1.1rem; }
+.profile-tools-panel { padding: 20px; min-height: auto; }
+.profile-tools-title { font-size: 1.2rem; margin-bottom: 16px; }
+.modal-inner { padding: 24px 18px; border-radius: 20px; }
+.modal-title { font-size: 1.3rem; margin-bottom: 20px; }
+.modal-form-grid { grid-template-columns: 1fr; gap: 12px; }
+.modal-upload-zone { padding: 20px; border-radius: 16px; }
+.modal-submit-btn { padding: 14px; font-size: 0.75rem; border-radius: 16px; margin-top: 12px; }
+
+@media (min-width: 640px) {
+  .nav-bar { padding: 14px 24px; }
+  .nav-logo-icon { width: 40px; height: 40px; }
+  .nav-logo-text { font-size: 1.4rem; }
+  .page-main { padding: 90px 24px 60px 24px; max-width: 720px; margin: 0 auto; }
+  .hero-title { font-size: 2.2rem; }
+  .hero-subtitle { font-size: 0.95rem; }
+  .hero-block { margin-bottom: 40px; }
+  .tools-grid { grid-template-columns: repeat(2,1fr); gap: 20px; }
+  .tool-card-img { height: 180px; }
+  .tool-card-title { font-size: 1rem; }
+}
+@media (min-width: 1024px) {
+  .nav-bar { padding: 16px 40px; }
+  .nav-logo-icon { width: 42px; height: 42px; border-radius: 14px; }
+  .nav-logo-text { font-size: 1.5rem; }
+  .nav-menu-btn { font-size: 0.75rem; padding: 0; }
+  .nav-create-btn { padding: 10px 24px; font-size: 0.75rem; }
+  .page-main { padding: 110px 40px 80px 40px; max-width: 1200px; }
+  .hero-title { font-size: 3rem; }
+  .hero-subtitle { font-size: 1rem; max-width: 500px; }
+  .hero-block { margin-bottom: 48px; }
+  .tools-grid { grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .tool-card-inner { padding: 18px; }
+  .tool-card-img { height: 180px; border-radius: 18px; }
+  .tool-card-title { font-size: 1.05rem; }
+  .tool-card-desc { font-size: 0.78rem; height: auto; min-height: 40px; }
+  .tool-card-btn { padding: 12px; font-size: 0.7rem; }
+  .profile-grid { display: grid; grid-template-columns: 280px 1fr; gap: 24px; }
+  .profile-sidebar { padding: 28px; position: sticky; top: 110px; height: fit-content; }
+  .profile-avatar { width: 88px; height: 88px; border-radius: 22px; font-size: 2.2rem; }
+  .profile-name { font-size: 1.2rem; }
+  .profile-tools-panel { padding: 28px; min-height: 500px; }
+  .profile-tools-title { font-size: 1.5rem; margin-bottom: 20px; }
+  .modal-inner { padding: 36px 32px; }
+  .modal-title { font-size: 1.5rem; margin-bottom: 24px; }
+  .modal-form-grid { grid-template-columns: repeat(2,1fr); gap: 16px; }
+}
+@media (min-width: 1440px) {
+  .page-main { max-width: 1360px; }
+  .tools-grid { grid-template-columns: repeat(4,1fr); }
+  .tool-card-img { height: 190px; }
+  .hero-title { font-size: 3.5rem; }
+  .profile-grid { grid-template-columns: 300px 1fr; }
+}
+
+.avatar-wrapper { position: relative; cursor: pointer; overflow: hidden; }
+.avatar-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+.avatar-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+.avatar-wrapper:hover .avatar-overlay { opacity: 1; }
+
+.profile-bio { width: 100%; text-align: center; font-size: 0.75rem; color: #94a3b8; margin-top: 8px; cursor: pointer; padding: 6px; border-radius: 8px; transition: background 0.2s; word-break: break-word; }
+.profile-bio:hover { background: rgba(168,85,247,0.1); }
+
+.my-tool-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(168,85,247,0.1); border-radius: 14px; transition: border-color 0.3s, background 0.3s; }
+.my-tool-item:hover { border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.05); }
+.my-tool-thumb { width: 48px; height: 48px; border-radius: 10px; object-fit: cover; flex-shrink: 0; background: #1a1a2e; }
+.my-tool-info { flex: 1; min-width: 0; }
+.my-tool-name { font-size: 0.8rem; font-weight: 900; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.my-tool-cat { font-size: 0.6rem; color: #a855f7; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; }
+.my-tool-delete { flex-shrink: 0; width: 32px; height: 32px; border-radius: 8px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: #ef4444; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.7rem; transition: background 0.3s, border-color 0.3s, transform 0.2s; }
+.my-tool-delete:hover { background: rgba(239,68,68,0.2); transform: scale(1.1); }
+.my-tool-delete:active { transform: scale(0.95); }
+
+.section-animate { animation: fadeSlideIn 0.4s ease forwards; }
+@keyframes fadeSlideIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.tool-card-animate { opacity: 0; transform: translateY(20px); animation: fadeSlideIn 0.4s ease forwards; }
+
+.auth-tab-btn { padding: 8px 20px; border-radius: 30px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; transition: background 0.35s, box-shadow 0.35s, transform 0.35s, color 0.35s; cursor: pointer; }
+.auth-tab-btn.active { background: var(--accent); box-shadow: 0 0 24px rgba(168,85,247,0.5); transform: scale(1.04); }
+.auth-tab-btn:not(.active) { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.4); transform: scale(1); }
+
+.auth-form-wrap { position: relative; min-height: 200px; }
+.auth-form-slide { transition: opacity 0.32s cubic-bezier(0.4,0,0.2,1), transform 0.32s cubic-bezier(0.4,0,0.2,1); }
+.auth-form-slide.hidden-left  { opacity: 0; transform: translateX(-28px); pointer-events: none; position: absolute; top: 0; left: 0; right: 0; }
+.auth-form-slide.hidden-right { opacity: 0; transform: translateX(28px);  pointer-events: none; position: absolute; top: 0; left: 0; right: 0; }
+.auth-form-slide.visible      { opacity: 1; transform: translateX(0); position: relative; }
+
+.auth-input { width: 100%; padding: 12px 16px; border-radius: 14px; font-size: 0.8rem; background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(168,85,247,0.2) !important; color: #fff; font-family: 'Unbounded', sans-serif; outline: none; transition: border-color 0.3s; }
+.auth-input:focus { border-color: var(--accent) !important; }
+.auth-error { color: #f87171; font-size: 0.65rem; font-weight: 700; text-align: center; display: none; }
+
+.role-badge { font-size: 0.6rem; font-weight: 900; padding: 3px 10px; border-radius: 30px; text-transform: uppercase; letter-spacing: 0.08em; }
+.role-member    { background: rgba(100,100,100,0.2); color: #aaa;    border: 1px solid rgba(100,100,100,0.3); }
+.role-developer { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); }
+.role-admin     { background: rgba(239,68,68,0.15);  color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+
+.nav-auth-btn { padding: 8px 20px; font-size: 0.7rem; border-radius: 30px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid rgba(168,85,247,0.4); transition: border-color 0.3s, background 0.3s; cursor: pointer; }
+.nav-auth-btn:hover { border-color: var(--accent); background: rgba(168,85,247,0.1); }
+
+.spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.skeleton-pulse { animation: pulse 1.6s ease-in-out infinite; }
+
+#toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+.toast { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 16px; font-family: 'Unbounded', sans-serif; font-size: 0.72rem; font-weight: 700; max-width: 320px; backdrop-filter: blur(16px); pointer-events: auto; transform: translateX(360px); opacity: 0; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease; cursor: pointer; }
+.toast.show { transform: translateX(0); opacity: 1; }
+.toast.hide { transform: translateX(360px); opacity: 0; }
+.toast-success { background: rgba(5,150,105,0.15); border: 1px solid rgba(5,150,105,0.4); color: #6ee7b7; }
+.toast-error   { background: rgba(220,38,38,0.15);  border: 1px solid rgba(220,38,38,0.4); color: #fca5a5; }
+.toast-info    { background: rgba(168,85,247,0.15); border: 1px solid rgba(168,85,247,0.4); color: #d8b4fe; }
+.toast-warning { background: rgba(217,119,6,0.15);  border: 1px solid rgba(217,119,6,0.4); color: #fcd34d; }
+.toast-icon    { font-size: 1rem; flex-shrink: 0; }
+.toast-close   { margin-left: auto; opacity: 0.5; font-size: 0.8rem; flex-shrink: 0; transition: opacity 0.2s; }
+.toast-close:hover { opacity: 1; }
+
+.inline-edit-input { background: rgba(168,85,247,0.1) !important; border: 1px solid rgba(168,85,247,0.4) !important; color: #fff; font-family: 'Unbounded', sans-serif; padding: 8px 12px; border-radius: 10px; width: 100%; text-align: center; outline: none !important; transition: border-color 0.3s; }
+.inline-edit-input:focus { border-color: var(--accent) !important; }
+.inline-edit-input.name-input { font-size: 1rem; font-weight: 900; text-transform: uppercase; }
+.inline-edit-input.bio-input  { font-size: 0.75rem; min-height: 60px; resize: none; }
+
+select option { background: #1a1a2e; color: #fff; }
+
+.nav-menu-btn { position: relative; padding-bottom: 2px; transition: opacity 0.25s; }
+.nav-menu-btn::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 1px; background: var(--accent); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left; }
+.nav-menu-btn:hover::after { transform: scaleX(1); }
+
+.upload-zone-hover { transition: background 0.3s, border-color 0.3s, transform 0.2s; }
+.upload-zone-hover:hover { background: rgba(168,85,247,0.07) !important; border-color: rgba(168,85,247,0.5) !important; transform: scale(1.01); }
+
+#signout-btn { transition: opacity 0.3s, border-color 0.3s, color 0.3s; }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div id="toast-container"></div>
+
+<nav class="nav-bar fixed top-0 w-full z-[100] flex justify-between items-center bg-[#030005]/60 backdrop-filter backdrop-blur-md border-b border-white/5">
+  <div class="flex items-center gap-3">
+    <div class="nav-logo-icon logo-container">
+        <img src="logo.png" alt="Logo">
+      </div>
+    <span class="nav-logo-text font-black tracking-tighter uppercase">PM<span class="text-purple-500 lowercase">.tools</span></span>
+  </div>
+  <div class="hidden md:flex items-center gap-6">
+    <button onclick="toggleTab('market')" class="nav-menu-btn font-bold opacity-70 hover:opacity-100 uppercase tracking-widest">Market</button>
+    <button id="nav-cabinet-btn" onclick="toggleTab('profile')" class="nav-menu-btn font-bold opacity-70 hover:opacity-100 uppercase tracking-widest hidden">Cabinet</button>
+    <button id="nav-signin-navbtn" onclick="openAuthModal()" class="nav-menu-btn font-bold opacity-70 hover:opacity-100 uppercase tracking-widest">Sign In</button>
+    <button onclick="openModal()" class="nav-create-btn glow-btn rounded-full font-black uppercase">Create +</button>
+  </div>
+  <button onclick="toggleMobileMenu()" class="md:hidden glass w-10 h-10 flex items-center justify-center" style="border-radius:12px;">
+    <div class="abstract-dots">
+      <div class="dot"></div><div class="dot"></div>
+      <div class="dot"></div><div class="dot"></div>
+    </div>
+  </button>
+</nav>
+
+<div id="mobile-menu" class="fixed inset-0 z-[101] bg-[#030005] md:hidden p-8 flex flex-col justify-center items-center gap-8">
+  <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-2xl transition-transform hover:rotate-90 duration-300"><i class="fas fa-times"></i></button>
+  <button onclick="toggleTab('market'); toggleMobileMenu()" class="text-2xl font-black uppercase tracking-tighter hover:text-purple-400 transition-colors duration-200">Market</button>
+  <button id="mobile-cabinet-btn" onclick="toggleTab('profile'); toggleMobileMenu()" class="text-2xl font-black uppercase tracking-tighter hover:text-purple-400 transition-colors duration-200 hidden">Cabinet</button>
+  <button id="mobile-signin-btn" onclick="openAuthModal(); toggleMobileMenu()" class="text-2xl font-black uppercase tracking-tighter hover:text-purple-400 transition-colors duration-200">Sign In</button>
+  <button onclick="openModal(); toggleMobileMenu()" class="glow-btn px-8 py-4 rounded-full text-base font-black uppercase w-full max-w-xs">Create +</button>
+</div>
+
+<main class="page-main">
+  <div id="market-section">
+    <div class="hero-block">
+      <h1 class="hero-title font-black gradient-text uppercase leading-tight">Your Ultimate<br>Software Hub</h1>
+      <p class="hero-subtitle text-slate-400 font-medium">Download private tools, clickers, and scripts from the community.</p>
+    </div>
+    <div class="tools-grid" id="tools-grid"></div>
+  </div>
+
+  <div id="profile-section" class="hidden">
+    <div class="profile-grid">
+      <div class="glass profile-sidebar flex flex-col items-center">
+        <div class="profile-avatar avatar-wrapper bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center font-black shadow-2xl mb-4"
+             onclick="document.getElementById('avatar-input').click()" title="Click to change avatar">
+          <span id="avatar-letter">P</span>
+          <img id="avatar-img" src="" alt="" style="display:none; position:absolute; inset:0;">
+          <div class="avatar-overlay"><i class="fas fa-camera text-white text-lg"></i></div>
+        </div>
+        <input type="file" id="avatar-input" accept="image/*" class="hidden" onchange="handleAvatarUpload(event)">
+        <h2 class="profile-name font-black uppercase cursor-pointer" onclick="editProfileName()" id="profile-username" title="Click to edit">PM_USER</h2>
+        <span id="role-badge" class="role-badge role-member mt-3">Member</span>
+        <div class="profile-bio" onclick="editProfileBio()" id="profile-bio" title="Click to edit bio">Click to add a bio...</div>
+        <div class="w-full mt-6 space-y-3">
+          <div class="flex justify-between text-xs font-bold uppercase"><span class="opacity-50">Uploaded</span><span id="stat-uploaded">0</span></div>
+          <div class="flex justify-between text-xs font-bold uppercase"><span class="opacity-50">Downloads</span><span id="stat-downloads">0</span></div>
+          <div class="flex justify-between text-xs font-bold uppercase"><span class="opacity-50">Reputation</span><span class="text-green-400" id="stat-rep">+0</span></div>
+        </div>
+        <button onclick="handleSignOut()" id="signout-btn"
+          class="mt-6 w-full items-center justify-center gap-2 py-2.5 px-4 rounded-2xl border border-white/10 text-xs font-black uppercase tracking-widest opacity-50 hover:opacity-100 hover:border-red-500/40 hover:text-red-400 hidden">
+          <i class="fas fa-sign-out-alt"></i> Sign Out
+        </button>
+        <div id="profile-guest-prompt" class="mt-6 w-full text-center">
+          <p class="text-slate-500 text-xs mb-3 font-bold uppercase tracking-widest">Not signed in</p>
+          <button onclick="openAuthModal()" class="w-full py-2.5 px-4 rounded-2xl border border-purple-500/40 text-xs font-black uppercase tracking-widest text-purple-400 hover:bg-purple-500/10 hover:border-purple-400 transition-all duration-300">
+            <i class="fas fa-sign-in-alt mr-1"></i> Sign In / Register
+          </button>
+        </div>
+      </div>
+      <div class="glass profile-tools-panel flex flex-col">
+        <h3 class="profile-tools-title font-black uppercase">My Tools</h3>
+        <div class="space-y-3 custom-scroll-area flex-1 pr-2" id="my-tools-list">
+          <p class="text-slate-500 italic text-sm">No uploads yet. Hit "Create +" to get started.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="admin-panel" class="mt-6 hidden">
+      <div class="glass" style="padding:28px;border-radius:20px;">
+        <div class="flex items-center gap-3 mb-6">
+          <span style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#f87171;padding:4px 12px;border-radius:30px;font-size:0.6rem;font-weight:900;text-transform:uppercase;letter-spacing:0.08em;">ADMIN</span>
+          <h3 class="font-black uppercase" style="font-size:1.2rem;">Moderation Panel</h3>
+          <button onclick="loadPendingTools()" style="margin-left:auto;font-size:0.65rem;font-weight:900;text-transform:uppercase;opacity:0.5;letter-spacing:0.08em;transition:opacity 0.2s;" class="hover:opacity-100">
+            <i class="fas fa-sync-alt mr-1"></i> Refresh
+          </button>
+        </div>
+        <div class="flex gap-2 mb-5">
+          <button onclick="adminTab('pending')" id="admin-tab-pending" class="admin-tab-active" style="font-size:0.65rem;font-weight:900;text-transform:uppercase;padding:8px 16px;border-radius:12px;cursor:pointer;transition:all 0.3s;font-family:inherit;background:rgba(168,85,247,0.2);border:1px solid rgba(168,85,247,0.4);color:#d8b4fe;">
+            Pending <span id="pending-count" style="margin-left:4px;background:#a855f7;color:white;padding:1px 6px;border-radius:999px;font-size:0.55rem;">0</span>
+          </button>
+          <button onclick="adminTab('users')" id="admin-tab-users" style="font-size:0.65rem;font-weight:900;text-transform:uppercase;padding:8px 16px;border-radius:12px;cursor:pointer;transition:all 0.3s;font-family:inherit;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.4);">
+            Users
+          </button>
+        </div>
+        <div id="admin-pending-section">
+          <div id="admin-tools-list" class="space-y-3"></div>
+          <p id="admin-empty" class="text-slate-500 italic text-sm hidden">No tools pending review.</p>
+        </div>
+        <div id="admin-users-section" class="hidden">
+          <div id="admin-users-list" class="space-y-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="create-modal" class="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="glass modal-inner relative">
+      <button onclick="closeModal()" class="absolute opacity-60 hover:opacity-100 transition-all hover:rotate-90 z-10" style="top:16px;right:16px;padding:8px;">
+        <i class="fas fa-times text-xl"></i>
+      </button>
+      <h2 class="modal-title font-black uppercase">Submit a Tool</h2>
+      <form id="tool-form" class="space-y-4">
+        <div class="grid modal-form-grid">
+          <div>
+            <label class="text-[0.65rem] font-bold opacity-50 uppercase mb-1.5 block">Name (max 24 chars)</label>
+            <input type="text" id="tool-name" placeholder="e.g. AutoClicker Pro" class="w-full p-3 rounded-xl text-sm" maxlength="24" required>
+          </div>
+          <div>
+            <label class="text-[0.65rem] font-bold opacity-50 uppercase mb-1.5 block">Category</label>
+            <select id="tool-category" class="w-full p-3 rounded-xl text-sm appearance-none cursor-pointer">
+              <option>Gaming</option>
+              <option>System</option>
+              <option>Design</option>
+              <option>Hacking</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="text-[0.65rem] font-bold opacity-50 uppercase mb-1.5 block">Description (max 150 chars)</label>
+          <textarea id="tool-desc" placeholder="What does it do? Why should people use it?" class="w-full p-3 rounded-xl h-24 custom-scroll-area text-sm" maxlength="150" required></textarea>
+        </div>
+        <div class="grid modal-form-grid">
+          <div>
+            <label class="text-[0.65rem] font-bold opacity-50 uppercase mb-1.5 block">Preview Image</label>
+            <div id="img-upload-zone" onclick="document.getElementById('tool-img-file').click()"
+              class="modal-upload-zone upload-zone-hover border-2 border-dashed border-purple-500/20 text-center cursor-pointer relative overflow-hidden"
+              style="min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <div id="img-upload-placeholder">
+                <i class="fas fa-image text-2xl text-purple-400 mb-2"></i>
+                <span class="block text-[0.65rem] font-bold opacity-70 uppercase">Click to upload</span>
+                <span class="block text-[0.55rem] opacity-40 mt-1">PNG, JPG up to 5 MB</span>
+              </div>
+              <img id="img-preview" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;">
+              <input type="file" id="tool-img-file" accept="image/*" class="hidden" onchange="previewImage(event)">
+            </div>
+          </div>
+          <div>
+            <label class="text-[0.65rem] font-bold opacity-50 uppercase mb-1.5 block">Tool File</label>
+            <div id="file-upload-zone" onclick="document.getElementById('tool-file').click()"
+              class="modal-upload-zone upload-zone-hover border-2 border-dashed border-purple-500/20 text-center cursor-pointer"
+              style="min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <div id="file-upload-placeholder">
+                <i class="fas fa-file-code text-2xl text-purple-400 mb-2"></i>
+                <span class="block text-[0.65rem] font-bold opacity-70 uppercase">Click to select</span>
+                <span class="block text-[0.55rem] opacity-40 mt-1">EXE, ZIP, RAR up to 50 MB</span>
+              </div>
+              <div id="file-chosen" style="display:none;flex-direction:column;align-items:center;gap:4px;">
+                <i class="fas fa-check-circle text-green-400 text-2xl mb-1"></i>
+                <span id="file-chosen-name" class="text-[0.6rem] font-bold text-green-400 break-all px-2 text-center"></span>
+              </div>
+              <input type="file" id="tool-file" class="hidden" onchange="onFileChosen(event)">
+            </div>
+          </div>
+        </div>
+        <div id="upload-progress" class="hidden">
+          <div class="flex justify-between text-[0.65rem] font-bold opacity-60 uppercase mb-1">
+            <span id="upload-status-text">Uploading...</span>
+            <span id="upload-pct">0%</span>
+          </div>
+          <div class="w-full rounded-full" style="background:rgba(255,255,255,0.05);height:6px;">
+            <div id="upload-bar" style="background:#a855f7;height:6px;border-radius:9999px;width:0%;transition:width 0.3s;"></div>
+          </div>
+        </div>
+        <button type="submit" id="submit-tool-btn" class="modal-submit-btn w-full glow-btn font-black uppercase tracking-[0.15em]">Submit for Review</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="auth-modal" class="modal-overlay" onclick="handleAuthOverlayClick(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="glass modal-inner relative" style="padding:32px 28px;">
+      <button onclick="closeAuthModal()" class="absolute opacity-60 hover:opacity-100 transition-all hover:rotate-90 z-10" style="top:16px;right:16px;padding:8px;">
+        <i class="fas fa-times text-xl"></i>
+      </button>
+      <div class="text-center mb-6">
+        <span class="text-2xl font-black tracking-tighter uppercase">PM<span class="text-purple-500 lowercase">.tools</span></span>
+      </div>
+      <div class="flex gap-2 justify-center mb-6">
+        <button class="auth-tab-btn active" id="tab-signin" onclick="switchAuthTab('signin')">Sign In</button>
+        <button class="auth-tab-btn" id="tab-register" onclick="switchAuthTab('register')">Register</button>
+      </div>
+      <div class="auth-form-wrap">
+        <div id="form-signin" class="auth-form-slide visible space-y-3">
+          <input type="email" id="signin-email" class="auth-input" placeholder="Email">
+          <input type="password" id="signin-password" class="auth-input" placeholder="Password">
+          <p class="auth-error" id="signin-error"></p>
+          <button onclick="handleSignIn()" id="signin-btn" class="w-full glow-btn font-black uppercase tracking-widest py-3 rounded-2xl text-sm mt-2">Sign In</button>
+        </div>
+        <div id="form-register" class="auth-form-slide hidden-right space-y-3">
+          <input type="text" id="reg-username" class="auth-input" placeholder="Username (max 20)" maxlength="20">
+          <input type="email" id="reg-email" class="auth-input" placeholder="Email">
+          <input type="password" id="reg-password" class="auth-input" placeholder="Password (min 6 chars)">
+          <p class="auth-error" id="register-error"></p>
+          <button onclick="handleRegister()" id="register-btn" class="w-full glow-btn font-black uppercase tracking-widest py-3 rounded-2xl text-sm mt-2">Create Account</button>
+        </div>
+      </div>
+      <p class="text-center text-slate-600 text-xs mt-4 font-bold uppercase tracking-widest">Your data is secure. No spam.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://mysggcexwvsycbcpcaic.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15c2dnY2V4d3ZzeWNiY3BjYWljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyOTc1NjAsImV4cCI6MjA5Mjg3MzU2MH0.l199pRC8ZyLAZmna7aou__UbkLZT40UylZkfGUaGNcU';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentUser = null;
+let currentProfile = null;
+let tools = [];
+let myTools = [];
+
+function toast(message, type, duration) {
+  type = type || 'info';
+  duration = duration || 3500;
+  const iconMap = { success: 'check-circle', error: 'times-circle', warning: 'exclamation-triangle', info: 'info-circle' };
+  const container = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  el.className = 'toast toast-' + type;
+  el.innerHTML = '<i class="fas fa-' + (iconMap[type] || 'info-circle') + ' toast-icon"></i><span>' + message + '</span><span class="toast-close" onclick="dismissToast(this.parentElement)">&#x2715;</span>';
+  container.appendChild(el);
+  requestAnimationFrame(function() { requestAnimationFrame(function() { el.classList.add('show'); }); });
+  el._timer = setTimeout(function() { dismissToast(el); }, duration);
+  el.addEventListener('click', function() { dismissToast(el); });
+}
+
+function dismissToast(el) {
+  if (!el || !el.parentElement) return;
+  clearTimeout(el._timer);
+  el.classList.remove('show');
+  el.classList.add('hide');
+  setTimeout(function() { el.remove(); }, 400);
+}
+
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let animFrameId = null;
+
+function initCanvas() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  particles = [];
+  const count = window.innerWidth < 640 ? 25 : 50;
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size:   Math.random() * 1.5 + 0.5,
+      speedX: Math.random() * 0.6 - 0.3,
+      speedY: Math.random() * 0.6 - 0.3,
+      color:  Math.random() > 0.5 ? '#a855f7' : '#4f46e5'
+    });
+  }
+}
+
+function animateCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(function(p) {
+    p.x += p.speedX; p.y += p.speedY;
+    if (p.x < 0 || p.x > canvas.width)  p.speedX *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = p.color;
+    ctx.fill();
+  });
+  animFrameId = requestAnimationFrame(animateCanvas);
+}
+
+window.addEventListener('resize', function() {
+  if (animFrameId) cancelAnimationFrame(animFrameId);
+  initCanvas();
+  animateCanvas();
+});
+
+initCanvas();
+animateCanvas();
+
+function show(el) { el && el.classList.remove('hidden'); }
+function hide(el) { el && el.classList.add('hidden'); }
+
+async function fetchUsernameMap(authorIds) {
+  const uniqueIds = [...new Set((authorIds || []).filter(Boolean))];
+  if (!uniqueIds.length) return {};
+  const { data } = await sb.from('users').select('id, username').in('id', uniqueIds);
+  const map = {};
+  (data || []).forEach(function(u) { map[u.id] = u.username; });
+  return map;
+}
+
+async function initAuth() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session && session.user) {
+    currentUser = session.user;
+    await loadProfile(currentUser.id);
+    await loadMyTools();
+  }
+  updateUIForAuth();
+
+  sb.auth.onAuthStateChange(async function(event, session) {
+    if (event === 'SIGNED_IN' && session && session.user) {
+      currentUser = session.user;
+      await loadProfile(currentUser.id);
+      await loadMyTools();
+      updateUIForAuth();
+      closeAuthModal();
+    } else if (event === 'SIGNED_OUT') {
+      currentUser = null;
+      currentProfile = null;
+      myTools = [];
+      updateUIForAuth();
+    }
+  });
+}
+
+async function loadProfile(userId) {
+  const { data, error } = await sb.from('users').select('*').eq('id', userId).single();
+  if (error || !data) {
+    const username = (currentUser.user_metadata && currentUser.user_metadata.username
+      ? currentUser.user_metadata.username
+      : currentUser.email.split('@')[0]).toUpperCase();
+    const { data: newProfile } = await sb.from('users')
+      .insert({ id: userId, email: currentUser.email, username: username, role: 'member', reputation: 0 })
+      .select().single();
+    currentProfile = newProfile;
+  } else {
+    currentProfile = data;
+  }
+}
+
+function updateUIForAuth() {
+  const isLoggedIn = !!currentUser;
+  const role = (currentProfile && currentProfile.role) ? currentProfile.role : 'member';
+
+  const navCabinet  = document.getElementById('nav-cabinet-btn');
+  const navSignin   = document.getElementById('nav-signin-navbtn');
+  const mobCabinet  = document.getElementById('mobile-cabinet-btn');
+  const mobSignin   = document.getElementById('mobile-signin-btn');
+  const signoutBtn  = document.getElementById('signout-btn');
+  const guestPrompt = document.getElementById('profile-guest-prompt');
+  const adminPanel  = document.getElementById('admin-panel');
+
+  isLoggedIn ? show(navCabinet)  : hide(navCabinet);
+  isLoggedIn ? hide(navSignin)   : show(navSignin);
+  isLoggedIn ? show(mobCabinet)  : hide(mobCabinet);
+  isLoggedIn ? hide(mobSignin)   : show(mobSignin);
+  isLoggedIn ? show(signoutBtn)  : hide(signoutBtn);
+  isLoggedIn ? hide(guestPrompt) : show(guestPrompt);
+
+  if (signoutBtn) signoutBtn.style.display = isLoggedIn ? 'flex' : '';
+  if (adminPanel) { isLoggedIn && role === 'admin' ? show(adminPanel) : hide(adminPanel); }
+
+  if (isLoggedIn && currentProfile) {
+    const usernameEl = document.getElementById('profile-username');
+    if (usernameEl && !usernameEl.querySelector('input')) {
+      usernameEl.textContent = (currentProfile.username || 'User').toUpperCase();
+    }
+    const bioEl = document.getElementById('profile-bio');
+    if (bioEl && !bioEl.querySelector('textarea')) {
+      bioEl.textContent = currentProfile.bio || 'Click to add a bio...';
+    }
+    if (currentProfile.avatar_url) {
+      const img = document.getElementById('avatar-img');
+      img.src = currentProfile.avatar_url;
+      img.style.display = 'block';
+      document.getElementById('avatar-letter').style.display = 'none';
+    } else {
+      document.getElementById('avatar-letter').textContent = (currentProfile.username || 'U').charAt(0).toUpperCase();
+      document.getElementById('avatar-letter').style.display = '';
+      document.getElementById('avatar-img').style.display = 'none';
+    }
+    updateRoleBadge(role);
+  }
+}
+
+function updateRoleBadge(role) {
+  const badge = document.getElementById('role-badge');
+  if (!badge) return;
+  badge.className = 'role-badge';
+  const map = { member: ['role-member','Member'], developer: ['role-developer','Developer'], admin: ['role-admin','Admin'] };
+  const pair = map[role] || map.member;
+  badge.classList.add(pair[0]);
+  badge.textContent = pair[1];
+}
+
+async function handleSignIn() {
+  const email    = document.getElementById('signin-email').value.trim();
+  const password = document.getElementById('signin-password').value;
+  const errEl    = document.getElementById('signin-error');
+  const btn      = document.getElementById('signin-btn');
+  if (!email || !password) { showAuthError(errEl, 'Please fill in all fields.'); return; }
+  btn.innerHTML = '<span class="spinner"></span>';
+  btn.disabled = true;
+  const { error } = await sb.auth.signInWithPassword({ email: email, password: password });
+  btn.innerHTML = 'Sign In';
+  btn.disabled = false;
+  if (error) showAuthError(errEl, error.message);
+  else { errEl.style.display = 'none'; toast('Welcome back!', 'success'); }
+}
+
+async function handleRegister() {
+  const username = document.getElementById('reg-username').value.trim();
+  const email    = document.getElementById('reg-email').value.trim();
+  const password = document.getElementById('reg-password').value;
+  const errEl    = document.getElementById('register-error');
+  const btn      = document.getElementById('register-btn');
+  if (!username || !email || !password) { showAuthError(errEl, 'Please fill in all fields.'); return; }
+  if (password.length < 6) { showAuthError(errEl, 'Password must be at least 6 characters.'); return; }
+  btn.innerHTML = '<span class="spinner"></span>';
+  btn.disabled = true;
+  const { error } = await sb.auth.signUp({ email: email, password: password, options: { data: { username: username.toUpperCase() } } });
+  btn.innerHTML = 'Create Account';
+  btn.disabled = false;
+  if (error) {
+    showAuthError(errEl, error.message);
+  } else {
+    errEl.style.display = 'none';
+    toast('Check your email to confirm your account.', 'success', 5000);
+    setTimeout(function() { closeAuthModal(); }, 1500);
+  }
+}
+
+async function handleSignOut() {
+  await sb.auth.signOut();
+  toast('Signed out.', 'info');
+}
+
+function showAuthError(el, msg) {
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function openAuthModal() {
+  document.getElementById('auth-modal').classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAuthModal() {
+  document.getElementById('auth-modal').classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+
+function handleAuthOverlayClick(e) { if (e.target === e.currentTarget) closeAuthModal(); }
+
+function switchAuthTab(tab) {
+  const signin   = document.getElementById('form-signin');
+  const register = document.getElementById('form-register');
+  const tabS = document.getElementById('tab-signin');
+  const tabR = document.getElementById('tab-register');
+  if (tab === 'signin') {
+    register.className = 'auth-form-slide hidden-right space-y-3';
+    signin.className   = 'auth-form-slide visible space-y-3';
+    tabS.classList.add('active'); tabR.classList.remove('active');
+  } else {
+    signin.className   = 'auth-form-slide hidden-left space-y-3';
+    register.className = 'auth-form-slide visible space-y-3';
+    tabR.classList.add('active'); tabS.classList.remove('active');
+  }
+}
+
+async function saveProfileField(field, value) {
+  if (!currentUser || !currentProfile) return;
+  const { error } = await sb.from('users').update({ [field]: value }).eq('id', currentUser.id);
+  if (error) { toast('Failed to save: ' + error.message, 'error'); return; }
+  currentProfile[field] = value;
+  toast('Profile updated.', 'success', 2000);
+}
+
+async function handleAvatarUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { toast('Image must be under 5 MB.', 'warning'); return; }
+  toast('Uploading avatar...', 'info', 2000);
+  const avatarUrl = await uploadToStorage('images', file, 'avatars/');
+  if (!avatarUrl) return;
+  const img = document.getElementById('avatar-img');
+  img.src = avatarUrl;
+  img.style.display = 'block';
+  document.getElementById('avatar-letter').style.display = 'none';
+  await saveProfileField('avatar_url', avatarUrl);
+}
+
+function editProfileName() {
+  const el = document.getElementById('profile-username');
+  if (el.querySelector('input')) return;
+  const current = el.textContent;
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.value = current;
+  input.maxLength = 20;
+  input.className = 'inline-edit-input name-input';
+  el.textContent = '';
+  el.appendChild(input);
+  input.focus();
+  input.select();
+  async function save() {
+    const val   = input.value.trim();
+    const final = val.length > 0 ? val.substring(0, 20).toUpperCase() : current;
+    el.textContent = final;
+    if (final !== current) await saveProfileField('username', final);
+  }
+  input.addEventListener('blur', save);
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter')  input.blur();
+    if (e.key === 'Escape') { input.value = current; input.blur(); }
+  });
+}
+
+function editProfileBio() {
+  const el = document.getElementById('profile-bio');
+  if (el.querySelector('textarea')) return;
+  const placeholder = 'Click to add a bio...';
+  const current = el.textContent === placeholder ? '' : el.textContent;
+  const textarea = document.createElement('textarea');
+  textarea.value = current;
+  textarea.maxLength = 120;
+  textarea.className = 'inline-edit-input bio-input';
+  textarea.placeholder = 'Write something about yourself...';
+  el.textContent = '';
+  el.appendChild(textarea);
+  textarea.focus();
+  async function save() {
+    const val   = textarea.value.trim();
+    const final = val.length > 0 ? val.substring(0, 120) : placeholder;
+    el.textContent = final;
+    if (val !== current) await saveProfileField('bio', val);
+  }
+  textarea.addEventListener('blur', save);
+  textarea.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); textarea.blur(); }
+    if (e.key === 'Escape') { textarea.value = current; textarea.blur(); }
+  });
+}
+
+function renderTools() {
+  const grid = document.getElementById('tools-grid');
+  grid.innerHTML = '';
+  if (!tools.length) {
+    grid.innerHTML = '<p class="text-slate-500 italic text-sm col-span-full text-center py-12">No tools available yet.</p>';
+    return;
+  }
+  tools.forEach(function(tool, i) {
+    const imgSrc  = tool.image_url || 'https://placehold.co/400x400/101010/a855f7?text=PM.TOOLS';
+    const hasFile = !!tool.file_url;
+    const card = document.createElement('div');
+    card.className = 'glass tool-card tool-card-inner tool-card-animate overflow-hidden flex flex-col h-full';
+    card.style.animationDelay = (i * 0.08) + 's';
+    card.innerHTML =
+      '<div class="tool-card-img bg-slate-900 overflow-hidden relative flex-shrink-0">' +
+        '<img src="' + imgSrc + '" class="w-full h-full object-cover opacity-60" loading="lazy" onerror="this.src=\'https://placehold.co/400x400/101010/a855f7?text=PM.TOOLS\'">' +
+        '<span class="absolute top-3 left-3 bg-purple-600 text-[0.6rem] px-2.5 py-1 rounded-lg font-black uppercase tracking-wider">' + (tool.category || '') + '</span>' +
+        (hasFile ? '<span class="absolute top-3 right-3 bg-green-600/80 text-[0.55rem] px-2 py-1 rounded-lg font-black uppercase tracking-wider"><i class="fas fa-file-download mr-0.5"></i> File</span>' : '') +
+      '</div>' +
+      '<h4 class="tool-card-title font-black uppercase truncate tracking-tight">' + tool.name + '</h4>' +
+      '<div class="tool-card-desc text-slate-400 overflow-y-auto custom-scroll-area leading-relaxed font-bold pr-1">' + (tool.description || '') + '</div>' +
+      '<button class="tool-card-btn w-full bg-white/5 border border-white/10 font-black uppercase tracking-[0.15em] mt-auto"' +
+        (!hasFile ? ' disabled style="opacity:0.4;cursor:not-allowed;"' : '') + '>' +
+        (hasFile ? '<i class="fas fa-download mr-1"></i> Download' : 'No File Available') +
+      '</button>';
+    if (hasFile) {
+      card.querySelector('.tool-card-btn').addEventListener('click', function() {
+        downloadTool(tool.id, tool.file_url, tool.name);
+      });
+    }
+    grid.appendChild(card);
+  });
+}
+
+function renderMyTools() {
+  const list = document.getElementById('my-tools-list');
+  if (!myTools.length) {
+    list.innerHTML = '<p class="text-slate-500 italic text-sm">No uploads yet. Hit "Create +" to get started.</p>';
+    updateStats();
+    return;
+  }
+  list.innerHTML = '';
+  const statusColors = { approved: '#4ade80', pending: '#fbbf24', rejected: '#f87171' };
+  const statusLabels = { approved: 'Approved', pending: 'Pending Review', rejected: 'Rejected' };
+  myTools.forEach(function(tool, i) {
+    const imgSrc = tool.image_url || ('https://placehold.co/96x96/101010/a855f7?text=' + encodeURIComponent(tool.name.charAt(0)));
+    const statusColor = statusColors[tool.status] || '#9ca3af';
+    const item = document.createElement('div');
+    item.className = 'my-tool-item tool-card-animate';
+    item.style.animationDelay = (i * 0.06) + 's';
+    item.innerHTML =
+      '<img src="' + imgSrc + '" class="my-tool-thumb" onerror="this.src=\'https://placehold.co/96x96/101010/a855f7?text=' + encodeURIComponent(tool.name.charAt(0)) + '\'">' +
+      '<div class="my-tool-info">' +
+        '<div class="my-tool-name">' + tool.name + '</div>' +
+        '<div class="my-tool-cat">' + (tool.category || '') + '</div>' +
+        (tool.status ? '<div style="font-size:0.55rem;font-weight:900;text-transform:uppercase;margin-top:2px;color:' + statusColor + ';">&#9679; ' + (statusLabels[tool.status] || tool.status) + '</div>' : '') +
+      '</div>' +
+      '<button class="my-tool-delete" title="Delete tool"><i class="fas fa-trash-alt"></i></button>';
+    item.querySelector('.my-tool-delete').addEventListener('click', function() { deleteMyTool(tool.id); });
+    list.appendChild(item);
+  });
+  updateStats();
+}
+
+async function deleteMyTool(id) {
+  if (!currentUser) return;
+  const { error } = await sb.from('tools').delete().eq('id', id).eq('author_id', currentUser.id);
+  if (error) { toast('Failed to delete tool.', 'error'); return; }
+  myTools = myTools.filter(function(t) { return t.id !== id; });
+  tools   = tools.filter(function(t) { return t.id !== id; });
+  renderTools();
+  renderMyTools();
+  toast('Tool removed.', 'info', 2000);
+}
+
+function updateStats() {
+  document.getElementById('stat-uploaded').textContent  = myTools.length;
+  document.getElementById('stat-downloads').textContent = myTools.length * 3;
+  document.getElementById('stat-rep').textContent       = '+' + (myTools.length * 12);
+}
+
+function toggleMobileMenu() {
+  document.getElementById('mobile-menu').classList.toggle('active');
+}
+
+function animateSection(el) {
+  el.classList.remove('section-animate');
+  void el.offsetWidth;
+  el.classList.add('section-animate');
+}
+
+function toggleTab(tab) {
+  const m = document.getElementById('market-section');
+  const p = document.getElementById('profile-section');
+  if (tab === 'profile' && !currentUser) { openAuthModal(); return; }
+  if (tab === 'market') {
+    show(m); hide(p); animateSection(m);
+  } else {
+    hide(m); show(p); animateSection(p);
+    renderMyTools();
+    if (currentProfile && currentProfile.role === 'admin') loadPendingTools();
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openModal() {
+  if (!currentUser) { openAuthModal(); return; }
+  if ((currentProfile && currentProfile.role ? currentProfile.role : 'member') === 'member') {
+    toast('Only Developers and Admins can upload tools.', 'warning');
+    return;
+  }
+  document.getElementById('create-modal').classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('create-modal').classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) { if (e.target === e.currentTarget) closeModal(); }
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { closeModal(); closeAuthModal(); }
+});
+
+function previewImage(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const preview = document.getElementById('img-preview');
+    preview.src = e.target.result;
+    preview.style.display = 'block';
+    document.getElementById('img-upload-placeholder').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function onFileChosen(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  document.getElementById('file-upload-placeholder').style.display = 'none';
+  const chosen = document.getElementById('file-chosen');
+  chosen.style.display = 'flex';
+  document.getElementById('file-chosen-name').textContent = file.name;
+}
+
+function setUploadProgress(visible, text, pct) {
+  text = text || '';
+  pct  = pct  || 0;
+  const el = document.getElementById('upload-progress');
+  if (visible) {
+    el.classList.remove('hidden');
+    document.getElementById('upload-status-text').textContent = text;
+    document.getElementById('upload-pct').textContent = pct + '%';
+    document.getElementById('upload-bar').style.width = pct + '%';
+  } else {
+    el.classList.add('hidden');
+  }
+}
+
+async function uploadToStorage(bucket, file, folder) {
+  folder = folder || '';
+  const ext      = file.name.split('.').pop();
+  const filename = folder + Date.now() + '_' + Math.random().toString(36).substr(2, 6) + '.' + ext;
+  const { data, error } = await sb.storage.from(bucket).upload(filename, file, { cacheControl: '3600', upsert: false });
+  if (error) {
+    if (error.message.includes('Bucket not found') || error.statusCode === 404) {
+      toast('Bucket "' + bucket + '" not found. Create it in Supabase Storage as a public bucket.', 'warning', 8000);
+    } else {
+      toast('Upload failed: ' + error.message, 'error', 5000);
+    }
+    return null;
+  }
+  const { data: { publicUrl } } = sb.storage.from(bucket).getPublicUrl(filename);
+  return publicUrl;
+}
+
+document.getElementById('tool-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!currentUser) { openAuthModal(); return; }
+  const btn      = document.getElementById('submit-tool-btn');
+  const imgFile  = document.getElementById('tool-img-file').files[0];
+  const toolFile = document.getElementById('tool-file').files[0];
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Uploading...';
+  let imageUrl = null, fileUrl = null;
+  try {
+    if (imgFile) {
+      setUploadProgress(true, 'Uploading image...', 20);
+      imageUrl = await uploadToStorage('images', imgFile, 'tools/');
+      setUploadProgress(true, 'Image done', 50);
+    }
+    if (toolFile) {
+      setUploadProgress(true, 'Uploading file...', 60);
+      fileUrl = await uploadToStorage('files', toolFile, 'tools/');
+      setUploadProgress(true, 'File done', 90);
+    }
+    setUploadProgress(true, 'Saving...', 95);
+    const { error } = await sb.from('tools').insert({
+      author_id:   currentUser.id,
+      name:        document.getElementById('tool-name').value.toUpperCase(),
+      description: document.getElementById('tool-desc').value,
+      category:    document.getElementById('tool-category').value,
+      image_url:   imageUrl,
+      file_url:    fileUrl,
+      status:      'pending'
+    });
+    if (error) throw error;
+    setUploadProgress(false);
+    btn.disabled = false;
+    btn.innerHTML = 'Submit for Review';
+    e.target.reset();
+    document.getElementById('img-preview').style.display = 'none';
+    document.getElementById('img-upload-placeholder').style.display = 'block';
+    document.getElementById('file-chosen').style.display = 'none';
+    document.getElementById('file-upload-placeholder').style.display = 'block';
+    closeModal();
+    toast(currentProfile && currentProfile.role === 'admin' ? 'Tool added. Approve it in admin panel.' : 'Tool submitted for review.', 'success');
+    await loadMyTools();
+  } catch(err) {
+    setUploadProgress(false);
+    btn.disabled = false;
+    btn.innerHTML = 'Submit for Review';
+    toast('Error: ' + err.message, 'error', 6000);
+  }
+});
+
+async function loadMyTools() {
+  if (!currentUser) return;
+  const { data } = await sb.from('tools').select('*').eq('author_id', currentUser.id).order('created_at', { ascending: false });
+  myTools = data || [];
+  renderMyTools();
+}
+
+// =============================================
+// ИСПРАВЛЕННАЯ ФУНКЦИЯ СКАЧИВАНИЯ
+// =============================================
+async function downloadTool(toolId, fileUrl, toolName) {
+  if (!fileUrl) { toast('No file available for this tool.', 'warning'); return; }
+
+  // Логируем скачивание без .catch() — используем await с try/catch
+  if (currentUser) {
+    try {
+      await sb.from('downloads').insert({ user_id: currentUser.id, tool_id: toolId });
+    } catch(e) { /* игнорируем */ }
+  }
+
+  // Просто открываем ссылку в новой вкладке — самый надёжный способ
+  window.open(fileUrl, '_blank', 'noopener,noreferrer');
+  toast('Download started!', 'success', 2000);
+}
+
+async function loadPendingTools() {
+  const list  = document.getElementById('admin-tools-list');
+  const empty = document.getElementById('admin-empty');
+  list.innerHTML = '<p style="color:#64748b;font-size:0.75rem;">Loading...</p>';
+  const { data, error } = await sb.from('tools').select('*').eq('status', 'pending').order('created_at', { ascending: true });
+  if (error) { list.innerHTML = '<p style="color:#f87171;font-size:0.75rem;">' + error.message + '</p>'; return; }
+  const toolList = data || [];
+  document.getElementById('pending-count').textContent = toolList.length;
+  if (!toolList.length) { list.innerHTML = ''; show(empty); return; }
+  const usernameMap = await fetchUsernameMap(toolList.map(function(t) { return t.author_id; }));
+  hide(empty);
+  list.innerHTML = '';
+  toolList.forEach(function(tool) {
+    const authorName = usernameMap[tool.author_id] || 'unknown';
+    const el = document.createElement('div');
+    el.style.cssText = 'display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(168,85,247,0.1);border-radius:14px;';
+    const imgSrc = tool.image_url || ('https://placehold.co/56x56/101010/a855f7?text=' + encodeURIComponent(tool.name.charAt(0)));
+    el.innerHTML =
+      '<img src="' + imgSrc + '" style="width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0;">' +
+      '<div style="flex:1;min-width:0;">' +
+        '<div style="font-size:0.8rem;font-weight:900;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + tool.name + '</div>' +
+        '<div style="font-size:0.6rem;color:#a855f7;font-weight:700;text-transform:uppercase;margin-top:2px;">' + tool.category + ' &middot; by ' + authorName + '</div>' +
+        '<div style="font-size:0.65rem;color:#64748b;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + (tool.description || '') + '</div>' +
+      '</div>' +
+      '<div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0;">' +
+        '<button onclick="moderateTool(' + tool.id + ',\'approved\')" style="padding:6px 14px;border-radius:10px;background:rgba(5,150,105,0.15);border:1px solid rgba(5,150,105,0.4);color:#6ee7b7;font-size:0.6rem;font-weight:900;text-transform:uppercase;cursor:pointer;font-family:inherit;">Approve</button>' +
+        '<button onclick="moderateTool(' + tool.id + ',\'rejected\')" style="padding:6px 14px;border-radius:10px;background:rgba(220,38,38,0.15);border:1px solid rgba(220,38,38,0.4);color:#fca5a5;font-size:0.6rem;font-weight:900;text-transform:uppercase;cursor:pointer;font-family:inherit;">Reject</button>' +
+      '</div>';
+    list.appendChild(el);
+  });
+}
+
+async function moderateTool(toolId, status) {
+  const { error } = await sb.from('tools').update({ status: status }).eq('id', toolId);
+  if (error) { toast('Error: ' + error.message, 'error'); return; }
+  toast(status === 'approved' ? 'Tool approved and published.' : 'Tool rejected.', status === 'approved' ? 'success' : 'warning');
+  await loadPendingTools();
+  await loadTools();
+}
+
+async function loadAllUsers() {
+  const list = document.getElementById('admin-users-list');
+  list.innerHTML = '<p style="color:#64748b;font-size:0.75rem;">Loading...</p>';
+  const { data, error } = await sb.from('users').select('*').order('created_at', { ascending: false });
+  if (error) { list.innerHTML = '<p style="color:#f87171;font-size:0.75rem;">' + error.message + '</p>'; return; }
+  list.innerHTML = '';
+  const roleColors = { member: '#9ca3af', developer: '#c084fc', admin: '#f87171' };
+  (data || []).forEach(function(user) {
+    const el = document.createElement('div');
+    el.style.cssText = 'display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(168,85,247,0.1);border-radius:14px;';
+    el.innerHTML =
+      '<div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem;flex-shrink:0;">' + (user.username || 'U').charAt(0).toUpperCase() + '</div>' +
+      '<div style="flex:1;min-width:0;">' +
+        '<div style="font-size:0.8rem;font-weight:900;text-transform:uppercase;">' + (user.username || '') + '</div>' +
+        '<div style="font-size:0.6rem;color:#64748b;margin-top:1px;">' + user.email + '</div>' +
+      '</div>' +
+      '<select onchange="changeUserRole(\'' + user.id + '\', this.value)" style="background:rgba(255,255,255,0.05);border:1px solid rgba(168,85,247,0.2);color:' + (roleColors[user.role] || '#fff') + ';padding:6px 10px;border-radius:10px;font-size:0.65rem;font-weight:900;text-transform:uppercase;cursor:pointer;font-family:inherit;">' +
+        '<option value="member"    ' + (user.role === 'member'    ? 'selected' : '') + ' style="background:#1a1a2e;">Member</option>' +
+        '<option value="developer" ' + (user.role === 'developer' ? 'selected' : '') + ' style="background:#1a1a2e;">Developer</option>' +
+        '<option value="admin"     ' + (user.role === 'admin'     ? 'selected' : '') + ' style="background:#1a1a2e;">Admin</option>' +
+      '</select>';
+    list.appendChild(el);
+  });
+}
+
+async function changeUserRole(userId, newRole) {
+  const { error } = await sb.from('users').update({ role: newRole }).eq('id', userId);
+  if (error) { toast('Error: ' + error.message, 'error'); return; }
+  toast('Role updated to ' + newRole + '.', 'success', 2000);
+}
+
+function adminTab(tab) {
+  const pendingSec = document.getElementById('admin-pending-section');
+  const usersSec   = document.getElementById('admin-users-section');
+  const btnP = document.getElementById('admin-tab-pending');
+  const btnU = document.getElementById('admin-tab-users');
+  const base     = 'font-size:0.65rem;font-weight:900;text-transform:uppercase;padding:8px 16px;border-radius:12px;cursor:pointer;transition:all 0.3s;font-family:inherit;';
+  const active   = base + 'background:rgba(168,85,247,0.2);border:1px solid rgba(168,85,247,0.4);color:#d8b4fe;';
+  const inactive = base + 'background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.4);';
+  if (tab === 'pending') {
+    show(pendingSec); hide(usersSec);
+    btnP.style.cssText = active; btnU.style.cssText = inactive;
+    loadPendingTools();
+  } else {
+    hide(pendingSec); show(usersSec);
+    btnU.style.cssText = active; btnP.style.cssText = inactive;
+    loadAllUsers();
+  }
+}
+
+function renderSkeleton() {
+  const grid = document.getElementById('tools-grid');
+  grid.innerHTML = '';
+  for (let i = 0; i < 4; i++) {
+    const sk = document.createElement('div');
+    sk.className = 'glass tool-card-inner overflow-hidden skeleton-pulse';
+    sk.style.borderRadius = '20px';
+    sk.innerHTML =
+      '<div style="height:160px;border-radius:16px;background:rgba(168,85,247,0.08);margin-bottom:12px;"></div>' +
+      '<div style="height:14px;border-radius:8px;background:rgba(255,255,255,0.06);margin-bottom:8px;width:70%;"></div>' +
+      '<div style="height:10px;border-radius:8px;background:rgba(255,255,255,0.04);margin-bottom:4px;"></div>' +
+      '<div style="height:10px;border-radius:8px;background:rgba(255,255,255,0.04);width:80%;margin-bottom:12px;"></div>' +
+      '<div style="height:38px;border-radius:14px;background:rgba(168,85,247,0.06);"></div>';
+    grid.appendChild(sk);
+  }
+}
+
+async function loadTools() {
+  renderSkeleton();
+  const { data, error } = await sb.from('tools').select('*').eq('status', 'approved').order('created_at', { ascending: false });
+  if (!error && data) tools = data;
+  renderTools();
+}
+
+document.getElementById('signin-password').addEventListener('keydown', function(e) { if (e.key === 'Enter') handleSignIn(); });
+document.getElementById('reg-password').addEventListener('keydown', function(e) { if (e.key === 'Enter') handleRegister(); });
+
+loadTools();
+initAuth();
+</script>
+</body>
+</html>
