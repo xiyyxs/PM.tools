@@ -13,6 +13,17 @@
 
 :root { --accent: #a855f7; --bg: #030005; }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+  
 html { overflow-x: hidden; scroll-behavior: smooth; }
 body { background-color: var(--bg); color: #fff; font-family: 'Unbounded', sans-serif; overflow-x: hidden; min-height: 100vh; -webkit-overflow-scrolling: touch; }
 canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.6; pointer-events: none; }
