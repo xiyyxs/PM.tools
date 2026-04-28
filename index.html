@@ -1087,6 +1087,12 @@ async function loadAllUsers() {
 async function changeUserRole(userId, newRole) {
   const { error } = await sb.from('users').update({ role: newRole }).eq('id', userId);
   if (error) { toast('Error: ' + error.message, 'error'); return; }
+
+  if (currentUser && currentUser.id === userId) {
+    await loadProfile(userId);
+    updateUIForAuth();
+  }
+
   toast('Role updated to ' + newRole + '.', 'success', 2000);
 }
 
