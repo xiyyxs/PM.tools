@@ -11,7 +11,8 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&display=swap');
 :root { --accent: #a855f7; --bg: #030005; --nav-h: 68px; }
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+.code-badge { user-select: all; -webkit-user-select: all; cursor: copy; }
 html { overflow-x: hidden; scroll-behavior: smooth; }
 body { background-color: var(--bg); color: #fff; font-family: 'Unbounded', sans-serif; overflow-x: hidden; min-height: 100vh; -webkit-overflow-scrolling: touch; }
 canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.6; pointer-events: none; }
@@ -1386,7 +1387,7 @@ async function loadUpgradeCodes() {
     const el = document.createElement('div');
     el.className = 'admin-tool-row';
     el.innerHTML =
-      '<span class="code-badge flex-shrink-0">'+code.code+'</span>' +
+      '<span class="code-badge flex-shrink-0" onclick="navigator.clipboard.writeText(\''+code.code+'\').then(()=>toast(\'Code copied!\',\'success\',1500))">'+code.code+'</span>' +
       '<div style="flex:1;min-width:0;font-size:0.6rem;font-weight:700;text-transform:uppercase;opacity:0.5;">'+new Date(code.created_at).toLocaleDateString()+'</div>' +
       (code.used ? '<span style="font-size:0.58rem;font-weight:900;color:#f87171;text-transform:uppercase;">Used</span>' : '<span style="font-size:0.58rem;font-weight:900;color:#4ade80;text-transform:uppercase;">Available</span>') +
       '<button onclick="deleteCode(\''+code.id+'\')" style="padding:5px 10px;border-radius:8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.25);color:#fca5a5;font-size:0.6rem;cursor:pointer;font-family:inherit;font-weight:900;"><i class="fas fa-times"></i></button>';
