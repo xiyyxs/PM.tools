@@ -1275,24 +1275,27 @@ function renderAdminAllTools() {
 }
 
 async function adminChangeCat(toolId, newCat) {
-  if (!adminPinHash) return;
-  const { data, error } = await sb.rpc('admin_update_tool', { target_id: toolId, new_status: null, new_category: newCat, p_hash: adminPinHash });
-  if (error || !data) { toast('Error: '+(error?.message||'Access denied'), 'error'); return; }
-  const t = allToolsAdminCache.find(x => x.id == toolId);
+  if (!adminVerified) return;
+  console.log('adminChangeCat:', toolId, typeof toolId, newCat);
+  const { error } = await sb.from('tools')
+    .update({ category: newCat })
+    .eq('id', toolId);
+  if (error) { toast('Error: '+error.message, 'error'); return; }
+  const t = allToolsAdminCache.find(x => x.id === toolId);
   if (t) t.category = newCat;
-  tools = tools.map(x => x.id == toolId ? {...x, category:newCat} : x);
+  tools = tools.map(x => x.id === toolId ? {...x, category: newCat} : x);
   filterAndRenderTools();
   toast('Category updated.', 'success', 1800);
 }
 
 async function adminDeleteTool(toolId) {
-  if (!adminPinHash) return;
+  if (!adminVerified) return;
   if (!confirm('Delete this tool permanently?')) return;
-  const { data, error } = await sb.rpc('admin_delete_tool', { target_id: toolId, p_hash: adminPinHash });
-  if (error || !data) { toast('Error: '+(error?.message||'Access denied'), 'error'); return; }
-  allToolsAdminCache = allToolsAdminCache.filter(t => t.id != toolId);
-  tools = tools.filter(t => t.id != toolId);
-  filteredTools = filteredTools.filter(t => t.id != toolId);
+  const { error } = await sb.from('tools').delete().eq('id', toolId);
+  if (error) { toast('Error: '+error.message, 'error'); return; }
+  allToolsAdminCache = allToolsAdminCache.filter(t => t.id !== toolId);
+  tools = tools.filter(t => t.id !== toolId);
+  filteredTools = filteredTools.filter(t => t.id !== toolId);
   renderAdminAllTools(); filterAndRenderTools(); loadAdminStats();
   toast('Tool deleted.', 'info', 2000);
 }
