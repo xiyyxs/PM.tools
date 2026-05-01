@@ -11,8 +11,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&display=swap');
 :root { --accent: #a855f7; --bg: #030005; --nav-h: 68px; }
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
-.code-badge { user-select: all; -webkit-user-select: all; cursor: copy; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;}
 html { overflow-x: hidden; scroll-behavior: smooth; }
 body { background-color: var(--bg); color: #fff; font-family: 'Unbounded', sans-serif; overflow-x: hidden; min-height: 100vh; -webkit-overflow-scrolling: touch; }
 canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.6; pointer-events: none; }
@@ -42,7 +41,7 @@ textarea { resize: none !important; }
 .gradient-text { background: linear-gradient(45deg,#fff,#a855f7); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .logo-container img { width: 100%; height: 100%; object-fit: contain; }
 .custom-scroll-area { overflow-y: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
-#mobile-menu { transform: translateX(100%); transition: transform 0.25s cubic-bezier(0.4,0,0.2,1); }
+#mobile-menu { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); }
 #mobile-menu.active { transform: translateX(0); }
 .abstract-dots { display: grid; grid-template-columns: repeat(2,1fr); gap: 4px; }
 .dot { width: 5px; height: 5px; background: white; border-radius: 50%; }
@@ -173,6 +172,43 @@ select option { background: #1a1a2e; color: #fff; }
 .nav-menu-btn:hover::after { transform: scaleX(1); }
 .upload-zone-hover { transition: background 0.3s, border-color 0.3s, transform 0.2s; }
 .upload-zone-hover:hover { background: rgba(168,85,247,0.07) !important; border-color: rgba(168,85,247,0.5) !important; transform: scale(1.01); }
+.field-error { border-color: rgba(239,68,68,0.6) !important; box-shadow: 0 0 0 2px rgba(239,68,68,0.15); }
+.field-error-msg { color: #f87171; font-size: 0.6rem; font-weight: 700; margin-top: 4px; max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.3s ease, opacity 0.3s ease; }
+.field-error-msg.show { max-height: 30px; opacity: 1; }
+.zone-error { border-color: rgba(239,68,68,0.6) !important; }
+.download-toggle { display: flex; background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.18); border-radius: 14px; overflow: hidden; margin-bottom: 10px; }
+.download-toggle-btn { flex: 1; padding: 9px 12px; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; border: none; background: transparent; color: rgba(255,255,255,0.4); font-family: 'Unbounded', sans-serif; transition: all 0.25s; }
+.download-toggle-btn.active { background: rgba(168,85,247,0.2); color: #d8b4fe; }
+/* ── Admin edit panel ─────────────────────────────── */
+.admin-edit-panel { overflow: hidden; max-height: 0; opacity: 0; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease, margin 0.3s ease; }
+.admin-edit-panel.open { max-height: 600px; opacity: 1; margin-top: 10px; }
+.admin-edit-inner { background: rgba(168,85,247,0.04); border: 1px solid rgba(168,85,247,0.15); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.admin-edit-label { font-size: 0.55rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.45; margin-bottom: 5px; }
+.admin-edit-input { width: 100%; background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(168,85,247,0.2) !important; color: #fff; font-family: 'Unbounded', sans-serif; padding: 9px 12px; border-radius: 10px; font-size: 0.72rem; outline: none; transition: border-color 0.3s; }
+.admin-edit-input:focus { border-color: var(--accent) !important; }
+.admin-edit-textarea { resize: none !important; min-height: 72px; }
+.admin-action-row { display: flex; gap: 7px; justify-content: flex-end; }
+.admin-action-btn { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 10px; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; font-family: 'Unbounded', sans-serif; transition: all 0.25s; }
+.admin-save-btn { background: rgba(5,150,105,0.15); border: 1px solid rgba(5,150,105,0.4); color: #6ee7b7; }
+.admin-save-btn:hover { background: rgba(5,150,105,0.28); transform: translateY(-1px); }
+.admin-cancel-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+.admin-cancel-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.admin-icon-btn { width: 30px; height: 30px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.7rem; transition: all 0.22s; flex-shrink: 0; border: 1px solid transparent; }
+.admin-edit-trigger { background: rgba(168,85,247,0.1); border-color: rgba(168,85,247,0.25); color: #c084fc; }
+.admin-edit-trigger:hover { background: rgba(168,85,247,0.22); transform: scale(1.08); }
+.admin-img-trigger { background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.25); color: #7dd3fc; }
+.admin-img-trigger:hover { background: rgba(56,189,248,0.22); transform: scale(1.08); }
+.admin-del-btn { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.3); color: #fca5a5; }
+.admin-del-btn:hover { background: rgba(220,38,38,0.25); transform: scale(1.08); }
+.admin-tool-card { background: rgba(255,255,255,0.025); border: 1px solid rgba(168,85,247,0.1); border-radius: 16px; padding: 14px; transition: border-color 0.3s, background 0.3s; }
+.admin-tool-card:hover { border-color: rgba(168,85,247,0.25); background: rgba(168,85,247,0.04); }
+/* ── Page section transitions ─── */
+.page-section { animation: pageFadeIn 0.4s cubic-bezier(0.4,0,0.2,1) forwards; }
+@keyframes pageFadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+/* ── Alignment fixes ─────────────────────────────── */
+.admin-tool-row { display: flex; align-items: flex-start; gap: 10px; }
+.modal-form-grid { display: grid; gap: 12px; }
+.atc-img-wrap:hover .img-hover-overlay { opacity: 1 !important; }
 #signout-btn { transition: opacity 0.3s, border-color 0.3s, color 0.3s; }
 .my-tool-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(168,85,247,0.1); border-radius: 14px; transition: border-color 0.3s, background 0.3s; }
 .my-tool-item:hover { border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.05); }
@@ -191,6 +227,8 @@ select option { background: #1a1a2e; color: #fff; }
 .code-badge { font-family: monospace; background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.25); color: #d8b4fe; padding: 3px 8px; border-radius: 6px; font-size: 0.85rem; letter-spacing: 0.1em; }
 .admin-tab-active { font-size:0.65rem;font-weight:900;text-transform:uppercase;padding:8px 16px;border-radius:12px;cursor:pointer;transition:all 0.3s;font-family:inherit;background:rgba(168,85,247,0.2);border:1px solid rgba(168,85,247,0.4);color:#d8b4fe; }
 .admin-tab-inactive { font-size:0.65rem;font-weight:900;text-transform:uppercase;padding:8px 16px;border-radius:12px;cursor:pointer;transition:all 0.3s;font-family:inherit;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.4); }
+#rec-section { transition: opacity 0.4s ease; }
+#rec-section.visible { opacity: 1; }
 @media (min-width: 640px) {
   .nav-bar { padding: 14px 24px; }
   .nav-logo-icon { width: 38px; height: 38px; }
@@ -330,6 +368,15 @@ select option { background: #1a1a2e; color: #fff; }
       <span class="results-count" id="results-count"></span>
     </div>
 
+    <div id="rec-section" class="hidden" style="margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span style="font-size:0.6rem;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;background:rgba(168,85,247,0.15);border:1px solid rgba(168,85,247,0.3);color:#c084fc;padding:3px 10px;border-radius:20px;">For You</span>
+        <span style="font-size:0.6rem;font-weight:700;opacity:0.35;text-transform:uppercase;">Based on your activity</span>
+      </div>
+      <div class="tools-grid" id="rec-grid"></div>
+      <div style="height:1px;background:rgba(168,85,247,0.12);margin-top:24px;margin-bottom:20px;"></div>
+    </div>
+
     <div class="tools-grid" id="tools-grid"></div>
   </div>
 
@@ -459,7 +506,8 @@ select option { background: #1a1a2e; color: #fff; }
         <div class="grid modal-form-grid">
           <div>
             <label class="text-[0.65rem] font-bold opacity-50 uppercase mb-1.5 block">Name (max 24)</label>
-            <input type="text" id="tool-name" placeholder="e.g. AutoClicker Pro" class="w-full p-3 rounded-xl text-sm" maxlength="24" required>
+            <input type="text" id="tool-name" placeholder="e.g. AutoClicker Pro" class="w-full p-3 rounded-xl text-sm" maxlength="24">
+            <p class="field-error-msg" id="err-name">Tool name is required</p>
           </div>
           <div>
             <label class="text-[0.65rem] font-bold opacity-50 uppercase mb-1.5 block">Category</label>
@@ -487,7 +535,8 @@ select option { background: #1a1a2e; color: #fff; }
         </div>
         <div>
           <label class="text-[0.65rem] font-bold opacity-50 uppercase mb-1.5 block">Description (max 150)</label>
-          <textarea id="tool-desc" placeholder="What does it do? Why should people use it?" class="w-full p-3 rounded-xl h-24 custom-scroll-area text-sm" maxlength="150" required></textarea>
+          <textarea id="tool-desc" placeholder="What does it do? Why should people use it?" class="w-full p-3 rounded-xl h-24 custom-scroll-area text-sm" maxlength="150"></textarea>
+          <p class="field-error-msg" id="err-desc">Description is required</p>
         </div>
         <div class="grid modal-form-grid">
           <div>
@@ -503,22 +552,34 @@ select option { background: #1a1a2e; color: #fff; }
               <img id="img-preview" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;">
               <input type="file" id="tool-img-file" accept="image/*" class="hidden" onchange="previewImage(event)">
             </div>
+            <p class="field-error-msg" id="err-img">Preview image is required</p>
           </div>
           <div>
-            <label class="text-[0.65rem] font-bold opacity-50 uppercase mb-1.5 block">Tool File</label>
-            <div id="file-upload-zone" onclick="document.getElementById('tool-file').click()"
-              class="modal-upload-zone upload-zone-hover border-2 border-dashed border-purple-500/20 text-center cursor-pointer"
-              style="min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-              <div id="file-upload-placeholder">
-                <i class="fas fa-file-code text-2xl text-purple-400 mb-2"></i>
-                <span class="block text-[0.65rem] font-bold opacity-70 uppercase">Click to select</span>
-                <span class="block text-[0.55rem] opacity-40 mt-1">EXE, ZIP, RAR up to 50 MB</span>
+            <label class="text-[0.65rem] font-bold opacity-50 uppercase mb-1.5 block">Download Source</label>
+            <div class="download-toggle">
+              <button type="button" class="download-toggle-btn active" id="dl-tab-file" onclick="switchDownloadTab('file')"><i class="fas fa-file-upload mr-1"></i>Upload File</button>
+              <button type="button" class="download-toggle-btn" id="dl-tab-url" onclick="switchDownloadTab('url')"><i class="fas fa-link mr-1"></i>Link URL</button>
+            </div>
+            <div id="dl-file-zone">
+              <div id="file-upload-zone" onclick="document.getElementById('tool-file').click()"
+                class="modal-upload-zone upload-zone-hover border-2 border-dashed border-purple-500/20 text-center cursor-pointer"
+                style="min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <div id="file-upload-placeholder">
+                  <i class="fas fa-file-code text-2xl text-purple-400 mb-2"></i>
+                  <span class="block text-[0.65rem] font-bold opacity-70 uppercase">Click to select</span>
+                  <span class="block text-[0.55rem] opacity-40 mt-1">EXE, ZIP, RAR up to 50 MB</span>
+                </div>
+                <div id="file-chosen" style="display:none;flex-direction:column;align-items:center;gap:4px;">
+                  <i class="fas fa-check-circle text-green-400 text-2xl mb-1"></i>
+                  <span id="file-chosen-name" class="text-[0.6rem] font-bold text-green-400 break-all px-2 text-center"></span>
+                </div>
+                <input type="file" id="tool-file" class="hidden" onchange="onFileChosen(event)">
               </div>
-              <div id="file-chosen" style="display:none;flex-direction:column;align-items:center;gap:4px;">
-                <i class="fas fa-check-circle text-green-400 text-2xl mb-1"></i>
-                <span id="file-chosen-name" class="text-[0.6rem] font-bold text-green-400 break-all px-2 text-center"></span>
-              </div>
-              <input type="file" id="tool-file" class="hidden" onchange="onFileChosen(event)">
+              <p class="field-error-msg" id="err-dl-file">Upload a file or switch to URL</p>
+            </div>
+            <div id="dl-url-zone" style="display:none;">
+              <input type="url" id="tool-download-url" placeholder="https://example.com/tool.zip" class="w-full p-3 rounded-xl text-sm" style="font-size:0.72rem;">
+              <p class="field-error-msg" id="err-dl-url">Enter a valid URL starting with https://</p>
             </div>
           </div>
         </div>
@@ -658,6 +719,7 @@ async function initAuth() {
       currentUser = session.user;
       await loadProfile(currentUser.id);
       await loadMyTools();
+      loadRecommendations();
       updateUIForAuth();
       closeAuthModal();
       toast('Welcome back!', 'success');
@@ -910,27 +972,38 @@ function renderTools(list) {
   list.forEach((tool, i) => {
     const imgSrc = tool.image_url || 'https://placehold.co/400x400/101010/a855f7?text=PM.TOOLS';
     const hasFile = !!tool.file_url;
+    const hasLink = !!tool.download_url;
+    const hasDownload = hasFile || hasLink;
     const platCls = PLAT_MAP[tool.platform] || '';
     const tagsHtml = (tool.tags||[]).slice(0,3).map(t=>'<span class="card-tag">#'+t+'</span>').join('');
     const card = document.createElement('div');
     card.className = 'glass tool-card tool-card-inner tool-card-animate overflow-hidden flex flex-col h-full';
     card.style.animationDelay = (i*0.07)+'s';
+    const dlBadge = hasFile
+      ? '<span class="absolute top-3 right-3 bg-green-600/80 text-[0.55rem] px-2 py-1 rounded-lg font-black uppercase tracking-wider"><i class="fas fa-file-download mr-0.5"></i> File</span>'
+      : (hasLink ? '<span class="absolute top-3 right-3 bg-blue-600/80 text-[0.55rem] px-2 py-1 rounded-lg font-black uppercase tracking-wider"><i class="fas fa-link mr-0.5"></i> Link</span>' : '');
+    const btnLabel = hasFile
+      ? '<i class="fas fa-download mr-1"></i> Download'
+      : (hasLink ? '<i class="fas fa-external-link-alt mr-1"></i> Go to Link' : 'No Source');
     card.innerHTML =
       '<div class="tool-card-img bg-slate-900 overflow-hidden relative flex-shrink-0">' +
         '<img src="'+imgSrc+'" class="w-full h-full object-cover opacity-60" loading="lazy" onerror="this.src=\'https://placehold.co/400x400/101010/a855f7?text=PM.TOOLS\'">' +
         '<span class="absolute top-3 left-3 bg-purple-600 text-[0.6rem] px-2.5 py-1 rounded-lg font-black uppercase tracking-wider">'+(tool.category||'')+'</span>' +
         (tool.platform ? '<span class="absolute bottom-3 left-3 platform-badge '+platCls+'">'+tool.platform+'</span>' : '') +
-        (hasFile ? '<span class="absolute top-3 right-3 bg-green-600/80 text-[0.55rem] px-2 py-1 rounded-lg font-black uppercase tracking-wider"><i class="fas fa-file-download mr-0.5"></i> File</span>' : '') +
+        dlBadge +
       '</div>' +
       '<h4 class="tool-card-title font-black uppercase truncate tracking-tight">'+tool.name+'</h4>' +
       '<div class="tool-card-desc text-slate-400 overflow-y-auto custom-scroll-area leading-relaxed font-bold pr-1">'+(tool.description||'')+'</div>' +
       (tagsHtml ? '<div class="flex flex-wrap gap-1 mb-2">'+tagsHtml+'</div>' : '') +
       '<button class="tool-card-btn w-full bg-white/5 border border-white/10 font-black uppercase tracking-[0.15em] mt-auto"' +
-        (!hasFile ? ' disabled style="opacity:0.4;cursor:not-allowed;"' : '') + '>' +
-        (hasFile ? '<i class="fas fa-download mr-1"></i> Download' : 'No File Available') +
+        (!hasDownload ? ' disabled style="opacity:0.4;cursor:not-allowed;"' : '') + '>' +
+        btnLabel +
       '</button>';
-    if (hasFile) {
-      card.querySelector('.tool-card-btn').addEventListener('click', () => downloadTool(tool.id, tool.file_url, tool.name));
+    if (hasDownload) {
+      card.querySelector('.tool-card-btn').addEventListener('click', () => {
+        if (hasFile) downloadTool(tool.id, tool.file_url, tool.name);
+        else openToolLink(tool.id, tool.download_url);
+      });
     }
     grid.appendChild(card);
   });
@@ -950,38 +1023,95 @@ function renderSkeleton() {
 async function downloadTool(toolId, fileUrl, toolName) {
   if (!fileUrl) { toast('No file available.', 'warning'); return; }
   try { if (currentUser) await sb.from('downloads').insert({ user_id: currentUser.id, tool_id: toolId }); } catch(e) {}
+  try { if (currentUser) await sb.from('user_events').insert({ user_id: currentUser.id, tool_id: toolId, event_type: 'download' }); } catch(e) {}
   try { await sb.rpc('increment_downloads', { row_id: toolId }); } catch(e) {}
   window.open(fileUrl, '_blank', 'noopener,noreferrer');
   toast('Download started!', 'success', 2000);
 }
 
-async function loadMyTools() {
-  if (!currentUser) return;
-  const { data } = await sb.from('tools').select('*').eq('author_id', currentUser.id).order('created_at',{ascending:false});
-  myTools = data || [];
-  renderMyTools();
+async function openToolLink(toolId, linkUrl) {
+  if (!linkUrl) { toast('No link available.', 'warning'); return; }
+  try { if (currentUser) await sb.from('downloads').insert({ user_id: currentUser.id, tool_id: toolId }); } catch(e) {}
+  try { if (currentUser) await sb.from('user_events').insert({ user_id: currentUser.id, tool_id: toolId, event_type: 'download' }); } catch(e) {}
+  try { await sb.rpc('increment_downloads', { row_id: toolId }); } catch(e) {}
+  window.open(linkUrl, '_blank', 'noopener,noreferrer');
+  toast('Opening link...', 'info', 2000);
 }
 
-function renderMyTools() {
-  const list = document.getElementById('my-tools-list');
-  if (!myTools.length) { list.innerHTML = '<p class="text-slate-500 italic text-sm">No uploads yet. Hit "Create +" to get started.</p>'; updateStats(); return; }
-  list.innerHTML = '';
-  const sc = { approved:'#4ade80', pending:'#fbbf24', rejected:'#f87171' };
-  const sl = { approved:'Approved', pending:'Pending Review', rejected:'Rejected' };
-  myTools.forEach((tool, i) => {
-    const imgSrc = tool.image_url || 'https://placehold.co/96x96/101010/a855f7?text='+encodeURIComponent(tool.name.charAt(0));
-    const item = document.createElement('div');
-    item.className = 'my-tool-item tool-card-animate'; item.style.animationDelay = (i*0.06)+'s';
-    item.innerHTML =
-      '<img src="'+imgSrc+'" class="my-tool-thumb" onerror="this.src=\'https://placehold.co/96x96/101010/a855f7?text='+encodeURIComponent(tool.name.charAt(0))+'\'">' +
-      '<div class="my-tool-info"><div class="my-tool-name">'+tool.name+'</div><div class="my-tool-cat">'+(tool.category||'')+'</div>' +
-      (tool.status ? '<div style="font-size:0.55rem;font-weight:900;text-transform:uppercase;margin-top:2px;color:'+(sc[tool.status]||'#9ca3af')+'">\u25CF '+(sl[tool.status]||tool.status)+'</div>' : '') +
-      '</div>' +
-      '<button class="my-tool-delete" title="Delete"><i class="fas fa-trash-alt"></i></button>';
-    item.querySelector('.my-tool-delete').addEventListener('click', () => deleteMyTool(tool.id));
-    list.appendChild(item);
+async function loadTools() {
+  renderSkeleton();
+  const { data, error } = await sb.from('tools').select('*').eq('status','approved').order('created_at',{ascending:false});
+  if (!error && data) tools = data;
+  buildFilterChips();
+  filterAndRenderTools();
+  loadRecommendations(); 
+}
+
+async function loadRecommendations() {
+  const recSection = document.getElementById('rec-section');
+  if (!currentUser) { hide(recSection); return; }
+  const { data: recData } = await sb.rpc('get_recommendations', { p_user_id: currentUser.id, p_limit: 6 });
+  if (!recData || !recData.length) { hide(recSection); return; }
+  const ids = recData.map(r => r.tool_id);
+  const { data: recTools } = await sb.from('tools').select('*').in('id', ids).eq('status','approved');
+  if (!recTools || !recTools.length) { hide(recSection); return; }
+  const ordered = ids.map(id => recTools.find(t => t.id == id)).filter(Boolean);
+  const grid = document.getElementById('rec-grid');
+  grid.innerHTML = '';
+  ordered.forEach((tool, i) => {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = makeToolCardHTML(tool, i);
+    const card = tmp.firstElementChild;
+    const hasFile = !!tool.file_url, hasLink = !!tool.download_url;
+    if (hasFile || hasLink) {
+      card.querySelector('.tool-card-btn').addEventListener('click', () => {
+        if (hasFile) downloadTool(tool.id, tool.file_url, tool.name);
+        else openToolLink(tool.id, tool.download_url);
+      });
+    }
+    grid.appendChild(card);
   });
-  updateStats();
+  show(recSection);
+}
+
+function makeToolCard(tool, i) {
+  const imgSrc = tool.image_url || 'https://placehold.co/400x400/101010/a855f7?text=PM.TOOLS';
+  const hasFile = !!tool.file_url, hasLink = !!tool.download_url, hasDownload = hasFile || hasLink;
+  const platCls = PLAT_MAP[tool.platform] || '';
+  const tagsHtml = (tool.tags||[]).slice(0,3).map(t=>'<span class="card-tag">#'+t+'</span>').join('');
+  const dlBadge = hasFile
+    ? '<span class="absolute top-3 right-3 bg-green-600/80 text-[0.55rem] px-2 py-1 rounded-lg font-black uppercase tracking-wider"><i class="fas fa-file-download mr-0.5"></i> File</span>'
+    : (hasLink ? '<span class="absolute top-3 right-3 bg-blue-600/80 text-[0.55rem] px-2 py-1 rounded-lg font-black uppercase tracking-wider"><i class="fas fa-link mr-0.5"></i> Link</span>' : '');
+  const btnLabel = hasFile ? '<i class="fas fa-download mr-1"></i> Download'
+    : (hasLink ? '<i class="fas fa-external-link-alt mr-1"></i> Go to Link' : 'No Source');
+  const card = document.createElement('div');
+  card.className = 'glass tool-card tool-card-inner tool-card-animate overflow-hidden flex flex-col h-full';
+  card.style.animationDelay = (i*0.07)+'s';
+  card.innerHTML =
+    '<div class="tool-card-img bg-slate-900 overflow-hidden relative flex-shrink-0">' +
+      '<img src="'+imgSrc+'" class="w-full h-full object-cover opacity-60" loading="lazy" onerror="this.src=\'https://placehold.co/400x400/101010/a855f7?text=PM.TOOLS\'">' +
+      '<span class="absolute top-3 left-3 bg-purple-600 text-[0.6rem] px-2.5 py-1 rounded-lg font-black uppercase tracking-wider">'+(tool.category||'')+'</span>' +
+      (tool.platform ? '<span class="absolute bottom-3 left-3 platform-badge '+platCls+'">'+tool.platform+'</span>' : '') +
+      dlBadge +
+    '</div>' +
+    '<h4 class="tool-card-title font-black uppercase truncate tracking-tight">'+tool.name+'</h4>' +
+    '<div class="tool-card-desc text-slate-400 overflow-y-auto custom-scroll-area leading-relaxed font-bold pr-1">'+(tool.description||'')+'</div>' +
+    (tagsHtml ? '<div class="flex flex-wrap gap-1 mb-2">'+tagsHtml+'</div>' : '') +
+    '<button class="tool-card-btn w-full bg-white/5 border border-white/10 font-black uppercase tracking-[0.15em] mt-auto"' +
+      (!hasDownload ? ' disabled style="opacity:0.4;cursor:not-allowed;"' : '') + '>' + btnLabel + '</button>';
+  if (hasDownload) {
+    card.querySelector('.tool-card-btn').addEventListener('click', () => {
+      if (hasFile) downloadTool(tool.id, tool.file_url, tool.name);
+      else openToolLink(tool.id, tool.download_url);
+    });
+  }
+  return card;
+}
+
+function renderTools(list) {
+  const grid = document.getElementById('tools-grid'); grid.innerHTML = '';
+  if (!list.length) { grid.innerHTML = '<p class="text-slate-500 italic text-sm col-span-full text-center py-12">No tools found.</p>'; return; }
+  list.forEach((tool, i) => grid.appendChild(makeToolCard(tool, i)));
 }
 
 async function deleteMyTool(id) {
@@ -1005,13 +1135,22 @@ function updateStats() {
 function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('active'); }
 function animateSection(el) { el.classList.remove('section-animate'); void el.offsetWidth; el.classList.add('section-animate'); }
 
-function toggleTab(tab) {
+function toggleTab(tab, pushState) {
   const m = document.getElementById('market-section'), p = document.getElementById('profile-section');
   if (tab === 'profile' && !currentUser) { openAuthModal(); return; }
-  if (tab === 'market') { show(m); hide(p); animateSection(m); }
-  else { hide(m); show(p); animateSection(p); renderMyTools(); if (currentProfile?.role === 'admin') show(document.getElementById('admin-panel')); }
+  if (pushState !== false) history.pushState({ tab }, '', '#' + tab);
+  if (tab === 'market') {
+    show(m); hide(p);
+    m.classList.remove('page-section'); void m.offsetWidth; m.classList.add('page-section');
+  } else {
+    hide(m); show(p);
+    p.classList.remove('page-section'); void p.offsetWidth; p.classList.add('page-section');
+    renderMyTools();
+    if (currentProfile?.role === 'admin') show(document.getElementById('admin-panel'));
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+window.addEventListener('popstate', e => { const tab = e.state?.tab || 'market'; toggleTab(tab, false); });
 
 function openModal() {
   if (!currentUser) { openAuthModal(); return; }
@@ -1025,10 +1164,14 @@ document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeModal(); 
 
 function previewImage(e) {
   const file = e.target.files[0]; if (!file) return;
+  document.getElementById('img-upload-zone').classList.remove('zone-error');
+  clearFieldError('img');
   const r = new FileReader(); r.onload = ev => { const p = document.getElementById('img-preview'); p.src=ev.target.result; p.style.display='block'; document.getElementById('img-upload-placeholder').style.display='none'; }; r.readAsDataURL(file);
 }
 function onFileChosen(e) {
   const file = e.target.files[0]; if (!file) return;
+  document.getElementById('file-upload-zone').classList.remove('zone-error');
+  clearFieldError('dl-file');
   document.getElementById('file-upload-placeholder').style.display = 'none';
   const ch = document.getElementById('file-chosen'); ch.style.display = 'flex';
   document.getElementById('file-chosen-name').textContent = file.name;
@@ -1064,12 +1207,97 @@ async function uploadToStorage(bucket, file, folder) {
   }
 }
 
+// Download tab switcher
+let activeDownloadTab = 'file';
+function switchDownloadTab(tab) {
+  activeDownloadTab = tab;
+  document.getElementById('dl-file-zone').style.display = tab === 'file' ? 'block' : 'none';
+  document.getElementById('dl-url-zone').style.display = tab === 'url' ? 'block' : 'none';
+  document.getElementById('dl-tab-file').classList.toggle('active', tab === 'file');
+  document.getElementById('dl-tab-url').classList.toggle('active', tab === 'url');
+  clearFieldError('dl-file'); clearFieldError('dl-url');
+}
+
+// Custom field validation helpers
+function setFieldError(fieldId, errId, msg) {
+  const field = document.getElementById(fieldId);
+  const err = document.getElementById('err-'+errId);
+  if (field) field.classList.add('field-error');
+  if (err) { if (msg) err.textContent = msg; err.classList.add('show'); }
+}
+function clearFieldError(errId) {
+  const err = document.getElementById('err-'+errId);
+  if (err) err.classList.remove('show');
+}
+function clearFieldInputError(fieldId, errId) {
+  const field = document.getElementById(fieldId);
+  if (field) field.classList.remove('field-error');
+  clearFieldError(errId);
+}
+
+// Attach live clear on input
+['tool-name','tool-desc','tool-download-url'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => {
+    el.classList.remove('field-error');
+    if (id === 'tool-name') clearFieldError('name');
+    if (id === 'tool-desc') clearFieldError('desc');
+    if (id === 'tool-download-url') clearFieldError('dl-url');
+  });
+});
+
+function validateToolForm() {
+  let valid = true;
+  // Name
+  const name = document.getElementById('tool-name').value.trim();
+  if (!name) { setFieldError('tool-name', 'name', 'Tool name is required'); valid = false; }
+  else clearFieldInputError('tool-name','name');
+  // Description
+  const desc = document.getElementById('tool-desc').value.trim();
+  if (!desc) { setFieldError('tool-desc', 'desc', 'Description is required'); valid = false; }
+  else clearFieldInputError('tool-desc','desc');
+  // Image
+  const imgFile = document.getElementById('tool-img-file').files[0];
+  if (!imgFile) {
+    document.getElementById('img-upload-zone').classList.add('zone-error');
+    setFieldError(null, 'img', 'Preview image is required');
+    valid = false;
+  } else {
+    document.getElementById('img-upload-zone').classList.remove('zone-error');
+    clearFieldError('img');
+  }
+  // Download source
+  if (activeDownloadTab === 'file') {
+    const toolFile = document.getElementById('tool-file').files[0];
+    if (!toolFile) {
+      document.getElementById('file-upload-zone').classList.add('zone-error');
+      setFieldError(null, 'dl-file', 'Upload a file or switch to URL');
+      valid = false;
+    } else {
+      document.getElementById('file-upload-zone').classList.remove('zone-error');
+      clearFieldError('dl-file');
+    }
+  } else {
+    const urlVal = document.getElementById('tool-download-url').value.trim();
+    if (!urlVal || !/^https?:\/\/.+/.test(urlVal)) {
+      setFieldError('tool-download-url', 'dl-url', 'Enter a valid URL starting with https://');
+      valid = false;
+    } else clearFieldInputError('tool-download-url','dl-url');
+  }
+  return valid;
+}
+
 document.getElementById('tool-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   if (!currentUser) { openAuthModal(); return; }
+  if (!validateToolForm()) {
+    toast('Please fill in all required fields.', 'warning');
+    return;
+  }
   const btn = document.getElementById('submit-tool-btn');
   const imgFile = document.getElementById('tool-img-file').files[0];
-  const toolFile = document.getElementById('tool-file').files[0];
+  const toolFile = activeDownloadTab === 'file' ? document.getElementById('tool-file').files[0] : null;
+  const downloadUrlVal = activeDownloadTab === 'url' ? document.getElementById('tool-download-url').value.trim() : null;
   btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Uploading...';
   let imageUrl = null, fileUrl = null;
   try {
@@ -1095,16 +1323,20 @@ document.getElementById('tool-form').addEventListener('submit', async function(e
       tags: formTags.slice(),
       image_url: imageUrl,
       file_url: fileUrl,
+      download_url: downloadUrlVal,
       status: 'pending'
     });
     if (error) throw error;
     setUploadProgress(false);
     btn.disabled = false; btn.innerHTML = 'Submit for Review';
-    e.target.reset(); formTags = []; renderFormTags();
+    e.target.reset(); formTags = []; renderFormTags(); activeDownloadTab = 'file'; switchDownloadTab('file');
     document.getElementById('img-preview').style.display = 'none';
     document.getElementById('img-upload-placeholder').style.display = 'block';
+    document.getElementById('img-upload-zone').classList.remove('zone-error');
+    document.getElementById('file-upload-zone').classList.remove('zone-error');
     document.getElementById('file-chosen').style.display = 'none';
     document.getElementById('file-upload-placeholder').style.display = 'block';
+    ['name','desc','img','dl-file','dl-url'].forEach(id => clearFieldError(id));
     closeModal();
     toast(currentProfile?.role === 'admin' ? 'Tool added.' : 'Submitted for review.', 'success');
     await loadMyTools();
@@ -1253,50 +1485,136 @@ function renderAdminAllTools() {
   if (!filtered.length) { list.innerHTML = '<p class="text-slate-500 italic text-sm">No tools found.</p>'; return; }
   const sc = { approved:'#4ade80', pending:'#fbbf24', rejected:'#f87171' };
   filtered.forEach(tool => {
-    const imgSrc = tool.image_url || 'https://placehold.co/48x48/101010/a855f7?text='+encodeURIComponent(tool.name.charAt(0));
-    const el = document.createElement('div'); el.className = 'admin-tool-row';
-    const sc = { approved:'#4ade80', pending:'#fbbf24', rejected:'#f87171' };
-    el.innerHTML =
-      '<img src="'+imgSrc+'" style="width:44px;height:44px;border-radius:8px;object-fit:cover;flex-shrink:0;">' +
-      '<div style="flex:1;min-width:0;">' +
-      '<div style="font-size:0.78rem;font-weight:900;text-transform:uppercase;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+tool.name+'</div>' +
-      '<div style="font-size:0.58rem;margin-top:2px;display:flex;gap:6px;align-items:center;">' +
-      '<span style="color:#a855f7;font-weight:700;text-transform:uppercase;">'+tool.category+'</span>' +
-      '<span style="color:'+(sc[tool.status]||'#9ca3af')+';font-weight:900;text-transform:uppercase;">\u25CF '+tool.status+'</span></div></div>' +
-      '<div style="display:flex;gap:6px;flex-shrink:0;">' +
-      '<select class="cat-select" style="background:rgba(255,255,255,0.05);border:1px solid rgba(168,85,247,0.2);color:#d8b4fe;padding:5px 8px;border-radius:8px;font-size:0.58rem;font-weight:900;text-transform:uppercase;cursor:pointer;font-family:inherit;">' +
-      CATEGORIES.map(c=>'<option value="'+c+'"'+(c===tool.category?' selected':'')+' style="background:#1a1a2e;">'+c+'</option>').join('') +
-      '</select>' +
-      '<button class="del-btn" style="padding:6px 10px;border-radius:8px;background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.3);color:#fca5a5;font-size:0.6rem;cursor:pointer;font-family:inherit;font-weight:900;"><i class="fas fa-trash-alt"></i></button>' +
+    const imgSrc = tool.image_url || 'https://placehold.co/56x56/101010/a855f7?text='+encodeURIComponent((tool.name||'?').charAt(0));
+    const card = document.createElement('div');
+    card.className = 'admin-tool-card';
+    card.id = 'atc-'+tool.id;
+    card.innerHTML =
+      /* top row */
+      '<div style="display:flex;align-items:center;gap:10px;">' +
+        '<div style="position:relative;flex-shrink:0;cursor:pointer;" onclick="adminTriggerImgUpload(\''+tool.id+'\')" title="Change image">' +
+          '<img id="atimg-'+tool.id+'" src="'+imgSrc+'" style="width:52px;height:52px;border-radius:10px;object-fit:cover;display:block;transition:opacity 0.3s;">' +
+          '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);border-radius:10px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.25s;" class="img-hover-overlay"><i class="fas fa-camera" style="color:#7dd3fc;font-size:0.85rem;"></i></div>' +
+          '<input type="file" id="atimginput-'+tool.id+'" accept="image/*" class="hidden" onchange="adminUploadToolImg(\''+tool.id+'\',this)">' +
+        '</div>' +
+        '<div style="flex:1;min-width:0;">' +
+          '<div style="font-size:0.8rem;font-weight:900;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+tool.name+'</div>' +
+          '<div style="font-size:0.58rem;margin-top:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">' +
+            '<span style="color:#a855f7;font-weight:700;text-transform:uppercase;">'+tool.category+'</span>' +
+            '<span style="color:'+(sc[tool.status]||'#9ca3af')+';font-weight:900;text-transform:uppercase;">\u25CF '+tool.status+'</span>' +
+            ((tool.tags||[]).slice(0,3).map(t=>'<span style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);color:rgba(168,85,247,0.7);padding:1px 6px;border-radius:20px;font-size:0.5rem;font-weight:900;">#'+t+'</span>').join('')) +
+          '</div>' +
+        '</div>' +
+        '<div style="display:flex;gap:5px;flex-shrink:0;align-items:center;">' +
+          '<button class="admin-icon-btn admin-edit-trigger" title="Edit name/desc/tags" onclick="adminToggleEdit(\''+tool.id+'\')"><i class="fas fa-pen"></i></button>' +
+          '<select onchange="adminChangeCat(\''+tool.id+'\', this.value)" title="Category" style="background:rgba(255,255,255,0.05);border:1px solid rgba(168,85,247,0.2);color:#d8b4fe;padding:5px 8px;border-radius:8px;font-size:0.55rem;font-weight:900;text-transform:uppercase;cursor:pointer;font-family:inherit;height:30px;">' +
+            CATEGORIES.map(c=>'<option value="'+c+'"'+(c===tool.category?' selected':'')+' style="background:#1a1a2e;">'+c+'</option>').join('') +
+          '</select>' +
+          '<button class="admin-icon-btn admin-del-btn" title="Delete" onclick="adminDeleteTool(\''+tool.id+'\')"><i class="fas fa-trash-alt"></i></button>' +
+        '</div>' +
+      '</div>' +
+      /* edit panel */
+      '<div class="admin-edit-panel" id="aedit-'+tool.id+'">' +
+        '<div class="admin-edit-inner">' +
+          '<div>' +
+            '<div class="admin-edit-label">Name</div>' +
+            '<input type="text" class="admin-edit-input" id="aename-'+tool.id+'" value="'+escHtml(tool.name||'')+'" maxlength="24">' +
+          '</div>' +
+          '<div>' +
+            '<div class="admin-edit-label">Description</div>' +
+            '<textarea class="admin-edit-input admin-edit-textarea" id="aedesc-'+tool.id+'" maxlength="150">'+escHtml(tool.description||'')+'</textarea>' +
+          '</div>' +
+          '<div>' +
+            '<div class="admin-edit-label">Tags (comma-separated)</div>' +
+            '<input type="text" class="admin-edit-input" id="aetags-'+tool.id+'" value="'+(tool.tags||[]).join(', ')+'" placeholder="tag1, tag2, tag3">' +
+          '</div>' +
+          '<div class="admin-action-row">' +
+            '<button class="admin-action-btn admin-cancel-btn" onclick="adminToggleEdit(\''+tool.id+'\')"><i class="fas fa-times"></i> Cancel</button>' +
+            '<button class="admin-action-btn admin-save-btn" onclick="adminSaveToolEdit(\''+tool.id+'\')"><i class="fas fa-check"></i> Save</button>' +
+          '</div>' +
+        '</div>' +
       '</div>';
-    el.querySelector('.cat-select').addEventListener('change', function() { adminChangeCat(tool.id, this.value); });
-    el.querySelector('.del-btn').addEventListener('click', () => adminDeleteTool(tool.id));
-    list.appendChild(el);
+
+    /* hover effect on image overlay */
+    const imgWrap = card.querySelector('[title="Change image"]');
+    const overlay = card.querySelector('.img-hover-overlay');
+    imgWrap.addEventListener('mouseenter', () => overlay.style.opacity = '1');
+    imgWrap.addEventListener('mouseleave', () => overlay.style.opacity = '0');
+
+    list.appendChild(card);
   });
 }
 
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function adminToggleEdit(toolId) {
+  const panel = document.getElementById('aedit-'+toolId);
+  if (!panel) return;
+  panel.classList.toggle('open');
+}
+
+function adminTriggerImgUpload(toolId) {
+  document.getElementById('atimginput-'+toolId)?.click();
+}
+
+async function adminUploadToolImg(toolId, input) {
+  const file = input.files[0]; if (!file) return;
+  if (file.size > 5*1024*1024) { toast('Image must be under 5 MB.', 'warning'); return; }
+  toast('Uploading image...', 'info', 2000);
+  try {
+    const url = await uploadToStorage('images', file, 'tools/');
+    const { error } = await sb.from('tools').update({ image_url: url }).eq('id', toolId);
+    if (error) throw error;
+    const imgEl = document.getElementById('atimg-'+toolId);
+    if (imgEl) { imgEl.style.opacity = '0'; setTimeout(() => { imgEl.src = url; imgEl.style.opacity = '1'; }, 200); }
+    const t = allToolsAdminCache.find(x => x.id == toolId); if (t) t.image_url = url;
+    tools = tools.map(x => x.id == toolId ? {...x, image_url:url} : x);
+    filterAndRenderTools();
+    toast('Image updated!', 'success');
+  } catch(err) { toast('Upload failed: '+err.message, 'error'); }
+}
+
+async function adminSaveToolEdit(toolId) {
+  if (!adminPinHash) return;
+  const nameEl = document.getElementById('aename-'+toolId);
+  const descEl = document.getElementById('aedesc-'+toolId);
+  const tagsEl = document.getElementById('aetags-'+toolId);
+  if (!nameEl) return;
+  const newName = nameEl.value.trim().toUpperCase();
+  const newDesc = descEl.value.trim();
+  const newTags = tagsEl.value.split(',').map(t=>t.trim().toLowerCase().replace(/^#/,'').replace(/[^a-z0-9]/g,'')).filter(Boolean).slice(0,8);
+  if (!newName) { toast('Name cannot be empty.', 'warning'); nameEl.focus(); return; }
+  const { error } = await sb.from('tools').update({ name: newName, description: newDesc, tags: newTags }).eq('id', toolId);
+  if (error) { toast('Save failed: '+error.message, 'error'); return; }
+  const t = allToolsAdminCache.find(x => x.id == toolId);
+  if (t) { t.name = newName; t.description = newDesc; t.tags = newTags; }
+  tools = tools.map(x => x.id == toolId ? {...x, name:newName, description:newDesc, tags:newTags} : x);
+  filterAndRenderTools();
+  adminToggleEdit(toolId);
+  renderAdminAllTools();
+  toast('Tool updated!', 'success', 2000);
+}
+
+
 async function adminChangeCat(toolId, newCat) {
-  if (!adminVerified) return;
-  console.log('adminChangeCat:', toolId, typeof toolId, newCat);
-  const { error } = await sb.from('tools')
-    .update({ category: newCat })
-    .eq('id', toolId);
-  if (error) { toast('Error: '+error.message, 'error'); return; }
-  const t = allToolsAdminCache.find(x => x.id === toolId);
+  if (!adminPinHash) return;
+  const { data, error } = await sb.rpc('admin_update_tool', { target_id: toolId, new_status: null, new_category: newCat, p_hash: adminPinHash });
+  if (error || !data) { toast('Error: '+(error?.message||'Access denied'), 'error'); return; }
+  const t = allToolsAdminCache.find(x => x.id == toolId);
   if (t) t.category = newCat;
-  tools = tools.map(x => x.id === toolId ? {...x, category: newCat} : x);
+  tools = tools.map(x => x.id == toolId ? {...x, category:newCat} : x);
   filterAndRenderTools();
   toast('Category updated.', 'success', 1800);
 }
 
 async function adminDeleteTool(toolId) {
-  if (!adminVerified) return;
+  if (!adminPinHash) return;
   if (!confirm('Delete this tool permanently?')) return;
-  const { error } = await sb.from('tools').delete().eq('id', toolId);
-  if (error) { toast('Error: '+error.message, 'error'); return; }
-  allToolsAdminCache = allToolsAdminCache.filter(t => t.id !== toolId);
-  tools = tools.filter(t => t.id !== toolId);
-  filteredTools = filteredTools.filter(t => t.id !== toolId);
+  const { data, error } = await sb.rpc('admin_delete_tool', { target_id: toolId, p_hash: adminPinHash });
+  if (error || !data) { toast('Error: '+(error?.message||'Access denied'), 'error'); return; }
+  allToolsAdminCache = allToolsAdminCache.filter(t => t.id != toolId);
+  tools = tools.filter(t => t.id != toolId);
+  filteredTools = filteredTools.filter(t => t.id != toolId);
   renderAdminAllTools(); filterAndRenderTools(); loadAdminStats();
   toast('Tool deleted.', 'info', 2000);
 }
@@ -1387,7 +1705,7 @@ async function loadUpgradeCodes() {
     const el = document.createElement('div');
     el.className = 'admin-tool-row';
     el.innerHTML =
-      '<span class="code-badge flex-shrink-0" onclick="navigator.clipboard.writeText(\''+code.code+'\').then(()=>toast(\'Code copied!\',\'success\',1500))">'+code.code+'</span>' +
+      '<span class="code-badge flex-shrink-0">'+code.code+'</span>' +
       '<div style="flex:1;min-width:0;font-size:0.6rem;font-weight:700;text-transform:uppercase;opacity:0.5;">'+new Date(code.created_at).toLocaleDateString()+'</div>' +
       (code.used ? '<span style="font-size:0.58rem;font-weight:900;color:#f87171;text-transform:uppercase;">Used</span>' : '<span style="font-size:0.58rem;font-weight:900;color:#4ade80;text-transform:uppercase;">Available</span>') +
       '<button onclick="deleteCode(\''+code.id+'\')" style="padding:5px 10px;border-radius:8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.25);color:#fca5a5;font-size:0.6rem;cursor:pointer;font-family:inherit;font-weight:900;"><i class="fas fa-times"></i></button>';
@@ -1482,7 +1800,12 @@ document.getElementById('upgrade-code-input').addEventListener('keydown', e => {
 
 renderSkeleton();
 loadTools();
-initAuth();
+initAuth().then(() => {
+  const hash = window.location.hash.replace("#", "") || "market";
+  const tab = ["market","profile"].includes(hash) ? hash : "market";
+  if (tab === "profile" && !currentUser) toggleTab("market", false);
+  else toggleTab(tab, false);
+});
 initRealtime();
 </script>
 </body>
