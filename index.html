@@ -121,8 +121,6 @@ textarea { resize: none !important; }
 .pin-row { display: flex; gap: 10px; justify-content: center; }
 .pin-cell { width: 56px; height: 64px !important; text-align: center !important; font-size: 1.6rem !important; font-weight: 900 !important; border-radius: 14px !important; caret-color: var(--accent); letter-spacing: 0; padding: 0 !important; }
 .pin-cell:focus { border-color: var(--accent) !important; box-shadow: 0 0 18px rgba(168,85,247,0.22); }
-.admin-tool-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(168,85,247,0.1); border-radius: 12px; transition: border-color 0.3s; }
-.admin-tool-row:hover { border-color: rgba(168,85,247,0.25); }
 .admin-search-field { width: 100%; padding: 10px 14px; border-radius: 12px; font-size: 0.72rem; background: rgba(255,255,255,0.04) !important; border: 1px solid rgba(168,85,247,0.18) !important; color: #fff; font-family: 'Unbounded', sans-serif; margin-bottom: 12px; }
 .stat-card { padding: 14px 16px; background: rgba(168,85,247,0.05); border: 1px solid rgba(168,85,247,0.15); border-radius: 14px; text-align: center; }
 .stat-card-val { font-size: 1.4rem; font-weight: 900; color: var(--accent); }
@@ -179,7 +177,6 @@ select option { background: #1a1a2e; color: #fff; }
 .download-toggle { display: flex; background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.18); border-radius: 14px; overflow: hidden; margin-bottom: 10px; }
 .download-toggle-btn { flex: 1; padding: 9px 12px; font-size: 0.6rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; border: none; background: transparent; color: rgba(255,255,255,0.4); font-family: 'Unbounded', sans-serif; transition: all 0.25s; }
 .download-toggle-btn.active { background: rgba(168,85,247,0.2); color: #d8b4fe; }
-/* ── Admin edit panel ─────────────────────────────── */
 .admin-edit-panel { overflow: hidden; max-height: 0; opacity: 0; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease, margin 0.3s ease; }
 .admin-edit-panel.open { max-height: 600px; opacity: 1; margin-top: 10px; }
 .admin-edit-inner { background: rgba(168,85,247,0.04); border: 1px solid rgba(168,85,247,0.15); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
@@ -196,17 +193,14 @@ select option { background: #1a1a2e; color: #fff; }
 .admin-icon-btn { width: 30px; height: 30px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.7rem; transition: all 0.22s; flex-shrink: 0; border: 1px solid transparent; }
 .admin-edit-trigger { background: rgba(168,85,247,0.1); border-color: rgba(168,85,247,0.25); color: #c084fc; }
 .admin-edit-trigger:hover { background: rgba(168,85,247,0.22); transform: scale(1.08); }
-.admin-img-trigger { background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.25); color: #7dd3fc; }
-.admin-img-trigger:hover { background: rgba(56,189,248,0.22); transform: scale(1.08); }
 .admin-del-btn { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.3); color: #fca5a5; }
 .admin-del-btn:hover { background: rgba(220,38,38,0.25); transform: scale(1.08); }
 .admin-tool-card { background: rgba(255,255,255,0.025); border: 1px solid rgba(168,85,247,0.1); border-radius: 16px; padding: 14px; transition: border-color 0.3s, background 0.3s; }
 .admin-tool-card:hover { border-color: rgba(168,85,247,0.25); background: rgba(168,85,247,0.04); }
-/* ── Page section transitions ─── */
+.admin-tool-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(168,85,247,0.1); border-radius: 12px; transition: border-color 0.3s; }
+.admin-tool-row:hover { border-color: rgba(168,85,247,0.25); }
 .page-section { animation: pageFadeIn 0.4s cubic-bezier(0.4,0,0.2,1) forwards; }
 @keyframes pageFadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-/* ── Alignment fixes ─────────────────────────────── */
-.admin-tool-row { display: flex; align-items: flex-start; gap: 10px; }
 .modal-form-grid { display: grid; gap: 12px; }
 .atc-img-wrap:hover .img-hover-overlay { opacity: 1 !important; }
 #signout-btn { transition: opacity 0.3s, border-color 0.3s, color 0.3s; }
@@ -228,11 +222,8 @@ select option { background: #1a1a2e; color: #fff; }
 .admin-tab-active { font-size:0.65rem;font-weight:900;text-transform:uppercase;padding:8px 16px;border-radius:12px;cursor:pointer;transition:all 0.3s;font-family:inherit;background:rgba(168,85,247,0.2);border:1px solid rgba(168,85,247,0.4);color:#d8b4fe; }
 .admin-tab-inactive { font-size:0.65rem;font-weight:900;text-transform:uppercase;padding:8px 16px;border-radius:12px;cursor:pointer;transition:all 0.3s;font-family:inherit;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.4); }
 #rec-section { transition: opacity 0.4s ease; }
-#rec-section.visible { opacity: 1; }
 @media (min-width: 640px) {
   .nav-bar { padding: 14px 24px; }
-  .nav-logo-icon { width: 38px; height: 38px; }
-  .nav-logo-text { font-size: 1.4rem; }
   .page-main { padding-top: calc(var(--nav-h) + 24px); padding-left: 24px; padding-right: 24px; max-width: 720px; margin: 0 auto; }
   .hero-title { font-size: 2.2rem; }
   .hero-subtitle { font-size: 0.95rem; }
@@ -274,6 +265,15 @@ select option { background: #1a1a2e; color: #fff; }
   .hero-title { font-size: 3.5rem; }
   .profile-grid { grid-template-columns: 300px 1fr; }
 }
+
+.dl-zone-container{position:relative;}
+.dl-zone-panel{transition:opacity 0.22s ease;}
+.dl-zone-panel.dz-active{opacity:1;pointer-events:auto;}
+.dl-zone-panel.dz-out-up,.dl-zone-panel.dz-out-down{opacity:0;pointer-events:none;position:absolute;top:0;left:0;right:0;}
+#dl-file-zone,#dl-url-zone{transition:opacity 0.16s ease;}
+.upload-col{display:flex;flex-direction:column;}
+.upload-col>div:last-child:not(.field-error-msg){flex:1;display:flex;flex-direction:column;}
+#img-upload-zone{flex:1;}
 </style>
 </head>
 
@@ -293,7 +293,7 @@ select option { background: #1a1a2e; color: #fff; }
   <div class="flex items-center gap-3 flex-shrink-0 cursor-pointer" onclick="toggleTab('market')">
     <div class="nav-logo-icon logo-container"><img src="logo.png" alt="Logo"></div>
     <span class="nav-logo-text font-black tracking-tighter uppercase">PM<span class="text-purple-500 lowercase">.tools</span></span>
-</div>
+  </div>
   <div class="hidden md:flex items-center gap-6">
     <button onclick="toggleTab('market')" class="nav-menu-btn font-bold opacity-70 hover:opacity-100 uppercase tracking-widest">Market</button>
     <button id="nav-cabinet-btn" onclick="toggleTab('profile')" class="nav-menu-btn font-bold opacity-70 hover:opacity-100 uppercase tracking-widest hidden">Cabinet</button>
@@ -341,7 +341,6 @@ select option { background: #1a1a2e; color: #fff; }
       <h1 class="hero-title font-black gradient-text uppercase leading-tight">Your Ultimate<br>Software Hub</h1>
       <p class="hero-subtitle text-slate-400 font-medium">Download private tools, clickers, and scripts from the community.</p>
     </div>
-
     <div class="search-block">
       <div class="search-wrapper">
         <span class="search-icon-left"><i class="fas fa-search"></i></span>
@@ -359,7 +358,6 @@ select option { background: #1a1a2e; color: #fff; }
         </div>
       </div>
     </div>
-
     <div class="sort-bar">
       <button class="sort-btn active" id="sort-newest" onclick="setSort('newest')">Newest</button>
       <button class="sort-btn" id="sort-popular" onclick="setSort('popular')">Popular</button>
@@ -367,7 +365,6 @@ select option { background: #1a1a2e; color: #fff; }
       <button class="sort-btn" id="sort-za" onclick="setSort('za')">Z-A</button>
       <span class="results-count" id="results-count"></span>
     </div>
-
     <div id="rec-section" class="hidden" style="margin-bottom:24px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
         <span style="font-size:0.6rem;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;background:rgba(168,85,247,0.15);border:1px solid rgba(168,85,247,0.3);color:#c084fc;padding:3px 10px;border-radius:20px;">For You</span>
@@ -376,7 +373,6 @@ select option { background: #1a1a2e; color: #fff; }
       <div class="tools-grid" id="rec-grid"></div>
       <div style="height:1px;background:rgba(168,85,247,0.12);margin-top:24px;margin-bottom:20px;"></div>
     </div>
-
     <div class="tools-grid" id="tools-grid"></div>
   </div>
 
@@ -434,7 +430,6 @@ select option { background: #1a1a2e; color: #fff; }
           <p id="pin-error" class="text-red-400 text-xs font-bold hidden">Wrong PIN. Try again.</p>
           <button onclick="submitAdminPin()" class="glow-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest">Unlock</button>
         </div>
-
         <div id="admin-content" class="hidden">
           <div class="flex items-center gap-3 mb-5">
             <span style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#f87171;padding:4px 12px;border-radius:30px;font-size:0.6rem;font-weight:900;text-transform:uppercase;letter-spacing:0.08em;">ADMIN</span>
@@ -443,13 +438,11 @@ select option { background: #1a1a2e; color: #fff; }
               <i class="fas fa-sync-alt mr-1"></i> Refresh
             </button>
           </div>
-
           <div class="grid grid-cols-3 gap-3 mb-5">
             <div class="stat-card"><div class="stat-card-val" id="admin-stat-users">-</div><div class="stat-card-label">Users</div></div>
             <div class="stat-card"><div class="stat-card-val" id="admin-stat-tools">-</div><div class="stat-card-label">Tools</div></div>
             <div class="stat-card"><div class="stat-card-val text-yellow-400" id="admin-stat-pending">-</div><div class="stat-card-label">Pending</div></div>
           </div>
-
           <div class="flex gap-2 mb-5 flex-wrap">
             <button onclick="adminTab('pending')" id="admin-tab-pending" class="admin-tab-active">
               Pending <span id="pending-count" style="margin-left:4px;background:#a855f7;color:white;padding:1px 6px;border-radius:999px;font-size:0.55rem;">0</span>
@@ -458,12 +451,10 @@ select option { background: #1a1a2e; color: #fff; }
             <button onclick="adminTab('users')" id="admin-tab-users" class="admin-tab-inactive">Users</button>
             <button onclick="adminTab('codes')" id="admin-tab-codes" class="admin-tab-inactive">Dev Codes</button>
           </div>
-
           <div id="admin-pending-section">
             <div id="admin-tools-list" class="space-y-3"></div>
             <p id="admin-empty" class="text-slate-500 italic text-sm hidden">No tools pending review.</p>
           </div>
-
           <div id="admin-alltools-section" class="hidden">
             <div class="flex gap-2 mb-3">
               <input type="text" class="admin-search-field" id="admin-tools-search" placeholder="Search all tools..." oninput="renderAdminAllTools()">
@@ -476,12 +467,10 @@ select option { background: #1a1a2e; color: #fff; }
             </div>
             <div id="admin-all-tools-list" class="space-y-2"></div>
           </div>
-
           <div id="admin-users-section" class="hidden">
             <input type="text" class="admin-search-field" id="admin-users-search" placeholder="Search users..." oninput="renderAdminUsers()">
             <div id="admin-users-list" class="space-y-3"></div>
           </div>
-
           <div id="admin-codes-section" class="hidden">
             <div class="flex items-center justify-between mb-4">
               <p class="text-xs font-bold opacity-50 uppercase tracking-widest">Developer Upgrade Codes</p>
@@ -538,48 +527,54 @@ select option { background: #1a1a2e; color: #fff; }
           <textarea id="tool-desc" placeholder="What does it do? Why should people use it?" class="w-full p-3 rounded-xl h-24 custom-scroll-area text-sm" maxlength="150"></textarea>
           <p class="field-error-msg" id="err-desc">Description is required</p>
         </div>
-        <div class="grid modal-form-grid">
-          <div>
+        <div class="grid modal-form-grid" style="align-items:stretch;">
+          <div class="upload-col">
             <label class="text-[0.65rem] font-bold opacity-50 uppercase mb-1.5 block">Preview Image</label>
-            <div id="img-upload-zone" onclick="document.getElementById('tool-img-file').click()"
-              class="modal-upload-zone upload-zone-hover border-2 border-dashed border-purple-500/20 text-center cursor-pointer relative overflow-hidden"
-              style="min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-              <div id="img-upload-placeholder">
-                <i class="fas fa-image text-2xl text-purple-400 mb-2"></i>
-                <span class="block text-[0.65rem] font-bold opacity-70 uppercase">Click to upload</span>
-                <span class="block text-[0.55rem] opacity-40 mt-1">PNG, JPG up to 5 MB</span>
+            <div>
+              <div id="img-upload-zone" onclick="document.getElementById('tool-img-file').click()"
+                class="modal-upload-zone upload-zone-hover border-2 border-dashed border-purple-500/20 text-center cursor-pointer relative overflow-hidden"
+                style="min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <div id="img-upload-placeholder">
+                  <i class="fas fa-image text-2xl text-purple-400 mb-2"></i>
+                  <span class="block text-[0.65rem] font-bold opacity-70 uppercase">Click to upload</span>
+                  <span class="block text-[0.55rem] opacity-40 mt-1">PNG, JPG up to 5 MB</span>
+                </div>
+                <img id="img-preview" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;">
+                <input type="file" id="tool-img-file" accept="image/*" class="hidden" onchange="previewImage(event)">
               </div>
-              <img id="img-preview" src="" alt="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:16px;">
-              <input type="file" id="tool-img-file" accept="image/*" class="hidden" onchange="previewImage(event)">
+              <p class="field-error-msg" id="err-img">Preview image is required</p>
             </div>
-            <p class="field-error-msg" id="err-img">Preview image is required</p>
           </div>
-          <div>
+          <div class="upload-col">
             <label class="text-[0.65rem] font-bold opacity-50 uppercase mb-1.5 block">Download Source</label>
-            <div class="download-toggle">
-              <button type="button" class="download-toggle-btn active" id="dl-tab-file" onclick="switchDownloadTab('file')"><i class="fas fa-file-upload mr-1"></i>Upload File</button>
-              <button type="button" class="download-toggle-btn" id="dl-tab-url" onclick="switchDownloadTab('url')"><i class="fas fa-link mr-1"></i>Link URL</button>
-            </div>
-            <div id="dl-file-zone">
-              <div id="file-upload-zone" onclick="document.getElementById('tool-file').click()"
-                class="modal-upload-zone upload-zone-hover border-2 border-dashed border-purple-500/20 text-center cursor-pointer"
-                style="min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-                <div id="file-upload-placeholder">
-                  <i class="fas fa-file-code text-2xl text-purple-400 mb-2"></i>
-                  <span class="block text-[0.65rem] font-bold opacity-70 uppercase">Click to select</span>
-                  <span class="block text-[0.55rem] opacity-40 mt-1">EXE, ZIP, RAR up to 50 MB</span>
-                </div>
-                <div id="file-chosen" style="display:none;flex-direction:column;align-items:center;gap:4px;">
-                  <i class="fas fa-check-circle text-green-400 text-2xl mb-1"></i>
-                  <span id="file-chosen-name" class="text-[0.6rem] font-bold text-green-400 break-all px-2 text-center"></span>
-                </div>
-                <input type="file" id="tool-file" class="hidden" onchange="onFileChosen(event)">
+            <div style="display:flex;flex-direction:column;flex:1;">
+              <div class="download-toggle" style="margin-bottom:8px;">
+                <button type="button" class="download-toggle-btn active" id="dl-tab-file" onclick="switchDownloadTab('file')"><i class="fas fa-file-upload mr-1"></i>Upload File</button>
+                <button type="button" class="download-toggle-btn" id="dl-tab-url" onclick="switchDownloadTab('url')"><i class="fas fa-link mr-1"></i>Link URL</button>
               </div>
-              <p class="field-error-msg" id="err-dl-file">Upload a file or switch to URL</p>
-            </div>
-            <div id="dl-url-zone" style="display:none;">
-              <input type="url" id="tool-download-url" placeholder="https://example.com/tool.zip" class="w-full p-3 rounded-xl text-sm" style="font-size:0.72rem;">
-              <p class="field-error-msg" id="err-dl-url">Enter a valid URL starting with https://</p>
+              <div class="dl-zone-container" style="min-height:100px;">
+                <div id="dl-file-zone" class="dl-zone-panel dz-active" style="width:100%;">
+                  <div id="file-upload-zone" onclick="document.getElementById('tool-file').click()"
+                    class="modal-upload-zone upload-zone-hover border-2 border-dashed border-purple-500/20 text-center cursor-pointer"
+                    style="height:100%;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                    <div id="file-upload-placeholder">
+                      <i class="fas fa-file-code text-2xl text-purple-400 mb-2"></i>
+                      <span class="block text-[0.65rem] font-bold opacity-70 uppercase">Click to select</span>
+                      <span class="block text-[0.55rem] opacity-40 mt-1">EXE, ZIP, RAR up to 50 MB</span>
+                    </div>
+                    <div id="file-chosen" style="display:none;flex-direction:column;align-items:center;gap:4px;">
+                      <i class="fas fa-check-circle text-green-400 text-2xl mb-1"></i>
+                      <span id="file-chosen-name" class="text-[0.6rem] font-bold text-green-400 break-all px-2 text-center"></span>
+                    </div>
+                    <input type="file" id="tool-file" class="hidden" onchange="onFileChosen(event)">
+                  </div>
+                  <p class="field-error-msg" id="err-dl-file">Upload a file or switch to URL</p>
+                </div>
+                <div id="dl-url-zone" class="dl-zone-panel dz-out-down" style="width:100%;display:none;">
+                  <input type="url" id="tool-download-url" placeholder="https://example.com/tool.zip" class="w-full p-3 rounded-xl text-sm" style="font-size:0.72rem;height:100%;min-height:100px;">
+                  <p class="field-error-msg" id="err-dl-url">Enter a valid URL starting with https://</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -652,21 +647,14 @@ const SUPABASE_URL = 'https://mysggcexwvsycbcpcaic.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15c2dnY2V4d3ZzeWNiY3BjYWljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyOTc1NjAsImV4cCI6MjA5Mjg3MzU2MH0.l199pRC8ZyLAZmna7aou__UbkLZT40UylZkfGUaGNcU';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-let currentUser = null;
-let currentProfile = null;
-let tools = [];
-let filteredTools = [];
-let myTools = [];
-let adminVerified = false;
-let adminPinHash = null;
-let allUsersCache = [];
-let allToolsAdminCache = [];
-let currentSort = 'newest';
-let filterState = { query: '', categories: new Set(), platforms: new Set() };
-let formTags = [];
+let currentUser = null, currentProfile = null, tools = [], filteredTools = [], myTools = [];
+let adminVerified = false, adminPinHash = null, allUsersCache = [], allToolsAdminCache = [];
+let currentSort = 'newest', filterState = { query: '', categories: new Set(), platforms: new Set() };
+let formTags = [], activeDownloadTab = 'file';
 
 const CATEGORIES = ['Gaming','System','Design','Hacking','AI','Security','Utilities','Web','Scripts'];
 const PLATFORMS = ['Windows','macOS','Linux','Web','Android','iOS','Cross-platform'];
+const PLAT_MAP = { 'Windows':'plat-win','macOS':'plat-mac','Linux':'plat-linux','Web':'plat-web','Android':'plat-android','iOS':'plat-ios','Cross-platform':'plat-cross' };
 
 async function sha256(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
@@ -675,8 +663,7 @@ async function sha256(str) {
 
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
-let particles = [];
-let raf = null;
+let particles = [], raf = null;
 function initCanvas() {
   canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles = [];
   const n = window.innerWidth < 640 ? 25 : 50;
@@ -706,13 +693,16 @@ function dismissToast(el) {
   clearTimeout(el._t); el.classList.remove('show'); el.classList.add('hide');
   setTimeout(() => el.remove(), 400);
 }
-
 function show(el) { el && el.classList.remove('hidden'); }
 function hide(el) { el && el.classList.add('hidden'); }
 
 async function initAuth() {
   const { data: { session } } = await sb.auth.getSession();
-  if (session?.user) { currentUser = session.user; await loadProfile(currentUser.id); await loadMyTools(); }
+  if (session?.user) {
+    currentUser = session.user;
+    await loadProfile(currentUser.id);
+    await loadMyTools();
+  }
   updateUIForAuth();
   sb.auth.onAuthStateChange(async (event, session) => {
     if (event === 'SIGNED_IN' && session?.user) {
@@ -739,6 +729,32 @@ async function loadProfile(userId) {
   } else { currentProfile = data; }
 }
 
+async function loadMyTools() {
+  if (!currentUser) return;
+  const { data } = await sb.from('tools').select('*').eq('author_id', currentUser.id).order('created_at', { ascending: false });
+  myTools = data || [];
+  renderMyTools();
+  updateStats();
+}
+
+function renderMyTools() {
+  const list = document.getElementById('my-tools-list'); if (!list) return;
+  if (!currentUser) { list.innerHTML = ''; return; }
+  if (!myTools.length) { list.innerHTML = '<p class="text-slate-500 italic text-sm">No uploads yet. Hit "Create +" to get started.</p>'; return; }
+  list.innerHTML = '';
+  myTools.forEach(tool => {
+    const imgSrc = tool.image_url || 'https://placehold.co/48x48/101010/a855f7?text='+encodeURIComponent((tool.name||'?').charAt(0));
+    const sc = { approved:'#4ade80', pending:'#fbbf24', rejected:'#f87171' };
+    const el = document.createElement('div'); el.className = 'my-tool-item';
+    el.innerHTML =
+      '<img src="'+imgSrc+'" class="my-tool-thumb">' +
+      '<div class="my-tool-info"><div class="my-tool-name">'+tool.name+'</div>' +
+      '<div class="my-tool-cat" style="color:'+(sc[tool.status]||'#a855f7')+';">'+(tool.category||'')+' · '+(tool.status||'pending')+'</div></div>' +
+      '<div class="my-tool-delete" onclick="deleteMyTool(\''+tool.id+'\')"><i class="fas fa-trash-alt"></i></div>';
+    list.appendChild(el);
+  });
+}
+
 function updateUIForAuth() {
   const loggedIn = !!currentUser;
   const role = currentProfile?.role || 'member';
@@ -748,10 +764,10 @@ function updateUIForAuth() {
   const gp = document.getElementById('profile-guest-prompt');
   const ap = document.getElementById('admin-panel');
   const ub = document.getElementById('upgrade-btn');
-  if (so) { so.style.display = loggedIn ? 'flex' : ''; }
-  if (gp) { loggedIn ? hide(gp) : show(gp); }
-  if (ap) { loggedIn && role === 'admin' ? show(ap) : hide(ap); }
-  if (ub) { loggedIn && role === 'member' ? show(ub) : hide(ub); }
+  if (so) so.style.display = loggedIn ? 'flex' : '';
+  if (gp) loggedIn ? hide(gp) : show(gp);
+  if (ap) loggedIn && role === 'admin' ? show(ap) : hide(ap);
+  if (ub) loggedIn && role === 'member' ? show(ub) : hide(ub);
   if (loggedIn && currentProfile) {
     const uEl = document.getElementById('profile-username');
     if (uEl && !uEl.querySelector('input')) uEl.textContent = (currentProfile.username || 'User').toUpperCase();
@@ -876,36 +892,24 @@ async function loadTools() {
   if (!error && data) tools = data;
   buildFilterChips();
   filterAndRenderTools();
+  loadRecommendations();
 }
 
 function buildFilterChips() {
-  const catContainers = ['cat-chips','mobile-cat-chips'];
-  const platContainers = ['plat-chips','mobile-plat-chips'];
-  catContainers.forEach(id => {
+  ['cat-chips','mobile-cat-chips'].forEach(id => {
     const el = document.getElementById(id); if (!el) return; el.innerHTML = '';
-    CATEGORIES.forEach(cat => {
-      const b = document.createElement('button'); b.className = 'filter-chip' + (filterState.categories.has(cat) ? ' active' : '');
-      b.textContent = cat; b.onclick = () => toggleCategory(cat); el.appendChild(b);
-    });
+    CATEGORIES.forEach(cat => { const b = document.createElement('button'); b.className = 'filter-chip'+(filterState.categories.has(cat)?' active':''); b.textContent = cat; b.onclick = () => toggleCategory(cat); el.appendChild(b); });
   });
-  platContainers.forEach(id => {
+  ['plat-chips','mobile-plat-chips'].forEach(id => {
     const el = document.getElementById(id); if (!el) return; el.innerHTML = '';
-    PLATFORMS.forEach(plat => {
-      const b = document.createElement('button'); b.className = 'filter-chip' + (filterState.platforms.has(plat) ? ' active' : '');
-      b.textContent = plat; b.onclick = () => togglePlatform(plat); el.appendChild(b);
-    });
+    PLATFORMS.forEach(plat => { const b = document.createElement('button'); b.className = 'filter-chip'+(filterState.platforms.has(plat)?' active':''); b.textContent = plat; b.onclick = () => togglePlatform(plat); el.appendChild(b); });
   });
 }
 
 function filterAndRenderTools() {
   const q = filterState.query.toLowerCase().trim();
   let list = tools.filter(t => {
-    if (q) {
-      const nm = (t.name||'').toLowerCase().includes(q);
-      const dc = (t.description||'').toLowerCase().includes(q);
-      const tg = (t.tags||[]).some(x => x.toLowerCase().includes(q));
-      if (!nm && !dc && !tg) return false;
-    }
+    if (q && !(t.name||'').toLowerCase().includes(q) && !(t.description||'').toLowerCase().includes(q) && !(t.tags||[]).some(x=>x.toLowerCase().includes(q))) return false;
     if (filterState.categories.size > 0 && !filterState.categories.has(t.category)) return false;
     if (filterState.platforms.size > 0 && !filterState.platforms.has(t.platform)) return false;
     return true;
@@ -920,104 +924,84 @@ function filterAndRenderTools() {
   renderTools(list);
 }
 
-function onSearchInput(val) {
-  filterState.query = val;
-  const cb = document.getElementById('main-clear-btn');
-  if (cb) cb.style.display = val ? 'block' : 'none';
-  filterAndRenderTools();
-}
+function onSearchInput(val) { filterState.query = val; const cb = document.getElementById('main-clear-btn'); if (cb) cb.style.display = val ? 'block' : 'none'; filterAndRenderTools(); }
 function clearMainSearch() { document.getElementById('main-search-field').value = ''; onSearchInput(''); }
-function onMobileSearchInput(val) {
-  filterState.query = val;
-  const cb = document.getElementById('mobile-clear-btn');
-  if (cb) cb.style.display = val ? 'block' : 'none';
-  filterAndRenderTools();
-}
+function onMobileSearchInput(val) { filterState.query = val; const cb = document.getElementById('mobile-clear-btn'); if (cb) cb.style.display = val ? 'block' : 'none'; filterAndRenderTools(); }
 function clearMobileSearch() { document.getElementById('mobile-search-field').value = ''; onMobileSearchInput(''); }
-function toggleFilterPanel() {
-  const p = document.getElementById('filter-panel');
-  const b = document.getElementById('filter-toggle-btn');
-  p.classList.toggle('open'); b.classList.toggle('active');
-}
-function toggleCategory(cat) {
-  if (filterState.categories.has(cat)) filterState.categories.delete(cat); else filterState.categories.add(cat);
-  buildFilterChips(); filterAndRenderTools();
-}
-function togglePlatform(plat) {
-  if (filterState.platforms.has(plat)) filterState.platforms.delete(plat); else filterState.platforms.add(plat);
-  buildFilterChips(); filterAndRenderTools();
-}
+function toggleFilterPanel() { document.getElementById('filter-panel').classList.toggle('open'); document.getElementById('filter-toggle-btn').classList.toggle('active'); }
+function toggleCategory(cat) { if (filterState.categories.has(cat)) filterState.categories.delete(cat); else filterState.categories.add(cat); buildFilterChips(); filterAndRenderTools(); }
+function togglePlatform(plat) { if (filterState.platforms.has(plat)) filterState.platforms.delete(plat); else filterState.platforms.add(plat); buildFilterChips(); filterAndRenderTools(); }
 function clearAllFilters() {
   filterState.categories.clear(); filterState.platforms.clear(); filterState.query = '';
-  document.getElementById('main-search-field').value = '';
-  document.getElementById('mobile-search-field').value = '';
-  document.getElementById('main-clear-btn').style.display = 'none';
-  document.getElementById('mobile-clear-btn').style.display = 'none';
+  document.getElementById('main-search-field').value = ''; document.getElementById('mobile-search-field').value = '';
+  document.getElementById('main-clear-btn').style.display = 'none'; document.getElementById('mobile-clear-btn').style.display = 'none';
   buildFilterChips(); filterAndRenderTools();
 }
-function setSort(s) {
-  currentSort = s;
-  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-  const el = document.getElementById('sort-'+s); if (el) el.classList.add('active');
-  filterAndRenderTools();
-}
+function setSort(s) { currentSort = s; document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active')); const el = document.getElementById('sort-'+s); if (el) el.classList.add('active'); filterAndRenderTools(); }
 function openMobileSearch() { document.getElementById('mobile-search-overlay').classList.add('open'); document.body.style.overflow = 'hidden'; setTimeout(()=>document.getElementById('mobile-search-field').focus(),200); }
 function closeMobileSearch() { document.getElementById('mobile-search-overlay').classList.remove('open'); document.body.style.overflow = ''; }
 
-const PLAT_MAP = { 'Windows':'plat-win','macOS':'plat-mac','Linux':'plat-linux','Web':'plat-web','Android':'plat-android','iOS':'plat-ios','Cross-platform':'plat-cross' };
+function makeToolCard(tool, i) {
+  const imgSrc = tool.image_url || 'https://placehold.co/400x400/101010/a855f7?text=PM.TOOLS';
+  const hasFile = !!tool.file_url, hasLink = !!tool.download_url, hasDownload = hasFile || hasLink;
+  const platCls = PLAT_MAP[tool.platform] || '';
+  const tagsHtml = (tool.tags||[]).slice(0,3).map(t=>'<span class="card-tag">#'+t+'</span>').join('');
+  const dlBadge = hasFile
+    ? '<span class="absolute top-3 right-3 bg-green-600/80 text-[0.55rem] px-2 py-1 rounded-lg font-black uppercase tracking-wider"><i class="fas fa-file-download mr-0.5"></i> File</span>'
+    : (hasLink ? '<span class="absolute top-3 right-3 bg-blue-600/80 text-[0.55rem] px-2 py-1 rounded-lg font-black uppercase tracking-wider"><i class="fas fa-link mr-0.5"></i> Link</span>' : '');
+  const btnLabel = hasFile ? '<i class="fas fa-download mr-1"></i> Download' : (hasLink ? '<i class="fas fa-external-link-alt mr-1"></i> Go to Link' : 'No Source');
+  const card = document.createElement('div');
+  card.className = 'glass tool-card tool-card-inner tool-card-animate overflow-hidden flex flex-col h-full';
+  card.style.animationDelay = (i*0.07)+'s';
+  card.innerHTML =
+    '<div class="tool-card-img bg-slate-900 overflow-hidden relative flex-shrink-0">' +
+      '<img src="'+imgSrc+'" class="w-full h-full object-cover opacity-60" loading="lazy" onerror="this.src=\'https://placehold.co/400x400/101010/a855f7?text=PM.TOOLS\'">' +
+      '<span class="absolute top-3 left-3 bg-purple-600 text-[0.6rem] px-2.5 py-1 rounded-lg font-black uppercase tracking-wider">'+(tool.category||'')+'</span>' +
+      (tool.platform ? '<span class="absolute bottom-3 left-3 platform-badge '+platCls+'">'+tool.platform+'</span>' : '') +
+      dlBadge +
+    '</div>' +
+    '<h4 class="tool-card-title font-black uppercase truncate tracking-tight">'+tool.name+'</h4>' +
+    '<div class="tool-card-desc text-slate-400 overflow-y-auto custom-scroll-area leading-relaxed font-bold pr-1">'+(tool.description||'')+'</div>' +
+    (tagsHtml ? '<div class="flex flex-wrap gap-1 mb-2">'+tagsHtml+'</div>' : '') +
+    '<button class="tool-card-btn w-full bg-white/5 border border-white/10 font-black uppercase tracking-[0.15em] mt-auto"'+(!hasDownload?' disabled style="opacity:0.4;cursor:not-allowed;"':'')+'>'+btnLabel+'</button>';
+  if (hasDownload) {
+    card.querySelector('.tool-card-btn').addEventListener('click', () => {
+      if (hasFile) downloadTool(tool.id, tool.file_url, tool.name);
+      else openToolLink(tool.id, tool.download_url);
+    });
+  }
+  return card;
+}
 
 function renderTools(list) {
   const grid = document.getElementById('tools-grid'); grid.innerHTML = '';
   if (!list.length) { grid.innerHTML = '<p class="text-slate-500 italic text-sm col-span-full text-center py-12">No tools found.</p>'; return; }
-  list.forEach((tool, i) => {
-    const imgSrc = tool.image_url || 'https://placehold.co/400x400/101010/a855f7?text=PM.TOOLS';
-    const hasFile = !!tool.file_url;
-    const hasLink = !!tool.download_url;
-    const hasDownload = hasFile || hasLink;
-    const platCls = PLAT_MAP[tool.platform] || '';
-    const tagsHtml = (tool.tags||[]).slice(0,3).map(t=>'<span class="card-tag">#'+t+'</span>').join('');
-    const card = document.createElement('div');
-    card.className = 'glass tool-card tool-card-inner tool-card-animate overflow-hidden flex flex-col h-full';
-    card.style.animationDelay = (i*0.07)+'s';
-    const dlBadge = hasFile
-      ? '<span class="absolute top-3 right-3 bg-green-600/80 text-[0.55rem] px-2 py-1 rounded-lg font-black uppercase tracking-wider"><i class="fas fa-file-download mr-0.5"></i> File</span>'
-      : (hasLink ? '<span class="absolute top-3 right-3 bg-blue-600/80 text-[0.55rem] px-2 py-1 rounded-lg font-black uppercase tracking-wider"><i class="fas fa-link mr-0.5"></i> Link</span>' : '');
-    const btnLabel = hasFile
-      ? '<i class="fas fa-download mr-1"></i> Download'
-      : (hasLink ? '<i class="fas fa-external-link-alt mr-1"></i> Go to Link' : 'No Source');
-    card.innerHTML =
-      '<div class="tool-card-img bg-slate-900 overflow-hidden relative flex-shrink-0">' +
-        '<img src="'+imgSrc+'" class="w-full h-full object-cover opacity-60" loading="lazy" onerror="this.src=\'https://placehold.co/400x400/101010/a855f7?text=PM.TOOLS\'">' +
-        '<span class="absolute top-3 left-3 bg-purple-600 text-[0.6rem] px-2.5 py-1 rounded-lg font-black uppercase tracking-wider">'+(tool.category||'')+'</span>' +
-        (tool.platform ? '<span class="absolute bottom-3 left-3 platform-badge '+platCls+'">'+tool.platform+'</span>' : '') +
-        dlBadge +
-      '</div>' +
-      '<h4 class="tool-card-title font-black uppercase truncate tracking-tight">'+tool.name+'</h4>' +
-      '<div class="tool-card-desc text-slate-400 overflow-y-auto custom-scroll-area leading-relaxed font-bold pr-1">'+(tool.description||'')+'</div>' +
-      (tagsHtml ? '<div class="flex flex-wrap gap-1 mb-2">'+tagsHtml+'</div>' : '') +
-      '<button class="tool-card-btn w-full bg-white/5 border border-white/10 font-black uppercase tracking-[0.15em] mt-auto"' +
-        (!hasDownload ? ' disabled style="opacity:0.4;cursor:not-allowed;"' : '') + '>' +
-        btnLabel +
-      '</button>';
-    if (hasDownload) {
-      card.querySelector('.tool-card-btn').addEventListener('click', () => {
-        if (hasFile) downloadTool(tool.id, tool.file_url, tool.name);
-        else openToolLink(tool.id, tool.download_url);
-      });
-    }
-    grid.appendChild(card);
-  });
+  list.forEach((tool, i) => grid.appendChild(makeToolCard(tool, i)));
 }
 
 function renderSkeleton() {
   const grid = document.getElementById('tools-grid'); grid.innerHTML = '';
   for (let i = 0; i < 4; i++) {
-    const sk = document.createElement('div');
-    sk.className = 'glass tool-card-inner overflow-hidden skeleton-pulse';
-    sk.style.borderRadius = '20px';
+    const sk = document.createElement('div'); sk.className = 'glass tool-card-inner overflow-hidden skeleton-pulse'; sk.style.borderRadius = '20px';
     sk.innerHTML = '<div style="height:160px;border-radius:16px;background:rgba(168,85,247,0.08);margin-bottom:12px;"></div><div style="height:14px;border-radius:8px;background:rgba(255,255,255,0.06);margin-bottom:8px;width:70%;"></div><div style="height:10px;border-radius:8px;background:rgba(255,255,255,0.04);margin-bottom:4px;"></div><div style="height:10px;border-radius:8px;background:rgba(255,255,255,0.04);width:80%;margin-bottom:12px;"></div><div style="height:38px;border-radius:14px;background:rgba(168,85,247,0.06);"></div>';
     grid.appendChild(sk);
   }
+}
+
+async function loadRecommendations() {
+  const recSection = document.getElementById('rec-section');
+  if (!currentUser) { hide(recSection); return; }
+  try {
+    const { data: recData } = await sb.rpc('get_recommendations', { p_user_id: currentUser.id, p_limit: 6 });
+    if (!recData || !recData.length) { hide(recSection); return; }
+    const ids = recData.map(r => r.tool_id);
+    const { data: recTools } = await sb.from('tools').select('*').in('id', ids).eq('status','approved');
+    if (!recTools || !recTools.length) { hide(recSection); return; }
+    const ordered = ids.map(id => recTools.find(t => t.id == id)).filter(Boolean);
+    const grid = document.getElementById('rec-grid'); grid.innerHTML = '';
+    ordered.forEach((tool, i) => grid.appendChild(makeToolCard(tool, i)));
+    show(recSection);
+  } catch(e) { hide(recSection); }
 }
 
 async function downloadTool(toolId, fileUrl, toolName) {
@@ -1036,82 +1020,6 @@ async function openToolLink(toolId, linkUrl) {
   try { await sb.rpc('increment_downloads', { row_id: toolId }); } catch(e) {}
   window.open(linkUrl, '_blank', 'noopener,noreferrer');
   toast('Opening link...', 'info', 2000);
-}
-
-async function loadTools() {
-  renderSkeleton();
-  const { data, error } = await sb.from('tools').select('*').eq('status','approved').order('created_at',{ascending:false});
-  if (!error && data) tools = data;
-  buildFilterChips();
-  filterAndRenderTools();
-  loadRecommendations(); 
-}
-
-async function loadRecommendations() {
-  const recSection = document.getElementById('rec-section');
-  if (!currentUser) { hide(recSection); return; }
-  const { data: recData } = await sb.rpc('get_recommendations', { p_user_id: currentUser.id, p_limit: 6 });
-  if (!recData || !recData.length) { hide(recSection); return; }
-  const ids = recData.map(r => r.tool_id);
-  const { data: recTools } = await sb.from('tools').select('*').in('id', ids).eq('status','approved');
-  if (!recTools || !recTools.length) { hide(recSection); return; }
-  const ordered = ids.map(id => recTools.find(t => t.id == id)).filter(Boolean);
-  const grid = document.getElementById('rec-grid');
-  grid.innerHTML = '';
-  ordered.forEach((tool, i) => {
-    const tmp = document.createElement('div');
-    tmp.innerHTML = makeToolCardHTML(tool, i);
-    const card = tmp.firstElementChild;
-    const hasFile = !!tool.file_url, hasLink = !!tool.download_url;
-    if (hasFile || hasLink) {
-      card.querySelector('.tool-card-btn').addEventListener('click', () => {
-        if (hasFile) downloadTool(tool.id, tool.file_url, tool.name);
-        else openToolLink(tool.id, tool.download_url);
-      });
-    }
-    grid.appendChild(card);
-  });
-  show(recSection);
-}
-
-function makeToolCard(tool, i) {
-  const imgSrc = tool.image_url || 'https://placehold.co/400x400/101010/a855f7?text=PM.TOOLS';
-  const hasFile = !!tool.file_url, hasLink = !!tool.download_url, hasDownload = hasFile || hasLink;
-  const platCls = PLAT_MAP[tool.platform] || '';
-  const tagsHtml = (tool.tags||[]).slice(0,3).map(t=>'<span class="card-tag">#'+t+'</span>').join('');
-  const dlBadge = hasFile
-    ? '<span class="absolute top-3 right-3 bg-green-600/80 text-[0.55rem] px-2 py-1 rounded-lg font-black uppercase tracking-wider"><i class="fas fa-file-download mr-0.5"></i> File</span>'
-    : (hasLink ? '<span class="absolute top-3 right-3 bg-blue-600/80 text-[0.55rem] px-2 py-1 rounded-lg font-black uppercase tracking-wider"><i class="fas fa-link mr-0.5"></i> Link</span>' : '');
-  const btnLabel = hasFile ? '<i class="fas fa-download mr-1"></i> Download'
-    : (hasLink ? '<i class="fas fa-external-link-alt mr-1"></i> Go to Link' : 'No Source');
-  const card = document.createElement('div');
-  card.className = 'glass tool-card tool-card-inner tool-card-animate overflow-hidden flex flex-col h-full';
-  card.style.animationDelay = (i*0.07)+'s';
-  card.innerHTML =
-    '<div class="tool-card-img bg-slate-900 overflow-hidden relative flex-shrink-0">' +
-      '<img src="'+imgSrc+'" class="w-full h-full object-cover opacity-60" loading="lazy" onerror="this.src=\'https://placehold.co/400x400/101010/a855f7?text=PM.TOOLS\'">' +
-      '<span class="absolute top-3 left-3 bg-purple-600 text-[0.6rem] px-2.5 py-1 rounded-lg font-black uppercase tracking-wider">'+(tool.category||'')+'</span>' +
-      (tool.platform ? '<span class="absolute bottom-3 left-3 platform-badge '+platCls+'">'+tool.platform+'</span>' : '') +
-      dlBadge +
-    '</div>' +
-    '<h4 class="tool-card-title font-black uppercase truncate tracking-tight">'+tool.name+'</h4>' +
-    '<div class="tool-card-desc text-slate-400 overflow-y-auto custom-scroll-area leading-relaxed font-bold pr-1">'+(tool.description||'')+'</div>' +
-    (tagsHtml ? '<div class="flex flex-wrap gap-1 mb-2">'+tagsHtml+'</div>' : '') +
-    '<button class="tool-card-btn w-full bg-white/5 border border-white/10 font-black uppercase tracking-[0.15em] mt-auto"' +
-      (!hasDownload ? ' disabled style="opacity:0.4;cursor:not-allowed;"' : '') + '>' + btnLabel + '</button>';
-  if (hasDownload) {
-    card.querySelector('.tool-card-btn').addEventListener('click', () => {
-      if (hasFile) downloadTool(tool.id, tool.file_url, tool.name);
-      else openToolLink(tool.id, tool.download_url);
-    });
-  }
-  return card;
-}
-
-function renderTools(list) {
-  const grid = document.getElementById('tools-grid'); grid.innerHTML = '';
-  if (!list.length) { grid.innerHTML = '<p class="text-slate-500 italic text-sm col-span-full text-center py-12">No tools found.</p>'; return; }
-  list.forEach((tool, i) => grid.appendChild(makeToolCard(tool, i)));
 }
 
 async function deleteMyTool(id) {
@@ -1133,7 +1041,6 @@ function updateStats() {
 }
 
 function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('active'); }
-function animateSection(el) { el.classList.remove('section-animate'); void el.offsetWidth; el.classList.add('section-animate'); }
 
 function toggleTab(tab, pushState) {
   const m = document.getElementById('market-section'), p = document.getElementById('profile-section');
@@ -1184,58 +1091,48 @@ function setUploadProgress(vis, text, pct) {
 
 async function uploadToStorage(bucket, file, folder) {
   folder = folder || '';
-  const MAX_RETRIES = 3;
-  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+  for (let attempt = 1; attempt <= 3; attempt++) {
     const ext = file.name.split('.').pop();
     const fname = folder + Date.now() + '_' + Math.random().toString(36).substr(2,6) + '.' + ext;
     const { data, error } = await sb.storage.from(bucket).upload(fname, file, { cacheControl:'3600', upsert:false });
-    if (!error) {
-      const { data: { publicUrl } } = sb.storage.from(bucket).getPublicUrl(fname);
-      return publicUrl;
-    }
-    if (attempt < MAX_RETRIES) {
-      setUploadProgress(true, 'Retrying... attempt '+(attempt+1), 10 + attempt*10);
-      await new Promise(r => setTimeout(r, 1200 * attempt));
-      continue;
-    }
-    if (error.message.includes('Bucket not found') || error.statusCode === 404) {
-      toast('Bucket "'+bucket+'" not found. Create it in Supabase Storage.', 'warning', 8000);
-    } else {
-      toast('Upload failed after '+MAX_RETRIES+' attempts: '+error.message, 'error', 6000);
-    }
+    if (!error) { const { data: { publicUrl } } = sb.storage.from(bucket).getPublicUrl(fname); return publicUrl; }
+    if (attempt < 3) { setUploadProgress(true, 'Retrying... attempt '+(attempt+1), 10+attempt*10); await new Promise(r => setTimeout(r, 1200*attempt)); continue; }
+    if (error.message.includes('Bucket not found') || error.statusCode === 404) toast('Bucket "'+bucket+'" not found.', 'warning', 8000);
+    else toast('Upload failed: '+error.message, 'error', 6000);
     throw new Error(error.message);
   }
 }
 
-// Download tab switcher
-let activeDownloadTab = 'file';
 function switchDownloadTab(tab) {
   activeDownloadTab = tab;
-  document.getElementById('dl-file-zone').style.display = tab === 'file' ? 'block' : 'none';
-  document.getElementById('dl-url-zone').style.display = tab === 'url' ? 'block' : 'none';
+  const filePanel = document.getElementById('dl-file-zone');
+  const urlPanel  = document.getElementById('dl-url-zone');
   document.getElementById('dl-tab-file').classList.toggle('active', tab === 'file');
   document.getElementById('dl-tab-url').classList.toggle('active', tab === 'url');
-  clearFieldError('dl-file'); clearFieldError('dl-url');
+  const outPanel = tab === 'file' ? urlPanel : filePanel;
+  const inPanel  = tab === 'file' ? filePanel : urlPanel;
+  outPanel.style.opacity = '0';
+  setTimeout(() => {
+    outPanel.style.display = 'none';
+    inPanel.style.opacity = '0';
+    inPanel.style.display = 'block';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      inPanel.style.opacity = '1';
+    }));
+  }, 220);
+  clearFieldError('dl-file');
+  clearFieldError('dl-url');
 }
 
-// Custom field validation helpers
 function setFieldError(fieldId, errId, msg) {
   const field = document.getElementById(fieldId);
   const err = document.getElementById('err-'+errId);
   if (field) field.classList.add('field-error');
   if (err) { if (msg) err.textContent = msg; err.classList.add('show'); }
 }
-function clearFieldError(errId) {
-  const err = document.getElementById('err-'+errId);
-  if (err) err.classList.remove('show');
-}
-function clearFieldInputError(fieldId, errId) {
-  const field = document.getElementById(fieldId);
-  if (field) field.classList.remove('field-error');
-  clearFieldError(errId);
-}
+function clearFieldError(errId) { const err = document.getElementById('err-'+errId); if (err) err.classList.remove('show'); }
+function clearFieldInputError(fieldId, errId) { const field = document.getElementById(fieldId); if (field) field.classList.remove('field-error'); clearFieldError(errId); }
 
-// Attach live clear on input
 ['tool-name','tool-desc','tool-download-url'].forEach(id => {
   const el = document.getElementById(id);
   if (el) el.addEventListener('input', () => {
@@ -1248,41 +1145,21 @@ function clearFieldInputError(fieldId, errId) {
 
 function validateToolForm() {
   let valid = true;
-  // Name
   const name = document.getElementById('tool-name').value.trim();
-  if (!name) { setFieldError('tool-name', 'name', 'Tool name is required'); valid = false; }
-  else clearFieldInputError('tool-name','name');
-  // Description
+  if (!name) { setFieldError('tool-name', 'name', 'Tool name is required'); valid = false; } else clearFieldInputError('tool-name','name');
   const desc = document.getElementById('tool-desc').value.trim();
-  if (!desc) { setFieldError('tool-desc', 'desc', 'Description is required'); valid = false; }
-  else clearFieldInputError('tool-desc','desc');
-  // Image
+  if (!desc) { setFieldError('tool-desc', 'desc', 'Description is required'); valid = false; } else clearFieldInputError('tool-desc','desc');
   const imgFile = document.getElementById('tool-img-file').files[0];
-  if (!imgFile) {
-    document.getElementById('img-upload-zone').classList.add('zone-error');
-    setFieldError(null, 'img', 'Preview image is required');
-    valid = false;
-  } else {
-    document.getElementById('img-upload-zone').classList.remove('zone-error');
-    clearFieldError('img');
-  }
-  // Download source
+  if (!imgFile) { document.getElementById('img-upload-zone').classList.add('zone-error'); setFieldError(null, 'img', 'Preview image is required'); valid = false; }
+  else { document.getElementById('img-upload-zone').classList.remove('zone-error'); clearFieldError('img'); }
   if (activeDownloadTab === 'file') {
     const toolFile = document.getElementById('tool-file').files[0];
-    if (!toolFile) {
-      document.getElementById('file-upload-zone').classList.add('zone-error');
-      setFieldError(null, 'dl-file', 'Upload a file or switch to URL');
-      valid = false;
-    } else {
-      document.getElementById('file-upload-zone').classList.remove('zone-error');
-      clearFieldError('dl-file');
-    }
+    if (!toolFile) { document.getElementById('file-upload-zone').classList.add('zone-error'); setFieldError(null, 'dl-file', 'Upload a file or switch to URL'); valid = false; }
+    else { document.getElementById('file-upload-zone').classList.remove('zone-error'); clearFieldError('dl-file'); }
   } else {
     const urlVal = document.getElementById('tool-download-url').value.trim();
-    if (!urlVal || !/^https?:\/\/.+/.test(urlVal)) {
-      setFieldError('tool-download-url', 'dl-url', 'Enter a valid URL starting with https://');
-      valid = false;
-    } else clearFieldInputError('tool-download-url','dl-url');
+    if (!urlVal || !/^https?:\/\/.+/.test(urlVal)) { setFieldError('tool-download-url', 'dl-url', 'Enter a valid URL starting with https://'); valid = false; }
+    else clearFieldInputError('tool-download-url','dl-url');
   }
   return valid;
 }
@@ -1290,10 +1167,7 @@ function validateToolForm() {
 document.getElementById('tool-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   if (!currentUser) { openAuthModal(); return; }
-  if (!validateToolForm()) {
-    toast('Please fill in all required fields.', 'warning');
-    return;
-  }
+  if (!validateToolForm()) { toast('Please fill in all required fields.', 'warning'); return; }
   const btn = document.getElementById('submit-tool-btn');
   const imgFile = document.getElementById('tool-img-file').files[0];
   const toolFile = activeDownloadTab === 'file' ? document.getElementById('tool-file').files[0] : null;
@@ -1301,34 +1175,19 @@ document.getElementById('tool-form').addEventListener('submit', async function(e
   btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Uploading...';
   let imageUrl = null, fileUrl = null;
   try {
-    if (imgFile) {
-      if (imgFile.size > 5*1024*1024) throw new Error('Image exceeds 5 MB limit.');
-      setUploadProgress(true, 'Uploading image...', 20);
-      imageUrl = await uploadToStorage('images', imgFile, 'tools/');
-      setUploadProgress(true, 'Image uploaded', 50);
-    }
-    if (toolFile) {
-      if (toolFile.size > 50*1024*1024) throw new Error('File exceeds 50 MB limit.');
-      setUploadProgress(true, 'Uploading file...', 60);
-      fileUrl = await uploadToStorage('files', toolFile, 'tools/');
-      setUploadProgress(true, 'File uploaded', 88);
-    }
-    setUploadProgress(true, 'Saving...', 95);
+    if (imgFile) { if (imgFile.size > 5*1024*1024) throw new Error('Image exceeds 5 MB limit.'); setUploadProgress(true,'Uploading image...',20); imageUrl = await uploadToStorage('images', imgFile, 'tools/'); setUploadProgress(true,'Image uploaded',50); }
+    if (toolFile) { if (toolFile.size > 50*1024*1024) throw new Error('File exceeds 50 MB limit.'); setUploadProgress(true,'Uploading file...',60); fileUrl = await uploadToStorage('files', toolFile, 'tools/'); setUploadProgress(true,'File uploaded',88); }
+    setUploadProgress(true,'Saving...',95);
     const { error } = await sb.from('tools').insert({
       author_id: currentUser.id,
       name: document.getElementById('tool-name').value.toUpperCase(),
       description: document.getElementById('tool-desc').value,
       category: document.getElementById('tool-category').value,
       platform: document.getElementById('tool-platform').value,
-      tags: formTags.slice(),
-      image_url: imageUrl,
-      file_url: fileUrl,
-      download_url: downloadUrlVal,
-      status: 'pending'
+      tags: formTags.slice(), image_url: imageUrl, file_url: fileUrl, download_url: downloadUrlVal, status: 'pending'
     });
     if (error) throw error;
-    setUploadProgress(false);
-    btn.disabled = false; btn.innerHTML = 'Submit for Review';
+    setUploadProgress(false); btn.disabled = false; btn.innerHTML = 'Submit for Review';
     e.target.reset(); formTags = []; renderFormTags(); activeDownloadTab = 'file'; switchDownloadTab('file');
     document.getElementById('img-preview').style.display = 'none';
     document.getElementById('img-upload-placeholder').style.display = 'block';
@@ -1340,19 +1199,16 @@ document.getElementById('tool-form').addEventListener('submit', async function(e
     closeModal();
     toast(currentProfile?.role === 'admin' ? 'Tool added.' : 'Submitted for review.', 'success');
     await loadMyTools();
-  } catch(err) {
-    setUploadProgress(false); btn.disabled = false; btn.innerHTML = 'Submit for Review';
-    toast('Error: '+err.message, 'error', 6000);
-  }
+  } catch(err) { setUploadProgress(false); btn.disabled = false; btn.innerHTML = 'Submit for Review'; toast('Error: '+err.message, 'error', 6000); }
 });
 
 function handleTagKeydown(e) {
   if (e.key === 'Enter' || e.key === ' ' || e.key === ',') { e.preventDefault(); addTagFromInput(e.target); }
   if (e.key === 'Backspace' && !e.target.value && formTags.length) { formTags.pop(); renderFormTags(); }
 }
-function handleTagInput(inp) { const val = inp.value; if (val.endsWith(' ') || val.endsWith(',')) { addTagFromInput(inp); } }
+function handleTagInput(inp) { const val = inp.value; if (val.endsWith(' ') || val.endsWith(',')) addTagFromInput(inp); }
 function addTagFromInput(inp) {
-  let val = inp.value.trim().replace(/^#/, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  let val = inp.value.trim().replace(/^#/,'').toLowerCase().replace(/[^a-z0-9]/g,'');
   if (!val || formTags.includes(val) || formTags.length >= 8) { inp.value = ''; return; }
   formTags.push(val); renderFormTags(); inp.value = '';
 }
@@ -1361,23 +1217,15 @@ function renderFormTags() {
   const wrapper = document.getElementById('tag-input-wrapper');
   wrapper.querySelectorAll('.tag-chip-item').forEach(el => el.remove());
   const realInp = document.getElementById('tag-real-input');
-  formTags.forEach((tag, i) => {
-    const chip = document.createElement('span'); chip.className = 'tag-chip-item';
-    chip.innerHTML = '#'+tag+'<span class="tag-chip-remove" onclick="removeTag('+i+')">&#x2715;</span>';
-    wrapper.insertBefore(chip, realInp);
-  });
+  formTags.forEach((tag, i) => { const chip = document.createElement('span'); chip.className = 'tag-chip-item'; chip.innerHTML = '#'+tag+'<span class="tag-chip-remove" onclick="removeTag('+i+')">&#x2715;</span>'; wrapper.insertBefore(chip, realInp); });
 }
 
 async function pinInput(e, idx) {
-  const val = e.target.value.replace(/\D/,'');
-  e.target.value = val;
+  const val = e.target.value.replace(/\D/,''); e.target.value = val;
   if (val && idx < 3) document.getElementById('pin-'+(idx+1)).focus();
-  const allFilled = [0,1,2,3].every(i => document.getElementById('pin-'+i).value.length === 1);
-  if (allFilled) await submitAdminPin();
+  if ([0,1,2,3].every(i => document.getElementById('pin-'+i).value.length === 1)) await submitAdminPin();
 }
-function pinKeydown(e, idx) {
-  if (e.key === 'Backspace' && !e.target.value && idx > 0) document.getElementById('pin-'+(idx-1)).focus();
-}
+function pinKeydown(e, idx) { if (e.key === 'Backspace' && !e.target.value && idx > 0) document.getElementById('pin-'+(idx-1)).focus(); }
 
 async function submitAdminPin() {
   const pin = [0,1,2,3].map(i => document.getElementById('pin-'+i).value).join('');
@@ -1388,11 +1236,9 @@ async function submitAdminPin() {
   if (error || !data) {
     errEl.classList.remove('hidden');
     [0,1,2,3].forEach(i => { const el = document.getElementById('pin-'+i); el.value = ''; if(i===0) el.focus(); });
-    setTimeout(() => errEl.classList.add('hidden'), 3000);
-    return;
+    setTimeout(() => errEl.classList.add('hidden'), 3000); return;
   }
-  adminVerified = true;
-  adminPinHash = hash;
+  adminVerified = true; adminPinHash = hash;
   document.getElementById('admin-pin-gate').style.display = 'none';
   show(document.getElementById('admin-content'));
   refreshAdminPanel();
@@ -1406,13 +1252,13 @@ async function refreshAdminPanel() {
 
 async function loadAdminStats() {
   const [{ count: uc }, { count: tc }, { count: pc }] = await Promise.all([
-    sb.from('users').select('*', { count:'exact', head:true }),
-    sb.from('tools').select('*', { count:'exact', head:true }),
-    sb.from('tools').select('*', { count:'exact', head:true }).eq('status','pending')
+    sb.from('users').select('*',{count:'exact',head:true}),
+    sb.from('tools').select('*',{count:'exact',head:true}),
+    sb.from('tools').select('*',{count:'exact',head:true}).eq('status','pending')
   ]);
-  document.getElementById('admin-stat-users').textContent = uc || 0;
-  document.getElementById('admin-stat-tools').textContent = tc || 0;
-  document.getElementById('admin-stat-pending').textContent = pc || 0;
+  document.getElementById('admin-stat-users').textContent = uc||0;
+  document.getElementById('admin-stat-tools').textContent = tc||0;
+  document.getElementById('admin-stat-pending').textContent = pc||0;
 }
 
 async function fetchUsernameMap(ids) {
@@ -1438,12 +1284,11 @@ async function loadPendingTools() {
   toolList.forEach(tool => {
     const author = umap[tool.author_id] || 'unknown';
     const imgSrc = tool.image_url || 'https://placehold.co/56x56/101010/a855f7?text='+encodeURIComponent(tool.name.charAt(0));
-    const el = document.createElement('div');
-    el.className = 'admin-tool-row';
+    const el = document.createElement('div'); el.className = 'admin-tool-row';
     el.innerHTML =
       '<img src="'+imgSrc+'" style="width:52px;height:52px;border-radius:10px;object-fit:cover;flex-shrink:0;">' +
       '<div style="flex:1;min-width:0;"><div style="font-size:0.8rem;font-weight:900;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+tool.name+'</div>' +
-      '<div style="font-size:0.6rem;color:#a855f7;font-weight:700;text-transform:uppercase;margin-top:2px;">'+tool.category+' &middot; by '+author+'</div>' +
+      '<div style="font-size:0.6rem;color:#a855f7;font-weight:700;text-transform:uppercase;margin-top:2px;">'+tool.category+' · by '+author+'</div>' +
       '<div style="font-size:0.62rem;color:#64748b;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+(tool.description||'')+'</div></div>' +
       '<div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0;">' +
       '<button onclick="moderateTool(\''+tool.id+'\',\'approved\')" style="padding:6px 14px;border-radius:10px;background:rgba(5,150,105,0.15);border:1px solid rgba(5,150,105,0.4);color:#6ee7b7;font-size:0.6rem;font-weight:900;text-transform:uppercase;cursor:pointer;font-family:inherit;">Approve</button>' +
@@ -1455,28 +1300,26 @@ async function loadPendingTools() {
 
 async function moderateTool(toolId, status) {
   if (!adminPinHash) return;
-  console.log('moderateTool called:', toolId, status); 
-  const { data, error } = await sb.from('tools')
-    .update({ status: status })
-    .eq('id', toolId);
+  const { error } = await sb.from('tools').update({ status }).eq('id', toolId);
   if (error) { toast('Error: '+error.message, 'error'); return; }
   toast(status === 'approved' ? 'Tool approved.' : 'Tool rejected.', status === 'approved' ? 'success' : 'warning');
-  await loadPendingTools();
-  await loadAdminStats();
-  await loadTools();
+  await loadPendingTools(); await loadAdminStats(); await loadTools();
 }
+
 async function loadAllToolsAdmin() {
   if (!adminVerified) return;
-  const { data } = await sb.from('tools').select('*').order('created_at', { ascending:false });
+  const { data } = await sb.from('tools').select('*').order('created_at',{ascending:false});
   allToolsAdminCache = data || [];
   renderAdminAllTools();
 }
+
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 function renderAdminAllTools() {
   const q = (document.getElementById('admin-tools-search')?.value || '').toLowerCase();
   const sf = document.getElementById('admin-tools-status-filter')?.value || '';
   const list = document.getElementById('admin-all-tools-list'); if (!list) return;
-  let filtered = allToolsAdminCache.filter(t => {
+  const filtered = allToolsAdminCache.filter(t => {
     if (q && !(t.name||'').toLowerCase().includes(q) && !(t.description||'').toLowerCase().includes(q)) return false;
     if (sf && t.status !== sf) return false;
     return true;
@@ -1487,10 +1330,8 @@ function renderAdminAllTools() {
   filtered.forEach(tool => {
     const imgSrc = tool.image_url || 'https://placehold.co/56x56/101010/a855f7?text='+encodeURIComponent((tool.name||'?').charAt(0));
     const card = document.createElement('div');
-    card.className = 'admin-tool-card';
-    card.id = 'atc-'+tool.id;
+    card.className = 'admin-tool-card'; card.id = 'atc-'+tool.id;
     card.innerHTML =
-      /* top row */
       '<div style="display:flex;align-items:center;gap:10px;">' +
         '<div style="position:relative;flex-shrink:0;cursor:pointer;" onclick="adminTriggerImgUpload(\''+tool.id+'\')" title="Change image">' +
           '<img id="atimg-'+tool.id+'" src="'+imgSrc+'" style="width:52px;height:52px;border-radius:10px;object-fit:cover;display:block;transition:opacity 0.3s;">' +
@@ -1498,64 +1339,42 @@ function renderAdminAllTools() {
           '<input type="file" id="atimginput-'+tool.id+'" accept="image/*" class="hidden" onchange="adminUploadToolImg(\''+tool.id+'\',this)">' +
         '</div>' +
         '<div style="flex:1;min-width:0;">' +
-          '<div style="font-size:0.8rem;font-weight:900;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+tool.name+'</div>' +
+          '<div style="font-size:0.8rem;font-weight:900;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+escHtml(tool.name||'')+'</div>' +
           '<div style="font-size:0.58rem;margin-top:3px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">' +
-            '<span style="color:#a855f7;font-weight:700;text-transform:uppercase;">'+tool.category+'</span>' +
-            '<span style="color:'+(sc[tool.status]||'#9ca3af')+';font-weight:900;text-transform:uppercase;">\u25CF '+tool.status+'</span>' +
-            ((tool.tags||[]).slice(0,3).map(t=>'<span style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);color:rgba(168,85,247,0.7);padding:1px 6px;border-radius:20px;font-size:0.5rem;font-weight:900;">#'+t+'</span>').join('')) +
+            '<span style="color:#a855f7;font-weight:700;text-transform:uppercase;">'+escHtml(tool.category||'')+'</span>' +
+            '<span style="color:'+(sc[tool.status]||'#9ca3af')+';font-weight:900;text-transform:uppercase;">● '+tool.status+'</span>' +
+            ((tool.tags||[]).slice(0,3).map(t=>'<span style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);color:rgba(168,85,247,0.7);padding:1px 6px;border-radius:20px;font-size:0.5rem;font-weight:900;">#'+escHtml(t)+'</span>').join('')) +
           '</div>' +
         '</div>' +
         '<div style="display:flex;gap:5px;flex-shrink:0;align-items:center;">' +
-          '<button class="admin-icon-btn admin-edit-trigger" title="Edit name/desc/tags" onclick="adminToggleEdit(\''+tool.id+'\')"><i class="fas fa-pen"></i></button>' +
-          '<select onchange="adminChangeCat(\''+tool.id+'\', this.value)" title="Category" style="background:rgba(255,255,255,0.05);border:1px solid rgba(168,85,247,0.2);color:#d8b4fe;padding:5px 8px;border-radius:8px;font-size:0.55rem;font-weight:900;text-transform:uppercase;cursor:pointer;font-family:inherit;height:30px;">' +
+          '<button class="admin-icon-btn admin-edit-trigger" title="Edit" onclick="adminToggleEdit(\''+tool.id+'\')"><i class="fas fa-pen"></i></button>' +
+          '<select onchange="adminChangeCat(\''+tool.id+'\',this.value)" style="background:rgba(255,255,255,0.05);border:1px solid rgba(168,85,247,0.2);color:#d8b4fe;padding:5px 8px;border-radius:8px;font-size:0.55rem;font-weight:900;text-transform:uppercase;cursor:pointer;font-family:inherit;height:30px;">' +
             CATEGORIES.map(c=>'<option value="'+c+'"'+(c===tool.category?' selected':'')+' style="background:#1a1a2e;">'+c+'</option>').join('') +
           '</select>' +
           '<button class="admin-icon-btn admin-del-btn" title="Delete" onclick="adminDeleteTool(\''+tool.id+'\')"><i class="fas fa-trash-alt"></i></button>' +
         '</div>' +
       '</div>' +
-      /* edit panel */
       '<div class="admin-edit-panel" id="aedit-'+tool.id+'">' +
         '<div class="admin-edit-inner">' +
-          '<div>' +
-            '<div class="admin-edit-label">Name</div>' +
-            '<input type="text" class="admin-edit-input" id="aename-'+tool.id+'" value="'+escHtml(tool.name||'')+'" maxlength="24">' +
-          '</div>' +
-          '<div>' +
-            '<div class="admin-edit-label">Description</div>' +
-            '<textarea class="admin-edit-input admin-edit-textarea" id="aedesc-'+tool.id+'" maxlength="150">'+escHtml(tool.description||'')+'</textarea>' +
-          '</div>' +
-          '<div>' +
-            '<div class="admin-edit-label">Tags (comma-separated)</div>' +
-            '<input type="text" class="admin-edit-input" id="aetags-'+tool.id+'" value="'+(tool.tags||[]).join(', ')+'" placeholder="tag1, tag2, tag3">' +
-          '</div>' +
+          '<div><div class="admin-edit-label">Name</div><input type="text" class="admin-edit-input" id="aename-'+tool.id+'" value="'+escHtml(tool.name||'')+'" maxlength="24"></div>' +
+          '<div><div class="admin-edit-label">Description</div><textarea class="admin-edit-input admin-edit-textarea" id="aedesc-'+tool.id+'" maxlength="150">'+escHtml(tool.description||'')+'</textarea></div>' +
+          '<div><div class="admin-edit-label">Tags (comma-separated)</div><input type="text" class="admin-edit-input" id="aetags-'+tool.id+'" value="'+(tool.tags||[]).join(', ')+'" placeholder="tag1, tag2, tag3"></div>' +
           '<div class="admin-action-row">' +
             '<button class="admin-action-btn admin-cancel-btn" onclick="adminToggleEdit(\''+tool.id+'\')"><i class="fas fa-times"></i> Cancel</button>' +
             '<button class="admin-action-btn admin-save-btn" onclick="adminSaveToolEdit(\''+tool.id+'\')"><i class="fas fa-check"></i> Save</button>' +
           '</div>' +
         '</div>' +
       '</div>';
-
-    /* hover effect on image overlay */
     const imgWrap = card.querySelector('[title="Change image"]');
     const overlay = card.querySelector('.img-hover-overlay');
     imgWrap.addEventListener('mouseenter', () => overlay.style.opacity = '1');
     imgWrap.addEventListener('mouseleave', () => overlay.style.opacity = '0');
-
     list.appendChild(card);
   });
 }
 
-function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-function adminToggleEdit(toolId) {
-  const panel = document.getElementById('aedit-'+toolId);
-  if (!panel) return;
-  panel.classList.toggle('open');
-}
-
-function adminTriggerImgUpload(toolId) {
-  document.getElementById('atimginput-'+toolId)?.click();
-}
+function adminToggleEdit(toolId) { const p = document.getElementById('aedit-'+toolId); if (p) p.classList.toggle('open'); }
+function adminTriggerImgUpload(toolId) { document.getElementById('atimginput-'+toolId)?.click(); }
 
 async function adminUploadToolImg(toolId, input) {
   const file = input.files[0]; if (!file) return;
@@ -1566,11 +1385,10 @@ async function adminUploadToolImg(toolId, input) {
     const { error } = await sb.from('tools').update({ image_url: url }).eq('id', toolId);
     if (error) throw error;
     const imgEl = document.getElementById('atimg-'+toolId);
-    if (imgEl) { imgEl.style.opacity = '0'; setTimeout(() => { imgEl.src = url; imgEl.style.opacity = '1'; }, 200); }
-    const t = allToolsAdminCache.find(x => x.id == toolId); if (t) t.image_url = url;
-    tools = tools.map(x => x.id == toolId ? {...x, image_url:url} : x);
-    filterAndRenderTools();
-    toast('Image updated!', 'success');
+    if (imgEl) { imgEl.style.opacity='0'; setTimeout(()=>{ imgEl.src=url; imgEl.style.opacity='1'; },200); }
+    const t = allToolsAdminCache.find(x=>x.id==toolId); if (t) t.image_url=url;
+    tools = tools.map(x=>x.id==toolId?{...x,image_url:url}:x);
+    filterAndRenderTools(); toast('Image updated!', 'success');
   } catch(err) { toast('Upload failed: '+err.message, 'error'); }
 }
 
@@ -1584,27 +1402,22 @@ async function adminSaveToolEdit(toolId) {
   const newDesc = descEl.value.trim();
   const newTags = tagsEl.value.split(',').map(t=>t.trim().toLowerCase().replace(/^#/,'').replace(/[^a-z0-9]/g,'')).filter(Boolean).slice(0,8);
   if (!newName) { toast('Name cannot be empty.', 'warning'); nameEl.focus(); return; }
-  const { error } = await sb.from('tools').update({ name: newName, description: newDesc, tags: newTags }).eq('id', toolId);
+  const { error } = await sb.from('tools').update({ name:newName, description:newDesc, tags:newTags }).eq('id', toolId);
   if (error) { toast('Save failed: '+error.message, 'error'); return; }
-  const t = allToolsAdminCache.find(x => x.id == toolId);
-  if (t) { t.name = newName; t.description = newDesc; t.tags = newTags; }
-  tools = tools.map(x => x.id == toolId ? {...x, name:newName, description:newDesc, tags:newTags} : x);
-  filterAndRenderTools();
-  adminToggleEdit(toolId);
-  renderAdminAllTools();
+  const t = allToolsAdminCache.find(x=>x.id==toolId);
+  if (t) { t.name=newName; t.description=newDesc; t.tags=newTags; }
+  tools = tools.map(x=>x.id==toolId?{...x,name:newName,description:newDesc,tags:newTags}:x);
+  filterAndRenderTools(); adminToggleEdit(toolId); renderAdminAllTools();
   toast('Tool updated!', 'success', 2000);
 }
-
 
 async function adminChangeCat(toolId, newCat) {
   if (!adminPinHash) return;
   const { data, error } = await sb.rpc('admin_update_tool', { target_id: toolId, new_status: null, new_category: newCat, p_hash: adminPinHash });
   if (error || !data) { toast('Error: '+(error?.message||'Access denied'), 'error'); return; }
-  const t = allToolsAdminCache.find(x => x.id == toolId);
-  if (t) t.category = newCat;
-  tools = tools.map(x => x.id == toolId ? {...x, category:newCat} : x);
-  filterAndRenderTools();
-  toast('Category updated.', 'success', 1800);
+  const t = allToolsAdminCache.find(x=>x.id==toolId); if (t) t.category=newCat;
+  tools = tools.map(x=>x.id==toolId?{...x,category:newCat}:x);
+  filterAndRenderTools(); toast('Category updated.', 'success', 1800);
 }
 
 async function adminDeleteTool(toolId) {
@@ -1612,9 +1425,8 @@ async function adminDeleteTool(toolId) {
   if (!confirm('Delete this tool permanently?')) return;
   const { data, error } = await sb.rpc('admin_delete_tool', { target_id: toolId, p_hash: adminPinHash });
   if (error || !data) { toast('Error: '+(error?.message||'Access denied'), 'error'); return; }
-  allToolsAdminCache = allToolsAdminCache.filter(t => t.id != toolId);
-  tools = tools.filter(t => t.id != toolId);
-  filteredTools = filteredTools.filter(t => t.id != toolId);
+  allToolsAdminCache = allToolsAdminCache.filter(t=>t.id!=toolId);
+  tools = tools.filter(t=>t.id!=toolId); filteredTools = filteredTools.filter(t=>t.id!=toolId);
   renderAdminAllTools(); filterAndRenderTools(); loadAdminStats();
   toast('Tool deleted.', 'info', 2000);
 }
@@ -1637,14 +1449,12 @@ function renderAdminUsers() {
     const el = document.createElement('div'); el.className = 'admin-tool-row';
     el.innerHTML =
       '<div style="width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem;flex-shrink:0;">'+(user.username||'U').charAt(0).toUpperCase()+'</div>' +
-      '<div style="flex:1;min-width:0;">' +
-      '<div style="font-size:0.78rem;font-weight:900;text-transform:uppercase;" id="uname-disp-'+user.id+'" ondblclick="inlineRenameUser(\''+user.id+'\')">' + ((user.username||'').toUpperCase()) + '</div>' +
-      '<div style="font-size:0.58rem;color:#64748b;margin-top:1px;">'+user.email+'</div>' +
-      '</div>' +
+      '<div style="flex:1;min-width:0;"><div style="font-size:0.78rem;font-weight:900;text-transform:uppercase;" id="uname-disp-'+user.id+'" ondblclick="inlineRenameUser(\''+user.id+'\')">'+escHtml((user.username||'').toUpperCase())+'</div>' +
+      '<div style="font-size:0.58rem;color:#64748b;margin-top:1px;">'+escHtml(user.email||'')+'</div></div>' +
       '<div style="display:flex;gap:6px;flex-shrink:0;align-items:center;">' +
-      '<select onchange="changeUserRole(\''+user.id+'\', this.value)" style="background:rgba(255,255,255,0.05);border:1px solid rgba(168,85,247,0.2);color:'+(rc[user.role]||'#fff')+';padding:6px 10px;border-radius:10px;font-size:0.62rem;font-weight:900;text-transform:uppercase;cursor:pointer;font-family:inherit;">' +
-      ['member','developer','admin'].map(r=>'<option value="'+r+'"'+(user.role===r?' selected':'')+' style="background:#1a1a2e;">'+r.charAt(0).toUpperCase()+r.slice(1)+'</option>').join('') + '</select>' +
-      '<button onclick="deleteUser(\''+user.id+'\')" style="padding:6px 10px;border-radius:8px;background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.3);color:#fca5a5;font-size:0.6rem;cursor:pointer;font-family:inherit;font-weight:900;" title="Delete user"><i class="fas fa-user-times"></i></button>' +
+      '<select onchange="changeUserRole(\''+user.id+'\',this.value)" style="background:rgba(255,255,255,0.05);border:1px solid rgba(168,85,247,0.2);color:'+(rc[user.role]||'#fff')+';padding:6px 10px;border-radius:10px;font-size:0.62rem;font-weight:900;text-transform:uppercase;cursor:pointer;font-family:inherit;">' +
+      ['member','developer','admin'].map(r=>'<option value="'+r+'"'+(user.role===r?' selected':'')+' style="background:#1a1a2e;">'+r.charAt(0).toUpperCase()+r.slice(1)+'</option>').join('')+'</select>' +
+      '<button onclick="deleteUser(\''+user.id+'\')" style="padding:6px 10px;border-radius:8px;background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.3);color:#fca5a5;font-size:0.6rem;cursor:pointer;font-family:inherit;font-weight:900;"><i class="fas fa-user-times"></i></button>' +
       '</div>';
     list.appendChild(el);
   });
@@ -1653,15 +1463,10 @@ function renderAdminUsers() {
 function inlineRenameUser(userId) {
   const el = document.getElementById('uname-disp-'+userId); if (!el || el.querySelector('input')) return;
   const cur = el.textContent;
-  const inp = document.createElement('input');
-  inp.type = 'text'; inp.value = cur; inp.maxLength = 20;
-  inp.style.cssText = 'background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.4);color:#fff;font-family:Unbounded,sans-serif;padding:4px 8px;border-radius:6px;font-size:0.75rem;font-weight:900;text-transform:uppercase;outline:none;width:100%;';
-  el.textContent = ''; el.appendChild(inp); inp.focus(); inp.select();
-  async function save() {
-    const val = inp.value.trim().toUpperCase() || cur;
-    el.textContent = val;
-    if (val !== cur) await changeUserName(userId, val);
-  }
+  const inp = document.createElement('input'); inp.type='text'; inp.value=cur; inp.maxLength=20;
+  inp.style.cssText='background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.4);color:#fff;font-family:Unbounded,sans-serif;padding:4px 8px;border-radius:6px;font-size:0.75rem;font-weight:900;text-transform:uppercase;outline:none;width:100%;';
+  el.textContent=''; el.appendChild(inp); inp.focus(); inp.select();
+  async function save() { const val=inp.value.trim().toUpperCase()||cur; el.textContent=val; if(val!==cur) await changeUserName(userId,val); }
   inp.addEventListener('blur', save);
   inp.addEventListener('keydown', e => { if(e.key==='Enter') inp.blur(); if(e.key==='Escape'){inp.value=cur;inp.blur();} });
 }
@@ -1671,127 +1476,100 @@ async function changeUserName(userId, username) {
   const { data, error } = await sb.rpc('admin_update_username', { target_id: userId, new_username: username, p_hash: adminPinHash });
   if (error || !data) { toast('Error: '+(error?.message||'Access denied'), 'error'); return; }
   toast('Username updated.', 'success', 1800);
-  const u = allUsersCache.find(x => x.id === userId); if (u) u.username = username;
-  if (currentUser && userId === currentUser.id) { currentProfile.username = username; updateUIForAuth(); }
+  const u = allUsersCache.find(x=>x.id===userId); if (u) u.username=username;
+  if (currentUser && userId===currentUser.id) { currentProfile.username=username; updateUIForAuth(); }
 }
 
 async function changeUserRole(userId, role) {
   if (!adminPinHash) return;
   const { data, error } = await sb.rpc('admin_update_user_role', { target_id: userId, new_role: role, p_hash: adminPinHash });
   if (error || !data) { toast('Error: '+(error?.message||'Access denied'), 'error'); return; }
-  const u = allUsersCache.find(x => x.id === userId); if (u) u.role = role;
+  const u = allUsersCache.find(x=>x.id===userId); if (u) u.role=role;
   toast('Role updated to '+role+'.', 'success', 2000);
-  if (currentUser && userId === currentUser.id) { currentProfile.role = role; updateUIForAuth(); }
+  if (currentUser && userId===currentUser.id) { currentProfile.role=role; updateUIForAuth(); }
 }
 
 async function deleteUser(userId) {
   if (!adminPinHash) return;
-  if (userId === currentUser?.id) { toast("You can't delete yourself.", 'warning'); return; }
+  if (userId===currentUser?.id) { toast("You can't delete yourself.", 'warning'); return; }
   if (!confirm('Delete this user record?')) return;
   const { data, error } = await sb.rpc('admin_delete_user', { target_id: userId, p_hash: adminPinHash });
   if (error || !data) { toast('Error: '+(error?.message||'Access denied'), 'error'); return; }
-  allUsersCache = allUsersCache.filter(u => u.id !== userId);
+  allUsersCache = allUsersCache.filter(u=>u.id!==userId);
   renderAdminUsers(); loadAdminStats();
   toast('User record removed.', 'info', 2000);
 }
 
 async function loadUpgradeCodes() {
   if (!adminVerified) return;
-  const { data } = await sb.from('upgrade_codes').select('*').order('created_at', { ascending:false });
+  const { data } = await sb.from('upgrade_codes').select('*').order('created_at',{ascending:false});
   const list = document.getElementById('admin-codes-list'); if (!list) return;
   list.innerHTML = '';
-  if (!data?.length) { list.innerHTML = '<p class="text-slate-500 italic text-sm">No codes yet. Generate one above.</p>'; return; }
+  if (!data?.length) { list.innerHTML = '<p class="text-slate-500 italic text-sm">No codes yet.</p>'; return; }
   data.forEach(code => {
-    const el = document.createElement('div');
-    el.className = 'admin-tool-row';
+    const el = document.createElement('div'); el.className = 'admin-tool-row';
     el.innerHTML =
       '<span class="code-badge flex-shrink-0">'+code.code+'</span>' +
       '<div style="flex:1;min-width:0;font-size:0.6rem;font-weight:700;text-transform:uppercase;opacity:0.5;">'+new Date(code.created_at).toLocaleDateString()+'</div>' +
-      (code.used ? '<span style="font-size:0.58rem;font-weight:900;color:#f87171;text-transform:uppercase;">Used</span>' : '<span style="font-size:0.58rem;font-weight:900;color:#4ade80;text-transform:uppercase;">Available</span>') +
+      (code.used?'<span style="font-size:0.58rem;font-weight:900;color:#f87171;text-transform:uppercase;">Used</span>':'<span style="font-size:0.58rem;font-weight:900;color:#4ade80;text-transform:uppercase;">Available</span>') +
       '<button onclick="deleteCode(\''+code.id+'\')" style="padding:5px 10px;border-radius:8px;background:rgba(220,38,38,0.1);border:1px solid rgba(220,38,38,0.25);color:#fca5a5;font-size:0.6rem;cursor:pointer;font-family:inherit;font-weight:900;"><i class="fas fa-times"></i></button>';
     list.appendChild(el);
   });
 }
 
 async function generateUpgradeCode() {
-  const code = Math.random().toString(36).substr(2,4).toUpperCase() + '-' + Math.random().toString(36).substr(2,4).toUpperCase();
+  const code = Math.random().toString(36).substr(2,4).toUpperCase()+'-'+Math.random().toString(36).substr(2,4).toUpperCase();
   const { error } = await sb.from('upgrade_codes').insert({ code });
   if (error) { toast('Failed: '+error.message, 'error'); return; }
   toast('Code generated: '+code, 'success', 7000);
   await loadUpgradeCodes();
 }
 
-async function deleteCode(id) {
-  await sb.from('upgrade_codes').delete().eq('id', id);
-  await loadUpgradeCodes();
-}
+async function deleteCode(id) { await sb.from('upgrade_codes').delete().eq('id',id); await loadUpgradeCodes(); }
 
 function adminTab(tab) {
   const tabs = ['pending','alltools','users','codes'];
   const sections = { pending:'admin-pending-section', alltools:'admin-alltools-section', users:'admin-users-section', codes:'admin-codes-section' };
-  tabs.forEach(t => {
-    const btn = document.getElementById('admin-tab-'+t); if (!btn) return;
-    btn.className = t === tab ? 'admin-tab-active' : 'admin-tab-inactive';
-  });
-  Object.entries(sections).forEach(([t, secId]) => {
-    const sec = document.getElementById(secId); if (!sec) return;
-    t === tab ? show(sec) : hide(sec);
-  });
-  if (tab === 'pending') loadPendingTools();
-  else if (tab === 'alltools') loadAllToolsAdmin();
-  else if (tab === 'users') loadAllUsers();
-  else if (tab === 'codes') loadUpgradeCodes();
+  tabs.forEach(t => { const btn=document.getElementById('admin-tab-'+t); if(btn) btn.className=t===tab?'admin-tab-active':'admin-tab-inactive'; });
+  Object.entries(sections).forEach(([t,secId]) => { const sec=document.getElementById(secId); if(sec) t===tab?show(sec):hide(sec); });
+  if (tab==='pending') loadPendingTools();
+  else if (tab==='alltools') loadAllToolsAdmin();
+  else if (tab==='users') loadAllUsers();
+  else if (tab==='codes') loadUpgradeCodes();
 }
 
-function openUpgradeModal() { document.getElementById('upgrade-modal').classList.add('is-open'); document.body.style.overflow = 'hidden'; }
-function closeUpgradeModal() { document.getElementById('upgrade-modal').classList.remove('is-open'); document.body.style.overflow = ''; }
+function openUpgradeModal() { document.getElementById('upgrade-modal').classList.add('is-open'); document.body.style.overflow='hidden'; }
+function closeUpgradeModal() { document.getElementById('upgrade-modal').classList.remove('is-open'); document.body.style.overflow=''; }
 
 async function applyUpgradeCode() {
   if (!currentUser) return;
   const code = document.getElementById('upgrade-code-input').value.trim().toUpperCase();
   const errEl = document.getElementById('upgrade-error');
   const btn = document.getElementById('upgrade-submit-btn');
-  if (!code) { errEl.textContent = 'Please enter a code.'; errEl.style.display = 'block'; return; }
-  btn.innerHTML = '<span class="spinner"></span>'; btn.disabled = true;
-  const { data, error } = await sb.from('upgrade_codes').select('*').eq('code', code).eq('used', false).single();
-  if (error || !data) {
-    errEl.textContent = 'Invalid or already used code.'; errEl.style.display = 'block';
-    btn.innerHTML = 'Apply Code'; btn.disabled = false; return;
-  }
-  await sb.from('upgrade_codes').update({ used: true, used_by: currentUser.id }).eq('id', data.id);
-  const { error: roleErr } = await sb.from('users').update({ role: 'developer' }).eq('id', currentUser.id);
-  if (roleErr) { errEl.textContent = 'Failed to upgrade role.'; errEl.style.display = 'block'; btn.innerHTML = 'Apply Code'; btn.disabled = false; return; }
-  currentProfile.role = 'developer';
-  updateUIForAuth();
-  closeUpgradeModal();
+  if (!code) { errEl.textContent='Please enter a code.'; errEl.style.display='block'; return; }
+  btn.innerHTML='<span class="spinner"></span>'; btn.disabled=true;
+  const { data, error } = await sb.from('upgrade_codes').select('*').eq('code',code).eq('used',false).single();
+  if (error||!data) { errEl.textContent='Invalid or already used code.'; errEl.style.display='block'; btn.innerHTML='Apply Code'; btn.disabled=false; return; }
+  await sb.from('upgrade_codes').update({ used:true, used_by:currentUser.id }).eq('id',data.id);
+  const { error: roleErr } = await sb.from('users').update({ role:'developer' }).eq('id',currentUser.id);
+  if (roleErr) { errEl.textContent='Failed to upgrade role.'; errEl.style.display='block'; btn.innerHTML='Apply Code'; btn.disabled=false; return; }
+  currentProfile.role='developer'; updateUIForAuth(); closeUpgradeModal();
   toast('You are now a Developer! Upload tools freely.', 'success', 5000);
 }
 
 function initRealtime() {
-  sb.channel('tools-rt')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'tools' }, async payload => {
-      await loadTools();
-      if (currentUser) await loadMyTools();
-      if (adminVerified && document.getElementById('admin-content')?.offsetParent) {
-        loadAdminStats();
-        const pending = document.getElementById('admin-pending-section');
-        if (pending && !pending.classList.contains('hidden')) loadPendingTools();
-        const alltools = document.getElementById('admin-alltools-section');
-        if (alltools && !alltools.classList.contains('hidden')) loadAllToolsAdmin();
-      }
-    }).subscribe();
-  sb.channel('users-rt')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'users' }, async payload => {
-      if (currentUser && payload.new?.id === currentUser.id) {
-        await loadProfile(currentUser.id);
-        updateUIForAuth();
-      }
-      if (adminVerified) {
-        const users = document.getElementById('admin-users-section');
-        if (users && !users.classList.contains('hidden')) loadAllUsers();
-        loadAdminStats();
-      }
-    }).subscribe();
+  sb.channel('tools-rt').on('postgres_changes',{event:'*',schema:'public',table:'tools'},async()=>{
+    await loadTools(); if(currentUser) await loadMyTools();
+    if(adminVerified&&document.getElementById('admin-content')?.offsetParent){
+      loadAdminStats();
+      if(!document.getElementById('admin-pending-section').classList.contains('hidden')) loadPendingTools();
+      if(!document.getElementById('admin-alltools-section').classList.contains('hidden')) loadAllToolsAdmin();
+    }
+  }).subscribe();
+  sb.channel('users-rt').on('postgres_changes',{event:'*',schema:'public',table:'users'},async payload=>{
+    if(currentUser&&payload.new?.id===currentUser.id){await loadProfile(currentUser.id);updateUIForAuth();}
+    if(adminVerified){const u=document.getElementById('admin-users-section');if(u&&!u.classList.contains('hidden'))loadAllUsers();loadAdminStats();}
+  }).subscribe();
 }
 
 document.getElementById('signin-password').addEventListener('keydown', e => { if(e.key==='Enter') handleSignIn(); });
@@ -1801,9 +1579,9 @@ document.getElementById('upgrade-code-input').addEventListener('keydown', e => {
 renderSkeleton();
 loadTools();
 initAuth().then(() => {
-  const hash = window.location.hash.replace("#", "") || "market";
-  const tab = ["market","profile"].includes(hash) ? hash : "market";
-  if (tab === "profile" && !currentUser) toggleTab("market", false);
+  const hash = window.location.hash.replace('#','') || 'market';
+  const tab = ['market','profile'].includes(hash) ? hash : 'market';
+  if (tab === 'profile' && !currentUser) toggleTab('market', false);
   else toggleTab(tab, false);
 });
 initRealtime();
