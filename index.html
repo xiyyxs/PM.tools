@@ -12,7 +12,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&display=swap');
 :root { --accent: #a855f7; --bg: #030005; --nav-h: 68px; }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;}
-  input, textarea, .toast { user-select: text; -webkit-user-select: text; pointer-events: auto; }
+  input, textarea, .toast, .code-badge { user-select: text; -webkit-user-select: text; pointer-events: auto; }
+  #tool-download-url { position: relative; z-index: 1; }
 html { overflow-x: hidden; scroll-behavior: smooth; }
 body { background-color: var(--bg); color: #fff; font-family: 'Unbounded', sans-serif; overflow-x: hidden; min-height: 100vh; -webkit-overflow-scrolling: touch; }
 canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.6; pointer-events: none; }
