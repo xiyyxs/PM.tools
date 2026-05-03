@@ -11,7 +11,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&display=swap');
 :root { --accent: #a855f7; --bg: #030005; --nav-h: 68px; }
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;} input[type], textarea, .toast, .code-badge { user-select: text; -webkit-user-select: text; } button { user-select: none; -webkit-user-select: none; cursor: pointer; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;}
 html { overflow-x: hidden; scroll-behavior: smooth; }
 body { background-color: var(--bg); color: #fff; font-family: 'Unbounded', sans-serif; overflow-x: hidden; min-height: 100vh; -webkit-overflow-scrolling: touch; }
 canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.6; pointer-events: none; }
@@ -274,8 +274,6 @@ select option { background: #1a1a2e; color: #fff; }
 .upload-col{display:flex;flex-direction:column;}
 .upload-col>div:last-child:not(.field-error-msg){flex:1;display:flex;flex-direction:column;}
 #img-upload-zone{flex:1;}
-
-.download-toggle { position: relative; z-index: 2; }
 </style>
 </head>
 
@@ -572,8 +570,8 @@ select option { background: #1a1a2e; color: #fff; }
                   </div>
                   <p class="field-error-msg" id="err-dl-file">Upload a file or switch to URL</p>
                 </div>
-                <div id="dl-url-zone" style="width:100%;display:none;">
-                  <input type="url" id="tool-download-url" placeholder="https://example.com/tool.zip" class="w-full p-3 rounded-xl text-sm" style="font-size:0.72rem;min-height:100px;">
+                <div id="dl-url-zone" class="dl-zone-panel dz-out-down" style="width:100%;display:none;">
+                  <input type="url" id="tool-download-url" placeholder="https://example.com/tool.zip" class="w-full p-3 rounded-xl text-sm" style="font-size:0.72rem;height:100%;min-height:100px;">
                   <p class="field-error-msg" id="err-dl-url">Enter a valid URL starting with https://</p>
                 </div>
               </div>
@@ -1096,12 +1094,22 @@ async function uploadToStorage(bucket, file, folder) {
   for (let attempt = 1; attempt <= 3; attempt++) {
     const ext = file.name.split('.').pop();
     const fname = folder + Date.now() + '_' + Math.random().toString(36).substr(2,6) + '.' + ext;
-    const { data, error } = await sb.storage.from(bucket).upload(fname, file, { cacheControl:'3600', upsert:false });
-    if (!error) { const { data: { publicUrl } } = sb.storage.from(bucket).getPublicUrl(fname); return publicUrl; }
-    if (attempt < 3) { setUploadProgress(true, 'Retrying... attempt '+(attempt+1), 10+attempt*10); await new Promise(r => setTimeout(r, 1200*attempt)); continue; }
-    if (error.message.includes('Bucket not found') || error.statusCode === 404) toast('Bucket "'+bucket+'" not found.', 'warning', 8000);
-    else toast('Upload failed: '+error.message, 'error', 6000);
-    throw new Error(error.message);
+    try {
+      const uploadPromise = sb.storage.from(bucket).upload(fname, file, { cacheControl:'3600', upsert:false });
+      const timeoutPromise = new Promise((_,rej) => setTimeout(() => rej(new Error('Upload timeout')), 5000));
+      const { data, error } = await Promise.race([uploadPromise, timeoutPromise]);
+      if (!error) { const { data: { publicUrl } } = sb.storage.from(bucket).getPublicUrl(fname); return publicUrl; }
+      throw new Error(error.message);
+    } catch(err) {
+      if (attempt < 3) {
+        setUploadProgress(true, 'Retrying... attempt '+(attempt+1), 10+attempt*10);
+        await new Promise(r => setTimeout(r, 1500*attempt));
+        continue;
+      }
+      if (err.message.includes('Bucket not found')) toast('Bucket "'+bucket+'" not found.', 'warning', 8000);
+      else toast('Upload failed: '+err.message, 'error', 6000);
+      throw err;
+    }
   }
 }
 
