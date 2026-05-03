@@ -1122,10 +1122,12 @@ function switchDownloadTab(tab) {
   const outPanel = tab === 'file' ? urlPanel : filePanel;
   const inPanel  = tab === 'file' ? filePanel : urlPanel;
   outPanel.style.opacity = '0';
+  outPanel.style.pointerEvents = 'none';
   setTimeout(() => {
     outPanel.style.display = 'none';
     inPanel.style.opacity = '0';
     inPanel.style.display = 'block';
+    inPanel.style.pointerEvents = 'auto';
     requestAnimationFrame(() => requestAnimationFrame(() => {
       inPanel.style.opacity = '1';
     }));
