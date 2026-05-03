@@ -373,7 +373,20 @@ select option { background: #1a1a2e; color: #fff; }
       <div class="tools-grid" id="rec-grid"></div>
       <div style="height:1px;background:rgba(168,85,247,0.12);margin-top:24px;margin-bottom:20px;"></div>
     </div>
+    <div id="top-section" class="hidden" style="margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span style="font-size:0.6rem;font-weight:900;text-transform:uppercase;letter-spacing:0.1em;background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.3);color:#fbbf24;padding:3px 10px;border-radius:20px;"><i class="fas fa-fire mr-1"></i>Top</span>
+        <span style="font-size:0.6rem;font-weight:700;opacity:0.35;text-transform:uppercase;">Most downloaded</span>
+      </div>
+      <div class="tools-grid" id="top-grid"></div>
+      <div style="height:1px;background:rgba(168,85,247,0.12);margin-top:24px;margin-bottom:20px;"></div>
+    </div>
     <div class="tools-grid" id="tools-grid"></div>
+    <div style="text-align:center;margin-top:28px;">
+      <button id="load-more-btn" onclick="loadMoreTools()" style="display:none;" class="glow-btn px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest">
+        Load More
+      </button>
+    </div>
   </div>
 
   <div id="profile-section" class="hidden">
@@ -888,13 +901,45 @@ function editProfileBio() {
   ta.addEventListener('keydown', e => { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();ta.blur();} if(e.key==='Escape'){ta.value=cur;ta.blur();} });
 }
 
-async function loadTools() {
-  renderSkeleton();
-  const { data, error } = await sb.from('tools').select('*').eq('status','approved').order('created_at',{ascending:false});
-  if (!error && data) tools = data;
-  buildFilterChips();
+const PAGE_SIZE = 12;
+let toolsOffset = 0, allToolsLoaded = false;
+
+async function loadTools(reset = true) {
+  if (reset) { toolsOffset = 0; allToolsLoaded = false; tools = []; renderSkeleton(); }
+  const { data, error } = await sb.from('tools').select('*').eq('status','approved')
+    .order('created_at', {ascending: false})
+    .range(toolsOffset, toolsOffset + PAGE_SIZE - 1);
+  if (!error && data) {
+    if (data.length < PAGE_SIZE) allToolsLoaded = true;
+    tools = reset ? data : [...tools, ...data];
+    toolsOffset += data.length;
+  }
+  if (reset) buildFilterChips();
   filterAndRenderTools();
-  loadRecommendations();
+  updateLoadMoreBtn();
+  if (reset) loadTopTools();
+}
+
+async function loadMoreTools() {
+  if (allToolsLoaded) return;
+  await loadTools(false);
+}
+
+function updateLoadMoreBtn() {
+  const btn = document.getElementById('load-more-btn');
+  if (!btn) return;
+  btn.style.display = allToolsLoaded ? 'none' : 'block';
+}
+
+async function loadTopTools() {
+  const { data } = await sb.from('tools').select('*').eq('status','approved')
+    .order('downloads', {ascending: false}).limit(8);
+  const section = document.getElementById('top-section');
+  const grid = document.getElementById('top-grid');
+  if (!data?.length) { hide(section); return; }
+  grid.innerHTML = '';
+  data.forEach((tool, i) => grid.appendChild(makeToolCard(tool, i)));
+  show(section);
 }
 
 function buildFilterChips() {
@@ -924,6 +969,7 @@ function filterAndRenderTools() {
   const rc = document.getElementById('results-count');
   if (rc) rc.textContent = list.length + ' tool' + (list.length !== 1 ? 's' : '');
   renderTools(list);
+  updateLoadMoreBtn();
 }
 
 function onSearchInput(val) { filterState.query = val; const cb = document.getElementById('main-clear-btn'); if (cb) cb.style.display = val ? 'block' : 'none'; filterAndRenderTools(); }
