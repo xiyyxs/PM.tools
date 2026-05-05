@@ -402,7 +402,7 @@ select option { background: #1a1a2e; color: #fff; }
         <h2 class="profile-name font-black uppercase cursor-pointer" onclick="editProfileName()" id="profile-username" title="Click to edit">PM_USER</h2>
         <div class="flex items-center mt-3 flex-wrap justify-center gap-1">
           <span id="role-badge" class="role-badge role-member">Member</span>
-          <button id="upgrade-btn" class="upgrade-icon-btn hidden" onclick="openUpgradeModal()"><i class="fas fa-arrow-up"></i> Upgrade</button>
+          <button id="upgrade-btn" class="upgrade-icon-btn hidden" onclick="window.open(UPGRADE_SURVEY_URL,'_blank')"><i class="fas fa-arrow-up"></i> Upgrade</button>
         </div>
         <div class="profile-bio" onclick="editProfileBio()" id="profile-bio" title="Click to edit bio">Click to add a bio...</div>
         <div class="w-full mt-6 space-y-3">
@@ -658,6 +658,10 @@ select option { background: #1a1a2e; color: #fff; }
 </div>
 
 <script>
+// ── Ссылка на анкету для апгрейда — меняй только здесь ──────────────────
+const UPGRADE_SURVEY_URL = 'https://pmmanagement.vercel.app/?survey=v6mtd4hh';
+// ────────────────────────────────────────────────────────────────────────
+
 const SUPABASE_URL = 'https://mysggcexwvsycbcpcaic.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15c2dnY2V4d3ZzeWNiY3BjYWljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyOTc1NjAsImV4cCI6MjA5Mjg3MzU2MH0.l199pRC8ZyLAZmna7aou__UbkLZT40UylZkfGUaGNcU';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
