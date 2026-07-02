@@ -222,9 +222,10 @@ select option { background: #1a1a2e; color: #fff; }
 .admin-tab-active { font-size:0.65rem;font-weight:900;text-transform:uppercase;padding:8px 16px;border-radius:12px;cursor:pointer;transition:all 0.3s;font-family:inherit;background:rgba(168,85,247,0.2);border:1px solid rgba(168,85,247,0.4);color:#d8b4fe; }
 .admin-tab-inactive { font-size:0.65rem;font-weight:900;text-transform:uppercase;padding:8px 16px;border-radius:12px;cursor:pointer;transition:all 0.3s;font-family:inherit;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.4); }
 #rec-section { transition: opacity 0.4s ease; }
-.site-ad { position: relative; display: block; width: min(100%, 240px); margin: 0 auto; padding: 7px; overflow: hidden; text-decoration: none; border-radius: 16px; background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.08); transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease; }
+.site-ad-list { display: flex; justify-content: center; align-items: stretch; gap: 14px; flex-wrap: wrap; margin: 0 0 22px; }
+.site-ad { position: relative; display: block; width: min(100%, 220px); padding: 7px; overflow: hidden; text-decoration: none; border-radius: 16px; background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.08); transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease; }
 .site-ad:hover { border-color: rgba(168,85,247,0.28); background: rgba(168,85,247,0.045); transform: translateY(-1px); }
-.site-ad img { display: block; width: 100%; height: auto; border-radius: 10px; background: #050308; }
+.site-ad img { display: block; width: 100%; aspect-ratio: 904 / 1280; object-fit: contain; border-radius: 10px; background: #050308; }
 .site-ad-label { position: absolute; top: 18px; left: 18px; z-index: 1; padding: 3px 8px; border-radius: 999px; background: rgba(3,0,5,0.68); border: 1px solid rgba(255,255,255,0.14); color: rgba(255,255,255,0.64); font-size: 0.52rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; backdrop-filter: blur(10px); }
 .site-ad-divider { height: 1px; background: rgba(168,85,247,0.12); margin: 24px 0 20px; }
 @media (min-width: 640px) {
@@ -370,10 +371,16 @@ select option { background: #1a1a2e; color: #fff; }
       <button class="sort-btn" id="sort-za" onclick="setSort('za')">Z-A</button>
       <span class="results-count" id="results-count"></span>
     </div>
-    <a class="site-ad" href="https://xiyyxs.github.io/PM.cinema/" aria-label="Advertisement">
-      <span class="site-ad-label">Ad</span>
-      <img src="reklama.jpg" alt="Advertisement" loading="lazy">
-    </a>
+    <div class="site-ad-list">
+      <a class="site-ad" href="https://xiyyxs.github.io/PM.cinema/" aria-label="Advertisement">
+        <span class="site-ad-label">Ad</span>
+        <img src="reklama.jpg" alt="Advertisement" loading="lazy">
+      </a>
+      <a class="site-ad" href="https://xiyyxs.github.io/PM.cinema/" aria-label="Advertisement">
+        <span class="site-ad-label">Ad</span>
+        <img src="reklama2.jpg" alt="Advertisement" loading="lazy">
+      </a>
+    </div>
     <div class="site-ad-divider"></div>
     <div id="rec-section" class="hidden" style="margin-bottom:24px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
